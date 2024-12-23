@@ -1,0 +1,358 @@
+::ng-deep.mat-form-field-appearance-legacy .mat-form-field-underline {
+  display: block;
+}
+
+::ng-deep.mat-select-arrow {
+  color: #fff;
+  margin: 0 40px;
+}
+
+::ng-deep.mat-select-value-text {
+  font-weight: 400;
+}
+
+::ng-deep.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: black;
+}
+
+::ng-deep.mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: white;
+}
+
+.ar {
+  background: url("../../../assets/images/egypt.png") center / contain no-repeat;
+  white-space: nowrap;
+}
+
+.en {
+  background: url("../../../assets/images/saudi-arabia.png") center / contain no-repeat;
+  white-space: nowrap;
+  display: inline;
+}
+
+.subHover {
+  font-size: 18px;
+}
+
+.subHover:hover {
+  background-color: #e9dfdf;
+  border: 1px solid transparent;
+  border-radius: 16px;
+}
+
+.blackFri {
+  background-color: black;
+  color: white;
+  font-size: 18px;
+}
+
+::ng-deep.ant-menu-sub.ant-menu-inline {
+  background: transparent;
+}
+
+::ng-deep.ant-menu-item-group-title {
+  color: black;
+  font-weight: semibold;
+}
+
+::ng-deep.ant-menu-item-group-title:hover {
+  cursor: pointer;
+  padding: 10px;
+  color: #5f2d79;
+  background-color: white;
+  border-radius: 10px 0px 0px 10px;
+}
+
+::ng-deep.ant-menu-inline.ant-menu-root .ant-menu-item,
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title {
+  background-color: transparent;
+}
+
+::ng-deep.ant-menu-inline.ant-menu-root:hover {
+  color: clack;
+}
+
+::ng-deep.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border-right: 0px solid #f0f0f0;
+}
+
+.vl {
+  margin-left: 18px;
+  margin-right: 17px;
+  border-left: 1px solid #f6f9f9;
+  height: 22px;
+}
+
+.vl2 {
+  margin-left: 27px;
+  border-left: 1px solid #bfbfc5;
+  height: 80px;
+  border-bottom: 95px solid #bfbfc5;
+}
+
+.btn-login {
+  background-color: white;
+  color: black;
+  font-size: 12px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.create-btn {
+  background-color: transparent;
+  border: 2px solid white;
+  font-size: 12px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 0 30px;
+  align-items: center;
+}
+
+.img-pos {
+  margin-left: 30px;
+}
+
+.wColr {
+  color: #0e1740;
+}
+
+/* ::ng-deep.mat-form-field-underline {
+  display: none;
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+  transform: scale3d(1, 1.0001, 1);
+} */
+
+*/ .navbar {
+  display: contents;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar .link-category {
+  float: left;
+  font-size: 13px;
+  color: #0e1740;
+  text-align: center;
+  padding: 0px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.4s ease;
+  font-weight: 500;
+}
+.navbar .link-category:hover {
+  color: #5f2d79 !important;
+}
+.offer {
+  background-color: #ed2b8c;
+  color: white;
+  border-radius: 5px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  &:hover {
+    color: #ed2b8c !important;
+    background-color: transparent;
+    border: 1px solid #ed2b8c;
+  }
+}
+
+.navbar .nav-link {
+  float: left;
+  font-size: 14px !important;
+  color: white;
+  text-align: center;
+  padding: 0px 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.logo-web {
+  width: 100px !important;
+}
+
+.subnav {
+  float: left;
+  overflow: hidden;
+  transition: all 0.1s ease-in-out;
+}
+
+.subnav .subnavbtn {
+  font-size: 13px !important;
+  border: none;
+  outline: none;
+  color: black;
+  font-weight: 700;
+  background-color: #efeaf1;
+  padding: 8px 17px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.subnav-content {
+  display: none;
+  position: absolute;
+  left: 33;
+  background-color: #efeaf1;
+  width: 64%;
+  z-index: 1;
+  z-index: 100;
+}
+
+.subnav-content a {
+  float: left;
+  color: black;
+  text-decoration: none;
+  padding: 4px 20px 4px 0;
+}
+
+.subnav-content a:hover {
+  background-color: #eee;
+  color: black;
+}
+
+.subnav:hover .subnav-content {
+  display: block;
+}
+
+.icon {
+  transition: all 0.2s ease-in-out;
+}
+.subnav:hover .subnavbtn .icon {
+  transform: rotate(90deg);
+}
+.subnav:hover .subnavbtn .icon2 {
+  transform: rotate(-90deg);
+}
+.subnav:hover {
+  border-radius: 0px !important;
+}
+
+.wrapper {
+  width: 240px;
+}
+
+.bG-Btn {
+  margin-right: 10%;
+  margin-left: 3%;
+  height: 54px;
+  width: 134px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-size: x-large;
+  color: lightgray;
+}
+
+.bG-Btn:hover {
+  background-color: rgb(215, 186, 241);
+  border: 1px solid transparent;
+  font-size: xx-large;
+  color: #5f2d79;
+  margin-right: 10%;
+  margin-left: 3%;
+  height: 54px;
+  width: 134px;
+  border-radius: 23px;
+}
+
+.ant-input-affix-wrapper {
+  color: white;
+  font-size: 14px;
+  line-height: 1.5715;
+  transition: all 0.3s;
+  display: inline-flex;
+  background-color: #f5f9f9;
+  border: 1px solid #f5f9f9;
+  width: 315px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+::ng-deep.anticon svg {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+  padding: 0;
+  border: none;
+  outline: 0;
+  margin-top: -5px;
+  color: rebeccapurple;
+  width: 315px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.ant-input-affix-wrapper:hover {
+  border-color: #52206c;
+}
+
+.ant-input-affix-wrapper:focus {
+  border-color: #52206c;
+}
+
+.txt {
+  color: white;
+  font-size: 15px;
+  margin-top: 10px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.txt:hover {
+  color: orange;
+}
+
+/********************************************New NavBar*************/
+
+.ant-menu-horizontal {
+  line-height: 46px;
+  border: 0;
+  box-shadow: none;
+}
+
+.search {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+@media screen and (max-width: 1099px) {
+  .search {
+    margin-right: 66px;
+  }
+  .ant-input-affix-wrapper {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .navbar {
+    display: none !important;
+  }
+  .head {
+    display: none;
+  }
+}
+
+.search-input::placeholder {
+  font-size: 14px;
+  color: #9fa3b2;
+}

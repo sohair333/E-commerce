@@ -1,0 +1,11 @@
+.info {
+  // padding: 75px 0px;
+  background-color: #f5f9f9;
+  min-height: 100vh;
+  .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+}

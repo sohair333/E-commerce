@@ -1,0 +1,178 @@
+<section class="register vh-75 my-5 d-flex justify-content-center align-items-center">
+  <div class="container">
+    <div>
+      <button class="btn p-0 back my-5" (click)="backToHome()">
+        <i class="fa-solid fa-chevron-left fs-3"></i>
+      </button>
+    </div>
+
+    <div class="txt-header  my-2">
+      <h1>{{'HOME.CREATE_ACCOUNT' | translate}}</h1>
+    </div>
+
+    <div class="register-form vh-75 my-5">
+      <form [formGroup]="registerForm">
+        <div class="col-md-12">
+          <div class="d-flex justify-content-between align-items-center">
+
+              <mat-form-field
+                class="example-full-width position-relative"
+                style="width: 45%"
+              >
+                <mat-label>{{'LABELS.First_Name' | translate}}</mat-label>
+                <input matInput [placeholder]="'PLACEHOLDERS.First_Name' | translate" type="text" formControlName="first_name"/>
+                <small
+                class="text-danger position-absolute bottom-0 top-100 mt-1"
+                style="left: 0"
+                *ngIf="submitted && registerForm.get('first_name')?.errors?.['required']">
+                {{'MESSAGES.First_Name' | translate}}</small>
+              <small *ngIf="
+                submitted && registerForm.get('first_name')?.errors?.['minlength']"
+                class="text-danger position-absolute bottom-0 top-100 mt-1" style="left: 0">
+                {{'MESSAGES.MIN_LENGTH_OF_FIRST_NAME' | translate}}</small>
+              <small
+                *ngIf="submitted && registerForm.get('first_name')?.errors?.['maxlength']"
+                class="text-danger position-absolute bottom-0 top-100 mt-1" style="left: 0">
+                 {{'MESSAGES.MAX_LENGTH_OF_FIRST_NAME' | translate}}</small
+              >
+              </mat-form-field>
+
+
+
+
+            <mat-form-field
+              class="example-full-width position-relative"
+              style="width: 45%"
+            >
+              <mat-label>{{'LABELS.Last_Name' | translate}}</mat-label>
+              <input
+                matInput
+                [placeholder]="'PLACEHOLDERS.Last_Name' | translate"
+                type="text"
+                formControlName="last_name"
+              />
+              <small
+              class="text-danger position-absolute bottom-0 top-100 mt-1"
+              style="left: 0"
+              *ngIf="submitted && registerForm.get('last_name')?.errors?.['required']">
+              {{'MESSAGES.Last_Name' | translate}}</small>
+            <small *ngIf="
+              submitted && registerForm.get('last_name')?.errors?.['minlength']"
+              class="text-danger position-absolute bottom-0 top-100 mt-1" style="left: 0">
+              {{'MESSAGES.MIN_LENGTH_OF_LAST_NAME' | translate}}</small>
+            <small
+              *ngIf="submitted && registerForm.get('last_name')?.errors?.['maxlength']"
+              class="text-danger position-absolute bottom-0 top-100 mt-1" style="left: 0">
+              {{'MESSAGES.MAX_LENGTH_OF_LAST_NAME' | translate}}</small
+            >
+            </mat-form-field>
+          </div>
+        </div>
+        <div
+          class="d-flex justify-content-between align-items-center position-relative"
+        >
+          <div class="d-flex justify-content-between align-items-center w-100">
+            <mat-form-field
+              class="example-full-width position-relative pe-2 w-25"
+            >
+              <mat-label>{{'PLACEHOLDERS.Code' | translate}}</mat-label>
+              <mat-select
+                formControlName="phoneCode"
+                [placeholder]="'PLACEHOLDERS.Code '| translate"
+                panelClass="myPanelClass"
+            (selectionChange)="checkCode()"
+              >
+                <mat-option value="+20">+20  <img
+                  src="./../../../../../assets/images/egypt.png"
+                  width="20"
+                  height="20"
+              /></mat-option>
+                <mat-option value="+966">+966  <img
+                  src="./../../../../../assets/images/download (3).png"
+                  width="20"
+                  height="20"
+              /></mat-option>
+              </mat-select>
+              <small
+                class="text-danger position-absolute bottom-0 top-100 mt-2"
+                style="left: 0"
+                *ngIf="
+                  submitted && registerForm.get('phoneCode')?.hasError('required')
+                "
+              >
+                {{'MESSAGES.required' | translate}}</small
+              >
+            </mat-form-field>
+            <!-- formControlName -->
+            <!-- formControlName -->
+            <mat-form-field class="example-full-width position-relative w-75">
+              <mat-label>{{'LABELS.Phone' | translate}}</mat-label>
+              <input
+                matInput type="number"
+                [placeholder]="'PLACEHOLDERS.phoneNumber' | translate"
+                type="number"
+                formControlName="phoneNumber"
+              />
+              <small
+              class="text-danger position-absolute bottom-0 top-100 mt-1"
+              style="left: 0"
+              *ngIf="submitted && registerForm.get('phoneNumber')?.errors?.['required']">
+              {{'MESSAGES.PHONE_NUMBER' | translate}}</small>
+
+            <small
+              *ngIf="submitted && registerForm.get('phoneNumber')?.errors?.['pattern']"
+              class="text-danger position-absolute bottom-0 top-100 mt-1" style="left: 0">
+              {{'MESSAGES.PHONE_NUMBER2' | translate}}</small
+            >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-form-field class="example-full-width position-relative w-100">
+          <mat-label>{{'LABELS.Password' | translate}}</mat-label>
+          <input
+            matInput
+            [placeholder]="'PLACEHOLDERS.Password' | translate"
+            type="password"
+            formControlName="password"
+            [type]="!showPassword ? 'password':'text'"
+          />
+          <button *ngIf="!showPassword" class="btn-eye" type="button" (click)="checkPassword()">
+            <i *ngIf="!showPassword" class="fa-regular fa-eye-slash"></i>
+          </button>
+          <button *ngIf="showPassword" class="btn-eye" type="button" (click)="checkPassword()">
+            <i *ngIf="showPassword" class="fa-regular fa-eye"></i>
+          </button>
+          <small
+            class="text-danger position-absolute bottom-0 top-100 mt-1"
+            style="left: 0"
+            *ngIf="
+              submitted && registerForm.get('password')?.hasError('required')
+            "
+          >
+            {{'MESSAGES.Message_Password' | translate}}</small
+          >
+        </mat-form-field>
+        <div class="my-5 ms-2">
+          <span class="txt-foot me-1 text-muted fs-6">{{'HOME.AGREE_TERMS' | translate}}</span>
+          <a class="terms fs-6">{{'HOME.TERMS_CONDITION' | translate}}</a>
+        </div>
+        <div class="d-flex justify-content-center align-items-center my-3">
+          <button class="btn-form btn" (click)="register()" [disabled]="!registerForm.valid">
+
+            <div *ngIf="Loading == true " class="loader "></div>
+                    {{Loading == false? 'Create an account':''}}
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center logindiv my-4">
+          <div class="text-muted txt-foot me-1 fs-5">{{'HOME.HAVE_ACCOUNT' | translate}}</div>
+          <div>
+            <button routerLink="/auth/login" class="btn-login fs-5">{{'HOME.Login' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</section>

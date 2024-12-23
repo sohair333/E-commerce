@@ -1,0 +1,41 @@
+.all-brands
+{
+  background-color: #F5F9F9;
+}
+.txt-header {
+  font-size: 21px;
+  font-weight: 400;
+  color: #0e1740;
+}
+
+.brand {
+  background-color: white;
+  display: flex;
+  // justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 170px;
+  height: 170px;
+  border-radius: 20px;
+  overflow: hidden;
+  padding-top: 18px;
+  .brandImage {
+      text-align: center;
+  }
+}
+.btn-details {
+  background-color: #F5F9F9;
+  padding: 10px;
+  position: absolute;
+  bottom: 5px;
+  right: 7px;
+  left: 7px;
+  border-radius: 9px;
+  border: none;
+}
+.active {
+  background-color: #5f2d79 !important;
+  color: #FFFFFF;
+  font-weight: bold;
+}

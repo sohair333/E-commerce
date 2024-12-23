@@ -1,0 +1,141 @@
+<div class="all mobile">
+  <form class="form" [formGroup]="profile" (ngSubmit)="saveProfile(profile)">
+    <div class="d-flex justify-content-between mt-4 mx-2">
+      <div>
+        <button class="btn back" (click)="backToMenu()">
+          <i  [ngClass]="checkLang === 'en' ? 'fa-solid fa-chevron-left fw-bold fs-5 mx-1 fw-bolder':'fa-solid fa-chevron-right fw-bold fs-5 mx-1 fw-bolder'"></i>
+        </button>
+        <span class="fs-5 profile fw-bold">{{'Profile.Profile' | translate}}</span>
+      </div>
+      <div>
+        <button pButton [loading]="isLoading" class="btn saveBtn px-4 text-white" type="submit">
+          {{'Profile.Save' | translate}}
+        </button>
+      </div>
+    </div>
+    <div class="my-1 bg-white m-2 mt-3 p-3 profileDiv mb-3">
+      <h3 class="my-2 mb-5 fw-bold">{{'Profile.General_Info' | translate}}</h3>
+
+      <div class="d-flex">
+        <div class="w-100 me-1">
+          <span class="p-float-label">
+            <input id="float-input" type="text" pInputText class="w-100 py-3" formControlName="first_name" />
+            <label for="float-input " [ngClass]="checkLang === 'en' ? '':'ps-5 ms-5'" class="fw-bold">{{'Profile.First_Name' | translate}}</label>
+          </span>
+        </div>
+        <div class="w-100">
+          <span class="p-float-label">
+            <input id="float-input" type="text" pInputText class="w-100 py-3" formControlName="last_name" />
+            <label for="float-input" class="fw-bold" [ngClass]="checkLang === 'en' ? '':'ps-5 ms-5'" >{{'Profile.Last_Name' | translate }}</label>
+          </span>
+        </div>
+      </div>
+      <div class="mb-2">
+        <small class="mb-4 text-danger ms-2" *ngIf="profile.get('first_name')?.hasError('required')">{{'MESSAGES.First_Name' | translate}}</small>
+        <small class="mb-4 text-danger ms-5" *ngIf="profile.get('last_name')?.hasError('required')">{{'MESSAGES.Last_Name' | translate}}</small>
+      </div>
+      <label for="float-input" class="mt-3 phoneLabel text-muted fw-bold">{{'PLACEHOLDERS.phoneNumber' | translate}}</label>
+
+      <div class="d-flex flex-row">
+        <p-dropdown [options]="countries" formControlName="code" optionLabel="name" [showClear]="false"
+          [placeholder]="'Profile.Select_a_Country' | translate" class="my-3 me-2">
+          <ng-template pTemplate="selectedItem">
+            <div class="country-item country-item-value">
+              <div>
+                {{ profile.get("code")?.value.name }}
+                <img width="20" height="20" class="ms-2" [src]="profile.get('code')?.value.img">
+              </div>
+            </div>
+          </ng-template>
+          <ng-template let-country pTemplate="item">
+            <div class="country-item">
+              <div class="d-flex align-items-center justify-content-between">
+                {{ country.name }}
+                <img width="20" height="20" class="mx-3" [src]="country.img" alt="" />
+              </div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+
+        <div class="w-100">
+          <input formControlName="phone" id="float-input" type="number" pInputText class="w-100 mt-3 py-3" />
+        </div>
+        <small class="mb-4 text-danger ms-1" *ngIf="profile.get('phone')?.hasError('required')">
+          {{'MESSAGES.PHONE_NUMBER' | translate}}</small>
+      </div>
+
+      <div class="row mt-4">
+        <div class="w-100">
+          <label for="float-input" class="text-muted fw-bold">{{'Profile.Email' | translate}}</label>
+          <input [placeholder]="'PLACEHOLDERS.Email_msg' | translate" id="float-input" type="email" pInputText
+            formControlName="email" class="w-100 py-3" />
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="bg-white mb-3 p-3 profilepass m-2 my-1">
+    <h3>{{'Profile.Security' | translate}}</h3>
+    <div class="w-100 d-flex">
+      <button class="btn changebtn w-100 text-center mx-auto justify-content-center p-3 my-2 changebtn"
+        (click)="openPopup()">
+        {{'Profile.Change_Password' | translate}}
+      </button>
+    </div>
+  </div>
+
+
+
+</div>
+<p-dialog [style]="{ width: '80vw' }" [(visible)]="openDialog">
+  <form [formGroup]="profileForm" (ngSubmit)="setNewPassword(profileForm)">
+    <!-- <ng-template pTemplate="header"> Change Password </ng-template> -->
+    <h5 class="titlePass">{{'Profile.Change_Password' | translate}}</h5>
+    <label for="float-input" class="text-muted fw-bold my-2">
+      * {{'Profile.Change_Password' | translate}}</label>
+    <input id="float-input" type="password" pInputText class="w-100" formControlName="current_password" />
+    <small class="d-block text-danger" *ngIf="
+        submited && profileForm.get('current_password')?.hasError('required')
+      ">
+      {{'MESSAGES.Message_Password' | translate}}
+    </small>
+    <label for="float-input" class="text-muted fw-bold my-2">* {{'Profile.New_Password_Label' | translate}}</label>
+    <input id="float-input" type="password" pInputText class="w-100" formControlName="new_password_confirmation" />
+    <small class="d-block text-danger" *ngIf="
+        submited &&
+        profileForm.get('new_password_confirmation')?.hasError('required')
+      ">
+      {{'Profile.New_Passwrod' | translate}}
+    </small>
+    <label for="float-input" class="text-muted fw-bold my-2">
+      * {{'Profile.Confirmation_Password' | translate}}</label>
+    <input id="float-input" type="password" pInputText class="w-100" formControlName="new_password" />
+    <small class="d-block text-danger" *ngIf="
+        submited &&
+        profileForm.get('new_password_confirmation')?.hasError('required')
+      ">
+      {{'Profile.Confirmation_Password_msg' | translate}}
+    </small>
+    <small class="text-danger" *ngIf="
+        submited &&
+        profileForm.get('new_password_confirmation')?.value !==
+          profileForm.get('new_password')?.value &&
+        profileForm.get('new_password')?.touched
+      ">
+      {{'Profile.Two_Passwrods_matched' | translate}}
+    </small>
+    <!-- <ng-template pTemplate="footer"> -->
+    <div class="w-100">
+      <button pButton [loading]="isLoading" class="btn w-100 btnBackground mt-3 fw-bold" type="submit">
+        {{'Profile.Change_Password' | translate}}
+      </button>
+    </div>
+    <div class="w-100">
+      <button class="btn w-100 fw-bold" (click)="closeDialog()">{{'Profile.Cancel' | translate}}</button>
+    </div>
+    <!-- </ng-template> -->
+  </form>
+</p-dialog>
+
+
+<p-toast></p-toast>

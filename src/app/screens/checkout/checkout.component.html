@@ -1,0 +1,315 @@
+<div class="mobile" style="padding-top: 75px">
+  <div class="container-fluid">
+    <div class="row" *ngIf="!msg">
+      <div class="col-12 my-3">
+        <button class="btn p-0 m-0 me-3" (click)="back()">
+          <i
+            [ngClass]="
+              checkLang === 'en'
+                ? 'pi pi-angle-left fs-1'
+                : 'pi pi-angle-right fs-1'
+            "
+          ></i>
+        </button>
+        <h4 class="fw-bold d-inline productTitle">
+          {{ "HOME.Checkout" | translate }}
+        </h4>
+      </div>
+      <div class="col-12">
+        <!-- address -->
+        <div *ngIf="isDefault" class="address-card shadow p-3 mb-3">
+          <div
+            class="row d-flex mb-2 justify-content-between align-items-center"
+          >
+            <div class="col-6">
+              <h6 class="d-inline">{{ "HOME.productTitle" | translate }}</h6>
+            </div>
+            <div class="col-6 d-flex justify-content-center">
+              <button routerLink="/checkout/address" class="btn text-change">
+                {{ "BUTTONS.Change" | translate }}
+              </button>
+            </div>
+          </div>
+          <div  *ngFor="let address of data">
+            <div class="address-data" *ngIf="address.is_default_shipping">
+              <p class="fw-bold d-inline">
+                <i class="fa-solid fa-location"></i>
+                {{ "HOME.TITLE" | translate }}
+              </p>
+              <span class="default">{{ "HOME.Selected" | translate }}</span>
+              <p class="mt-3 fw-bold">
+                {{ address.first_name + " " + address.last_name }}
+              </p>
+              <p class="address mt-2">{{ address.address_details }}</p>
+              <p class="fw-500">+20-10-12424029</p>
+            </div>
+          </div>
+        </div>
+        <button
+          *ngIf="!isDefault"
+          (click)="addAddress()"
+          class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2"
+        >
+          <i class="fa-solid fa-plus"></i
+          >{{ "HOME.Add_New_Address" | translate }}
+        </button>
+        <!-- credit -->
+        <div class="address-card shadow p-3 my-3" *ngIf="walletCheck">
+          <div class="row d-flex align-items-center">
+            <div class="col-6 mb-2">
+              <h6 class="d-inline">{{ "HOME.CREDIT" | translate }}</h6>
+            </div>
+            <div class="col-12">
+              <div class="address-data">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    [(ngModel)]="payWithWallet"
+                    value="payWithWallet"
+                    id="flexCheckDefault"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">
+                    {{ "LABELS.Credit" | translate
+                    }}<span class="fw-bold text-success ml-5">
+                      {{ "HOME.EGP" | translate }} 350</span
+                    >
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Payment -->
+        <div class="address-card shadow p-3 my-3" *ngIf="payment">
+          <div class="row d-flex align-items-center">
+            <div class="col-6 mb-2">
+              <h6 class="d-inline">{{ "HOME.Payment_Method" | translate }}</h6>
+            </div>
+            <div class="col-12">
+              <div class="address-data">
+                <div class="form-check py-2" *ngFor="let item of payment">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    [(ngModel)]="selectedValue"
+                    (click)="checkPayment()"
+                    [value]="item.id"
+                    name="x"
+                  />
+                  <label class="form-check-label" for="flexCheckDefault">{{
+                    item.name
+                  }}</label>
+                  <!-- <p-checkbox name="groupname" [(ngModel)]="item.isSelected"></p-checkbox> -->
+                  <!-- <p-radioButton name="groupname" [value]="item.id" [(ngModel)]="item.isSelected"></p-radioButton> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- review cart -->
+        <div class="review-cart shadow bordered my-3 p-3" *ngIf="localCart">
+          <div class="row d-flex align-items-center">
+            <div class="col-6">
+              <h6 class="d-inline">{{ "HOME.REFIEW_ORDER" | translate }}</h6>
+            </div>
+            <div class="col-6">
+              <p class="fw-bold">{{ localCart.quantity }}</p>
+            </div>
+            <div class="col-12 address-card mt-2">
+              <div class="body">
+                <div
+                  class="card m-2 rounded"
+                  *ngFor="let item of localCart; let i = index"
+                >
+                  <!-- <div class="row">
+                              <div class="col-3"> -->
+                  <div
+                    class="img d-flex align-items-center justify-content-center"
+                  >
+                    <img
+                      *ngIf="
+                        item?.sellerVariation?.variation?.images.length !== 0
+                      "
+                      [src]="item?.sellerVariation?.variation?.images[0]?.url"
+                      class="w-100"
+                      alt="Product Image"
+                    />
+                    <img
+                      *ngIf="
+                        item?.sellerVariation?.variation?.images.length === 0
+                      "
+                      [src]="
+                        item?.sellerVariation?.variation?.product?.images[0]
+                          ?.url
+                      "
+                      class="w-100"
+                      alt="Product Image"
+                    />
+                  </div>
+                  <div class="cart-details">
+                    <p class="m-3 fw-bold mt-0">
+                      {{ item?.sellerVariation?.variation?.product?.title }}
+                    </p>
+                    <div
+                      class="variations row d-flex flex-row align-items-center justify-content-start m-1"
+                    >
+                      <div
+                        class="col-6"
+                        *ngFor="
+                          let variation of item.sellerVariation?.variation
+                            ?.attributeValues
+                        "
+                      >
+                        <p
+                          class="d-flex align-items-center justify-content-start"
+                          *ngIf="variation?.attribute_type === 6"
+                        >
+                          <span class="text-color me-2"> Color </span>
+                          <span
+                            class="p-1 rounded text-color d-flex align-items-center justify-content-start"
+                          >
+                            <div
+                              style="padding: 10px; border-radius: 5px"
+                              [style.background-color]="variation?.value?.code"
+                              class="box"
+                            ></div>
+                            <p class="ms-2 text-dark fw-bold">
+                              {{ variation?.value?.value }}
+                            </p>
+                          </span>
+                        </p>
+                        <p class="" *ngIf="variation?.attribute_type === 8">
+                          <span class="text-color me-2">
+                            {{ "HOME.Size" | translate }}
+                          </span>
+                          <span class="fw-bold p-1 rounded me-2">
+                            {{ variation?.value?.value }}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="mt-2 d-flex align-items-center justify-content-between m-3"
+                    >
+                      <div>
+                        <span class="text-color me-2">{{
+                          "HOME.Quantity" | translate
+                        }}</span>
+                        <span class="fw-bold">{{ item.quantity }}</span>
+                      </div>
+                    </div>
+                    <div
+                      class="price mt-2 d-flex align-items-center justify-content-between m-3"
+                    >
+                      <div>
+                        <span class="text-color me-2">{{
+                          "HOME.Item_Price" | translate
+                        }}</span>
+                        <span class="fw-bold"
+                          >{{ "HOME.EGP" | translate }}
+                          {{ item.sellerVariation?.price }}</span
+                        >
+                      </div>
+                      <button
+                        (click)="sendIndex(i)"
+                        class="btn btn-outline-danger remove"
+                      >
+                        {{ "BUTTONS.Remove" | translate }}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="summary m-3 py-3">
+                  <div class="old">
+                    <p class="fw-bold ps-2 pb-2">
+                      {{ "HOME.Old_Summary" | translate }}
+                    </p>
+                    <div class="input-group m-2" >
+                      <input
+                        type="text"
+                        class="form-control mx-1 radiusBtn"
+                        aria-describedby="basic-addon2"
+                      />
+                      <span  class="input-group-text radiusBtn "  id="basic-addon2">{{
+                        "LABELS.Apply" | translate
+                      }}</span>
+                    </div>
+
+                    <div
+                      class="totla m-2 py-2 d-flex align-items-center justify-content-between"
+                    >
+                      <span class="text-color">
+                        {{ "HOME.Subtotal" | translate }} / {{ carts.length }}
+                        {{ "HOME.Items" | translate }}</span
+                      >
+                      <span class="fw-bold"
+                        >{{ "HOME.EGP" | translate }} {{ sum }}</span
+                      >
+                    </div>
+                    <div
+                      class="totla m-2 py-2 d-flex align-items-center justify-content-between"
+                    >
+                      <span class="text-color">
+                        {{ "HOME.Shipping" | translate }}
+                        <span style="color: #f28d6c">{{
+                          "HOME.Shipping_Details" | translate
+                        }}</span></span
+                      >
+                      <span class="fw-bold" style="color: #f28d6c"
+                        >+ {{ "HOME.EGP" | translate }} 37.00</span
+                      >
+                    </div>
+                    <hr />
+                    <div
+                      class="totla m-2 py-2 d-flex align-items-center justify-content-between"
+                    >
+                      <span class="fw-bold fs-4">
+                        {{ "HOME.Total" | translate }}
+                      </span>
+                      <span class="fw-bold fs-4"
+                        >{{ "HOME.EGP" | translate }} {{ sum }}</span
+                      >
+                    </div>
+
+                    <button
+                      [disabled]="!selectedAddresId"
+                      class="checkout text-white"
+                      (click)="order()"
+                    >
+                      {{ "HOME.Checkout" | translate }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row d-flex justify-content-center align-items-center"
+      *ngIf="msg"
+      style="
+        top: 0;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+      "
+    >
+      <div class="col-md-6">
+        <img
+          src="../../../assets/images/success.gif"
+          width="100%"
+          style="color: #5e2d77; font-size: 20px; font-weight: 500"
+          alt=""
+        />
+        <h2 class="text-center mt-3">{{ "HOME.TEXT_SUCCESS" | translate }}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-checkout-web></app-checkout-web>

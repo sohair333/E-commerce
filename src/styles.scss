@@ -1,0 +1,163 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "ngx-toastr/toastr";
+@import "normalize.css";
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+*,
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  background: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+p {
+  padding: 0%;
+  margin: 0% !important;
+}
+
+ol,
+ul,
+dl {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+
+.section-title {
+  color: #0e1740;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 15px;
+  // margin: 20px 0 !important;
+}
+
+.bordered {
+  border-radius: 10px;
+}
+.section-title-mobile {
+  color: #0e1740;
+  text-align: left;
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 10px 0 !important;
+  font-size: 20px !important;
+}
+
+@media (min-width: 768px) {
+  .rate {
+    background-color: #5e2d77;
+    border-radius: 15px;
+    padding: 0 5px;
+    color: white;
+  }
+}
+
+// @media(min-width: 768px) {
+// }
+.btn-custom {
+  background-color: #0e1740;
+  border: 1px solid #0e1740;
+  color: white;
+  transition: 0.5s all ease;
+  &:hover {
+    color: #0e1740;
+    border: 1px solid #0e1740;
+  }
+}
+
+ol,
+ul {
+  padding-left: 0rem;
+}
+
+:root {
+  --borderColor: #d5d8db;
+  --white: #fff;
+  --darkGray: #7d7f81;
+  --textColor: #9e9f9c;
+  --iconColor: #e85c72;
+  --black: #4e4e4e;
+  --btnColor: #e85c72;
+  --mainColor: #5e2d77;
+}
+
+.p-skeleton {
+  position: relative;
+  overflow: hidden;
+  margin: 10px !important;
+}
+
+/* custom scrolbar */
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #d4d4d4;
+  background-color: #d4d4d4;
+  margin-right: 5px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #0e1740;
+}
+
+.light-grey {
+  color: #8b8c90 !important;
+}
+
+.light-grey-bg {
+  background-color: #b3b9bd !important;
+}
+
+.web {
+  display: block;
+  overflow: hidden;
+}
+
+.mobile {
+  display: none !important;
+}
+
+.form-check-input:checked {
+  background-color: #00a599;
+  border-color: #00a599;
+}
+
+@media screen and (max-width: 1000px) {
+  .web {
+    display: none !important;
+    overflow: hidden;
+  }
+  .mobile {
+    display: block !important;
+    overflow: hidden;
+  }
+  .swiper-scrollbar.swiper-scrollbar-horizontal {
+    display: none !important;
+  }
+  // body {
+  //     padding: 19% 15px;
+  // }
+}
+
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1546546546;
+}
+
+.white {
+  color: #fff !important;
+}

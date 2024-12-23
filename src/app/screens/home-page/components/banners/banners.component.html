@@ -1,0 +1,16 @@
+<div class="web" >
+  <swiper dir="ltr" [slidesPerView]="1" [autoplay]="true" [navigation]="true" [spaceBetween]="0" [navigation]="true"
+    [pagination]="{ clickable: true }" [loop]="true" class="mySwiper">
+    <ng-template swiperSlide *ngFor="let item of banners">
+      <a ><img [src]="item?.cover_en" [alt]="item?.cover_en" class="w-100"></a>
+    </ng-template>
+  </swiper>
+</div>
+
+<div class="mobile" >
+  <swiper dir="ltr" [slidesPerView]="1" [spaceBetween]="0" [scrollbar]="{ draggable: true }" [loop]="true" class="mySwiper">
+    <ng-template swiperSlide *ngFor="let item of banners">
+      <img [src]="item?.cover_en" [alt]="item?.cover_en" class="w-100">
+    </ng-template>
+  </swiper>
+</div>

@@ -1,0 +1,804 @@
+<div class="mobile" *ngIf="data && !show">
+  <div class="product-details-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 text-danger  text-center error" *ngIf="showSizeErr "><i
+            class="fa-solid fa-circle-exclamation text-danger mx-2"></i>{{'product_details.size_color'|translate}}</div>
+        <div class="col-md-12 text-danger  text-center error" *ngIf="showColorErr "><i
+            class="fa-solid fa-circle-exclamation text-danger mx-2"></i>{{'product_details.select_color'|translate}}
+        </div>
+        <div class="col-6 my-3">
+          <button class="btn p-0 m-0 me-3" (click)="back()">
+            <i [ngClass]="checkLang=='en'?'fa-solid fa-chevron-left mx-3':'fa-solid fa-chevron-right mx-3'"></i>
+          </button>
+          <p class="fw-bold d-inline productTitle">{{ data?.brand.title }}</p>
+        </div>
+        <div class="col-6 my-3">
+          <p class=" sku w-100">
+            <span class="fw-bold p-1 text-muted">SKU : {{ sku }} </span>
+          </p>
+        </div>
+      </div>
+      <div class="row product-card">
+        <div class="col-md-12 productImg mb-3 p-0">
+          <img *ngIf="data?.images.length !== 0" width="100%" [src]="img" [alt]="data?.title" />
+          <img *ngIf="data?.images.length === 0" style="width: 100px !important" src="../../../assets/images/logog.png"
+            alt="" />
+          <div class="wishlist-wrapper">
+            <button class="wishlist-btn">
+              <i Class="fa-solid fa-heart text-danger"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-12 px-0 py-2">
+          <div class="row d-flex justify-content-between align-items-center px-3">
+            <div class="col-6 text-left">
+              <p class="m-0">- - -</p>
+            </div>
+            <div class="col-6">
+              <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-6 text-center m-0 p-1">
+                  <p class="m-0 rate">
+                    {{ data?.rate }} <i class="fa-solid fa-star"></i>
+                  </p>
+                </div>
+                <div class="col-6 text-center m-0 p-0">
+                  <p class="m-0">
+                    {{ data?.view_count }} <i class="fa-regular fa-eye"></i>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <p class="fw-bold productTitle">{{ data?.title }}</p>
+        </div>
+        <div class="col-12 py-0">
+          <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-6">
+              <p class="pb-0 price-row">
+                {{'HOME.EGP'|translate}} <span class="price">{{ price }}</span>
+                {{'product_details.Inclusive_of_VAT'|translate}}
+              </p>
+            </div>
+            <div class="col-3 text-center">
+              <img class="brand-logo" [src]="data?.brand?.logo" [alt]="data?.brand?.title" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="productType !== 'SIMPLE'" class="row py-3 bg-white my-3 bordered">
+        <div  class="col" *ngIf="data.attributes">
+          <ul *ngFor="let attribute of data.attributes; let i = index">
+            <li *ngIf="attribute.type.id === 8">
+              <p class="single-select">
+                <span class="attributeTiTle">{{ attribute.title }} :</span>
+                <span class="attributeValue">
+                  <mat-radio-group [(ngModel)]="selectedSize" (ngModelChange)="onSizeChange()">
+                    <span class="p-0" *ngFor="let value of attribute.values">
+                      <mat-radio-button [value]="value">{{
+                        value.value
+                        }}</mat-radio-button>
+                    </span>
+                  </mat-radio-group>
+                </span>
+              </p>
+            </li>
+            <li *ngIf="attribute.type.id === 6">
+              <p class="color-swatch">
+                <span class="attributeTiTle">{{ attribute.title }} :</span>
+                <span>
+                  <mat-radio-group [(ngModel)]="selectedColor" (ngModelChange)="onColorChange(selectedColor)">
+                    <span class="p-0" *ngFor="let value of attribute.values">
+                      <mat-radio-button [value]="value" [style.background-color]="value.code"></mat-radio-button>
+                    </span>
+                  </mat-radio-group>
+                </span>
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <p class="my-3 text-danger" *ngIf="data?.variations?.seller_variations?.quantity < 5">
+        {{'product_details.Low_Stock_only'|translate}}
+        <span>{{ data?.variations?.seller_variations?.quantity }}</span> {{'product_details.left'|translate}}
+      </p>
+      <p class="my-3 text-success" *ngIf="data?.variations?.seller_variations?.quantity > 5">
+        {{'product_details.Available_In_Stock'|translate}}
+      </p>
+    </div>
+    <div class="row p-0 m-0 seller-details">
+      <div class="col-12 m-0 p-0">
+        <p class="text-center py-3" style="background-color: #e5f6f4" *ngIf="data?.is_returnable">
+          <span><img width="30px" src="../../../assets/images/return.svg" alt="" /></span>
+          {{'product_details.eligable'|translate}}
+          <span class="text-success fw-bold">{{'product_details.Free_Return'|translate}}</span>
+        </p>
+      </div>
+      <div class="col-12 m-0 p-0">
+        <div class="row p-0 m-0 seller d-flex justify-content-between align-items-center">
+          <div class="col-7">
+            <p>
+              <img src="../../../assets/images/sold-by.svg" width="25px" alt="" class="inline-block mr-3" />
+              {{'product_details.Sold_by'|translate}} {{ seller }} <span
+                class="etmana">{{'product_details.Etmana'|translate}}</span>
+            </p>
+          </div>
+          <div class="col-5 py-2">
+            <p class="m-0 px-2 rate" style="width: auto">
+              {{ data?.rate }} <i class="fa-solid fa-star"></i>
+            </p>
+            <p class="m-0">
+              {{ ((data.rate * 100) / 5).toFixed(0) }}% {{'product_details.Positive'|translate}}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row seller-details mt-3 mx-0">
+      <div class="col-12 p-0">
+        <p-tabView>
+          <p-tabPanel [header]="checkLang == 'en'?'Overview':'ملخص'">
+            {{ data.operational_description }}
+          </p-tabPanel>
+          <p-tabPanel [header]="checkLang == 'en'?'Specifications':'تحديد'" *ngIf="data.attributes">
+            <div  *ngFor="let attributeList of simpleVariations">
+              <div class="row odd-rows">
+                <div class="text-secondary col-4 mb-2">
+                  {{ attributeList.attributeTitle }}
+                </div>
+                <div class="col-8"  *ngFor="let attributeValue of attributeList.values">
+                  <span >{{ attributeValue.value }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel [header]="checkLang == 'en'?'Reviews':'المراجعات'">
+            <!-- {{'product_details.Content'|translate}} 3  -->
+            <div class="overal-rating mb-3 row">
+              <div class="col-5 d-flex justify-content-between align-items-center">
+                <div class="rating text-center">
+                  <h4 class="rating-header"> {{'product_details.Overall_Rating'|translate}}</h4>
+                  <p class="num-rating">4.4</p>
+                  <p class="star-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                  </p>
+                  <p class="rating-based">{{'product_details.basedOn'|translate}}</p>
+                </div>
+                <div class="line "></div>
+              </div>
+              <div class="col-6 offset-1">
+                <div class="row mb-2" *ngFor="let item of progressRating;let i=index">
+                  <div class="col-1">
+                    <div class="">
+                      <p>{{i+1}}</p>
+                    </div>
+                  </div>
+                  <div class="col-1">
+                    <div class="">
+                      <p> <i class="fa-solid fa-star" [ngStyle]="{'color':item.color}"></i></p>
+                    </div>
+                  </div>
+                  <div class="col-9" style="margin-top: 8px;">
+                    <div class="progress-rating ">
+                      <div class="progressing">
+                        <div class="skillBarContainer">
+                          <div class="skillBarValue " [ngStyle]="{'background':item.backgroundColor}"
+                            [ngClass]="item.value"></div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <!-- <p class="text-muted ">(16)</p> -->
+                  </div>
+
+                </div>
+
+              </div>
+
+
+            </div>
+            <div class="review-user  row">
+
+              <div class="col-8">
+                <div class="d-flex align-items-center gap-2">
+                  <div class="img-user">
+                    <img src="../../assets/images/blank-profile-picture-973460__340.webp" alt="user">
+                  </div>
+                  <div class="user-details">
+                    <h5>Hesham Eid</h5>
+                    <div class="d-flex justify-content-start align-items-center">
+                      <p class="star-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                      </p>
+                      <p class="line mx-2"></p>
+                      <p class="date-user">12 Dec,2022</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="purchace-success d-flex justify-content-between align-items-center">
+                  <p class="line mx-2"></p>
+                  <p class="check-user d-flex justify-content-center align-items-center mx-3">
+                    <i class="fa-solid fa-check"></i>
+                  </p>
+                  <p class="Verfied">
+                    {{'product_details.Verfied_Purchase'|translate}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+      <div class="col-12 p-0">
+        <!-- more from brand name -->
+        <div class="newArrival p-2" *ngIf="data.brand.products">
+          <swiper [slidesPerView]="2" [autoplay]="true" [spaceBetween]="10" [scrollbar]="{ draggable: true }"
+            [loop]="true" class="mySwiper">
+            <p class="fw-bold" *ngIf="data.brand.products">
+              {{'product_details.More'|translate}}
+            </p>
+
+            <ng-template swiperSlide *ngFor="let item of brandsProducts">
+              <div class="my-2 d-flex justify-content-center shadow-sm">
+                <div class="newArrival newArrivalItem w-100">
+                  <div class="wishlist-wrapper">
+                    <button *ngIf="item.flag == true" class="wishlist-btn" (click)="clickEvent(item)">
+                      <i class="fa-solid fa-heart text-danger"></i>
+                      <!-- <i class="fa-regular fa-heart"></i> -->
+                    </button>
+                    <button *ngIf="item.flag == false" class="wishlist-btn" (click)="clickEvent(item)">
+                      <i class="fa-solid fa-heart text-white"></i>
+                      <!-- <i class="fa-regular fa-heart"></i> -->
+                    </button>
+                  </div>
+                  <div class="promotion">
+                    <p>
+                      <span class="buy-x">Buy X</span>
+                      <span class="get-y">Get Y</span>
+                    </p>
+                  </div>
+                  <div class="productImage" routerLink="/product-details/{{ item.id }}">
+                    <img *ngIf="item?.images?.length !== 0" width="100%" [src]="item?.images[0]?.url"
+                      [alt]="item?.title" class="imgDetails" />
+                    <img *ngIf="item?.images.length === 0" style="width: 100px !important; object-fit: contain"
+                      src="../../../assets/images/logog.png" alt="" />
+                  </div>
+                  <div class="details">
+                    <div class="d-flex align-items-center justify-content-end gap-1 info">
+                      <p class="mb-0">3 {{'PRODUCT_LIST.Colors'|translate}}</p>
+                      <p class="mb-0" class="rate">
+                        {{ item.rate }}
+                        <i class="fa-solid fa-star icon" style="margin-left: 3px"></i>
+                      </p>
+                      <p class="mb-0">1.4k</p>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                      <div class="col-12">
+                        <p class="productTitle">{{ item?.title }}</p>
+                      </div>
+                      <div class="col-8">
+                        <p class="productPrice">
+                          <span class="currency">{{'HOME.EGP'|translate}}</span>
+                          <span>{{ item?.min_price.toFixed(2) }}</span>
+                        </p>
+                        <p class="old-price">
+                          <span class="currency" style="
+                              text-decoration: line-through;
+                              margin-right: 5px;
+                            ">500:00
+                          </span>
+                          <span class="text-success fw-bold">20% {{'product_details.OFF'|translate}}</span>
+                        </p>
+                      </div>
+                      <div class="col-4">
+                        <img width="100%" [src]="data?.brand?.logo" style="mix-blend-mode: multiply" alt=" " />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </swiper>
+        </div>
+        <!-- related products -->
+        <div class="newArrival p-2" *ngIf="data.relatedProducts">
+          <swiper [slidesPerView]="2" [autoplay]="true" [spaceBetween]="10" [scrollbar]="{ draggable: true }"
+            [loop]="true" class="mySwiper">
+            <p class="fw-bold" *ngIf="data.relatedProducts">Related Products</p>
+
+            <ng-template swiperSlide *ngFor="let item of data.relatedProducts">
+              <div class="my-2 d-flex justify-content-center shadow-sm">
+                <div class="newArrival newArrivalItem w-100" routerLink="/product-details/{{ item.id }}">
+                  <div class="wishlist-wrapper">
+                    <button *ngIf="item.flag == true" class="wishlist-btn" (click)="clickEvent(item)">
+                      <i class="fa-solid fa-heart text-danger"></i>
+                      <!-- <i class="fa-regular fa-heart"></i> -->
+                    </button>
+                    <button *ngIf="item.flag == false" class="wishlist-btn" (click)="clickEvent(item)">
+                      <i class="fa-solid fa-heart text-white"></i>
+                      <!-- <i class="fa-regular fa-heart"></i> -->
+                    </button>
+                  </div>
+                  <div class="promotion">
+                    <p>
+                      <span class="buy-x">Buy X</span>
+                      <span class="get-y">Get Y</span>
+                    </p>
+                  </div>
+                  <div class="productImage">
+                    <img *ngIf="item?.images.length !== 0" width="100%" [src]="item?.images[0]?.url"
+                      [alt]="item?.title" />
+                    <img *ngIf="item?.images.length === 0" style="width: 100px !important; object-fit: contain"
+                      src="../../../assets/images/logog.png" alt="" />
+                  </div>
+                  <div class="details">
+                    <div class="d-flex align-items-center justify-content-end gap-1 info">
+                      <p class="mb-0">3 {{'PRODUCT_LIST.Colors'|translate}}</p>
+                      <p class="mb-0" class="rate">
+                        {{ item.rate }}
+                        <i class="fa-solid fa-star icon" style="margin-left: 3px"></i>
+                      </p>
+                      <p class="mb-0">1.4k</p>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                      <div class="col-12">
+                        <p class="productTitle">{{ item?.title }}</p>
+                      </div>
+                      <div class="col-8">
+                        <p class="productPrice">
+                          <span class="currency">{{'HOME.EGP'|translate}}</span>
+                          <span>{{ item?.min_price.toFixed(2) }}</span>
+                        </p>
+                        <p class="old-price">
+                          <span class="currency" style="
+                              text-decoration: line-through;
+                              margin-right: 5px;
+                            ">500:00
+                          </span>
+                          <span class="text-success fw-bold">20% {{'PRODUCT_LIST.OFF'|translate}}</span>
+                        </p>
+                      </div>
+                      <div class="col-4">
+                        <img width="100%" [src]="item?.brand?.logo" style="mix-blend-mode: multiply" alt=" " />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </swiper>
+        </div>
+      </div>
+    </div>
+    <div class="add-to-cart">
+      <div *ngIf="showError" class="error bg-danger text-white p-2 text-center">
+        {{'product_details.number_quantity'|translate}}
+      </div>
+      <div *ngIf="showSuccess" class="bg-success text-white p-2 text-center">
+        {{'product_details.added'|translate}}
+      </div>
+      <div class="row p-3" *ngIf="this.status">
+        <p class="mb-3 fw-bold px-0">{{'CART.Quantity'|translate}}</p>
+        <div class="col-md-12 px-0">
+          <p-inputNumber [(ngModel)]="this.qty" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+            decrementButtonClass="p-button-danger" incrementButtonClass="p-button-success"
+            incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus" mode="decimal" [min]="1"
+            [max]="5"></p-inputNumber>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3 d-flex justify-content-center align-items-center">
+          <div class="qty rounded text-secondary text-center" (click)="this.status = !this.status">
+            <span>{{ qty }}</span><br />
+            <span>{{'CART.Qty'|translate}}</span>
+          </div>
+        </div>
+        <div class="col-9">
+          <button type="button " class="btn btn-lg" (click)="addToCart()">
+            {{'product_details.Add_To_Cart'|translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WebView -->
+<div class="web">
+  <div class="product-details-wrapper container" *ngIf="data">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 d-flex align-items-baseline" (click)="BackHome($event)">
+          <i [ngClass]="checkLang=='en'?'fa-solid fa-chevron-left mx-3':'fa-solid fa-chevron-right mx-3'"></i>
+          <h3>{{'CART.Product_Details'|translate}}</h3>
+        </div>
+        <div class="col-md-12">
+          <div *ngIf="showError" class="error bg-danger text-white p-2 text-center my-3">
+            {{'product_details.number_quantity'|translate}}
+          </div>
+
+          <div class="error bg-danger my-3 p-2 text-white  text-center error" *ngIf="showSizeErr  || showColorErr">
+            <i class="fa-solid fa-circle-exclamation text-white mx-2"></i>
+            <!-- {{'product_details.size_color'|translate}} -->
+            <p class="d-inline"> {{'product_details.please_Select'|translate}}
+              <span *ngIf="showSizeErr">{{'product_details.size'|translate}}</span>
+              <span *ngIf="showColorErr"> {{'product_details.Color'|translate}}</span>
+            </p>
+
+          </div>
+
+          <div *ngIf="showSuccess" class="bg-success text-white p-2 text-center my-3">
+            {{'product_details.added'|translate}}
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="d-flex align-items-start gap-3 m-2 justify-content-lg-start">
+
+            <div class="slider" *ngIf="data?.images.length !== 0" >
+              <div class="slider-imgs" *ngFor="let img of images">
+                <img  (click)="imgSrc($event)"  class="SLideImg" [src]="img?.url" alt="" frameborder="0" allowfullscreen />
+              </div>
+            </div>
+            <!-- img -->
+            <div class="productImg mb-3 p-0">
+
+              <div class="downloadingImage">
+                <a  class="download-btn"  [href]="img" download>
+                  <svg width="25" height="20" class="mx-1" viewBox="0 0 20 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M16.5693 8.37514H14.0927C13.5918 8.37514 13.1853 8.78105 13.1853 9.28254C13.1853 9.78403 13.5918 10.1899 14.0927 10.1899H16.5699C17.0702 10.1899 17.4773 10.5971 17.4773 11.0973V22.9638C17.4773 23.464 17.0702 23.8712 16.5699 23.8712H2.92924C2.42896 23.8712 2.02184 23.464 2.02184 22.9638V11.0973C2.02184 10.5971 2.42896 10.1899 2.92924 10.1899H5.40645C5.90795 10.1899 6.31386 9.78403 6.31386 9.28254C6.31386 8.78105 5.90795 8.37514 5.40645 8.37514H2.92924C1.4284 8.37514 0.207031 9.5965 0.207031 11.0973V22.9638C0.207031 24.4646 1.4284 25.686 2.92924 25.686H16.5699C18.0708 25.686 19.2922 24.4646 19.2922 22.9638V11.0973C19.2915 9.5959 18.0708 8.37514 16.5693 8.37514ZM6.36588 6.54339L8.87213 4.03714V15.9834C8.87213 16.4843 9.27804 16.8908 9.77953 16.8908C10.281 16.8908 10.6869 16.4843 10.6869 15.9834V4.03714L13.1932 6.54339C13.3704 6.72064 13.6027 6.80896 13.835 6.80896C14.0673 6.80896 14.2996 6.72064 14.4769 6.54339C14.8314 6.18951 14.8314 5.61421 14.4769 5.26032L10.422 1.20483C10.0669 0.850342 9.49279 0.850342 9.1383 1.20483L5.08281 5.26032C4.72832 5.61421 4.72832 6.18951 5.08281 6.54339C5.43731 6.89788 6.01139 6.89788 6.36588 6.54339Z"
+                      fill="#000" />
+                  </svg>
+                </a>
+              </div>
+              <div class="wishlist-wrapper ">
+                <button *ngIf="isWishedProduct" class="wishlist-btn " (click)="WishedProductMain(data)">
+                  <i class="fa-solid fa-heart text-danger "></i>
+                </button>
+                <button *ngIf="!isWishedProduct" class="wishlist-btn" (click)="WishedProductMain(data)">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+              </div>
+              <!-- wish list -->
+              <img *ngIf="data?.images.length !== 0" id="prev" class="img1" [src]="img" [alt]="data?.title" />
+              <img *ngIf="data?.images.length === 0" style="width: 100px !important; margin-left: 33%"
+                class="position-relative top-50" src="../../../assets/images/logog.png" alt="" />
+            </div>
+          </div>
+        </div>
+        <!-- add to cart -->
+        <div class="col-md-6">
+          <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-md-4">
+              <!-- <h4 class="fw-bold">{{ data.brand.title }}</h4> -->
+              <button (click)="viewProducts(data?.brand)" class="btn text-center">
+                <img class="brand-logo" [src]="data?.brand?.logo" [alt]="data?.brand?.title" />
+              </button>
+            </div>
+
+
+            <div class="col-md-6">
+              <div class=" d-flex justify-content-center align-items-center gap-2">
+
+                <div class=" ">
+                  <p class="sku" style="font-size: 13px"><span class="text-muted fw-bold">SKU</span> <span style="color: #2C3341;" class="mx-2">{{ data?.sku }}</span></p>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                  <div class=" text-center">
+                    <p class=" rate px-2 gap-1 d-flex align-items-center justify-content-center" style="font-size: 11px;">
+                      {{ data?.rate }} <i class="fa-solid fa-star"></i>
+                    </p>
+                  </div>
+                    <p  class="d-flex gap-1 align-items-center justify-content-center" style="font-size: 12px; color: #7F828E;">
+                      {{ data?.view_count }} <i class="fa-regular fa-eye"></i>
+                    </p>
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="col-12 my-3">
+              <p class="productTitle">{{ data?.title }}</p>
+            </div>
+            <div class="col-12 ">
+              <div class="row d-flex justify-content-between align-items-center">
+                <div class="col-6">
+                  <p class="pb-0 price-row">
+                    <span >{{'HOME.EGP'|translate}}</span> <span class="price mx-1">{{ price
+                      }}.00</span>
+
+                  </p>
+                 <p class="of-vat">
+                  <span >{{'product_details.Inclusive_of_VAT'|translate}}</span>
+                 </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row py-3 pb-0 mb-0 bordered">
+            <div class="">
+              <div class="row py-1" >
+                <div class="col-md-12">
+                  <p class=" fw-bold " style="font-size: 12px;font-weight: 800;">{{'CART.Quantity'|translate}}</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-3">
+                  <!-- <p-inputNumber [(ngModel)]="qty" [showButtons]="true" buttonLayout="horizontal"
+                    spinnerMode="horizontal" decrementButtonClass="p-button-danger"
+                    incrementButtonClass="p-button-success" incrementButtonIcon="pi pi-plus"
+                    decrementButtonIcon="pi pi-minus" mode="decimal" [min]="1" [max]="5"></p-inputNumber> -->
+
+                    <div class="input-numbers d-flex align-items-baseline ">
+                      <button class="" (click)="decrementQty()">
+                        <i class="fa-solid fa-minus"></i>
+                      </button>
+                      <span class="text-center">{{qty}}</span>
+                      <button (click)="incrementQty()">
+                        <i class="fa-solid fa-plus"></i>
+                      </button>
+                    </div>
+                </div>
+                <div class="col-9 add-to-cart">
+                  <button type="button" class="btn btn-lg" (click)="addToCartWeb()">
+                    {{'product_details.Add_To_Cart'|translate}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row px-2">
+            <py-3 class="my-3 bordered bg-white">
+              <div *ngIf="productType !== 'SIMPLE'" class="col-md-12">
+                <div class="col" *ngIf="data.attributes">
+                  <ul *ngFor="let attribute of data.attributes; let i = index">
+                    <li *ngIf="attribute.type.id === 8">
+                      <p class="single-select">
+                        <span class="attributeTiTle">{{ attribute.title }} :</span>
+                        <span class="attributeValue">
+                          <mat-radio-group [(ngModel)]="selectedSize" (ngModelChange)="onSizeChange()">
+                            <span *ngFor="let value of attribute.values">
+                              <mat-radio-button class="radioSize p-1" [value]="value">{{ value.value
+                                }}</mat-radio-button>
+                            </span>
+                          </mat-radio-group>
+                          <!-- <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" optionLabel="name" optionDisabled="inactive"></p-selectButton> -->
+                        </span>
+                      </p>
+                    </li>
+                    <li *ngIf="attribute.type.id === 6">
+                      <p class="color-swatch d-flex align-items-center  justify-content-start">
+                        <span class="attributeTiTle">{{ attribute.title }} :</span>
+                        <button [ngClass]="code === value.code? 'selected-color':'not-selected-color'"
+                          *ngFor="let value of attribute.values" class="mx-2" (click)="onColorChange(value)">
+                          <div class="d-flex align-items-center justify-content-center"
+                            [style.background-color]="value.code">
+                            <!-- <span >1</span> -->
+                          </div>
+                        </button>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </py-3>
+          </div>
+          <div class="col-md-12">
+            <div class="p-0 m-0 seller-details">
+              <div class="d-flex  align-items-center gap-1 m-0 px-2"
+                style="background-color: #e5f6f4; border-radius: 5px">
+                <div class="">
+                  <img width="30px" src="../../../assets/images/return.svg" alt="" />
+                </div>
+                <div class="text-center py-3" *ngIf="data?.is_returnable">
+                  <span class="mx-1"
+                    style="color: #0C1039;font-weight: 600;">{{'product_details.eligable'|translate}}</span>
+                  <span class=" fw-bold" style="color: #00AE9F;">{{'product_details.Free_Return'|translate}}</span>
+                </div>
+              </div>
+              <div class="col-12 mt-2">
+                <div class="px-2 seller d-flex justify-content-between align-items-center bg-white rounded py-2">
+                  <div class="d-flex align-items-baseline">
+                    <div class="pe-2">
+                      <img src="../../../assets/images/sold-by.svg" width="25px" alt="" class="inline-block mr-3" />
+                    </div>
+                    <div style="font-size: 14px;" class="">
+                      <span style="color: #2C3341;;">{{'product_details.Sold_by'|translate}}</span>
+                      <span class="mx-1" style="color: #5E2D77;">{{ seller }}</span>
+                    </div>
+                  </div>
+                  <div class=" d-flex align-items-center gap-2" style="font-size: 14px;">
+                    <p class="rate text-center  px-3" style="font-size: 11px;">
+                      {{ data?.rate }} <i class="fa-solid fa-star"></i>
+                    </p>
+                    <p class="" style="color: #0E1740;">
+                      {{ ((data.rate * 100) / 5).toFixed(0) }}% {{'product_details.Positive'|translate}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row seller-details mt-3 mx-0">
+          <div class="col-12 p-0">
+
+            <p-tabView>
+              <p-tabPanel [header]="checkLang == 'en'?'Overview':'ملخص'">
+                <h6 style="color: #0E1740;font-weight: 700;"> {{'product_details.Desccription'|translate}}</h6>
+                <p>
+                  {{ data.operational_description }}
+                </p>
+              </p-tabPanel>
+
+              <p-tabPanel [header]="checkLang == 'en'?'Specifications':'تحديد'" *ngIf="data.attributes">
+                <div  *ngFor="let attributeList of simpleVariations">
+                  <div class="row ">
+                    <div class="text-secondary col-4 mb-2">
+                      {{ attributeList.attributeTitle }}
+                    </div>
+                    <div class="col-8"  *ngFor="let attributeValue of attributeList.values">
+                      <span >{{ attributeValue.value }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+              <p-tabPanel [header]="checkLang == 'en'?'Reviews':'المراجعات'">
+                <!-- {{'product_details.Content'|translate}} 3  -->
+                <div class="overal-rating mb-3 row">
+                  <div class="col-5 d-flex justify-content-between align-items-center">
+                    <div class="rating text-center">
+                      <h4 class="rating-header"> {{'product_details.Overall_Rating'|translate}}</h4>
+                      <p class="num-rating">4.4</p>
+                      <p class="star-rating">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                      </p>
+                      <p class="rating-based">{{'product_details.basedOn'|translate}}</p>
+                    </div>
+                    <div class="line "></div>
+                  </div>
+                  <div class="col-6 offset-1">
+                    <div class="row mb-2" *ngFor="let item of progressRating;let i=index">
+                      <div class="col-1">
+                        <div class="">
+                          <p>{{i+1}}</p>
+                        </div>
+                      </div>
+                      <div class="col-1">
+                        <div class="">
+                          <p> <i class="fa-solid fa-star" [ngStyle]="{'color':item.color}"></i></p>
+                        </div>
+                      </div>
+                      <div class="col-9" style="margin-top: 8px;">
+                        <div class="progress-rating ">
+                          <div class="progressing">
+                            <div class="skillBarContainer">
+                              <div class="skillBarValue " [ngStyle]="{'background':item.backgroundColor}"
+                                [ngClass]="item.value"></div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <!-- <p class="text-muted ">(16)</p> -->
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+                <div class="review-user  row">
+
+                  <div class="col-8">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="img-user">
+                        <img src="../../assets/images/blank-profile-picture-973460__340.webp" alt="user">
+                      </div>
+                      <div class="user-details">
+                        <h5>Hesham Eid</h5>
+                        <div class="d-flex justify-content-start align-items-center">
+                          <p class="star-rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                          </p>
+                          <p class="line mx-2"></p>
+                          <p class="date-user">12 Dec,2022</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="purchace-success d-flex justify-content-between align-items-center">
+                      <p class="line mx-2"></p>
+                      <p class="check-user d-flex justify-content-center align-items-center mx-3">
+                        <i class="fa-solid fa-check"></i>
+                      </p>
+                      <p class="Verfied">
+                        {{'product_details.Verfied_Purchase'|translate}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+              </p-tabPanel>
+            </p-tabView>
+          </div>
+        </div>
+
+        <div id="swiper" class="col-12 mt-4">
+              <div class="position-relative">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <h5 class="fw-bold my-3 " *ngIf="data.brand.products">
+                    {{'product_details.More'|translate}}
+                  </h5>
+
+                  <div class="">
+                    <button (click)="seeAllProducts()" class="see-products">
+                      {{'product_details.SEE_ALL_PEODUCTS' | translate }} <i [ngClass]="checkLang === 'en' ? 'fa-solid fa-chevron-right mx-2':'fa-solid fa-chevron-left mx-2' "></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center gap-4 ">
+                  <div class="arrow-left shadow-sm rounded  d-flex justify-content-center align-items-center">
+                    <button (click)="slideNext()" class="border-0 box rounded-2 " style="padding: 15px;background-color: #f2f7f7;">
+                      <i *ngIf="checkLang === 'ar'" class="fa-solid fa-chevron-right"></i>
+                      <i *ngIf="checkLang === 'en'" class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                  </div>
+                  <swiper #swiper [slidesPerView]="4" [autoplay]="true" [spaceBetween]="10" [loop]="true" class="mySwiper">
+                    <ng-template swiperSlide *ngFor="let item of brandsProducts">
+                      <!--  -->
+                      <app-product-card [brandLogo]="data?.brand?.logo" (wishListed)="addToWishList($event)"
+                        [item]="item"></app-product-card>
+                    </ng-template>
+                  </swiper>
+                  <div class="arrow-right shadow-sm  rounded d-flex justify-content-center align-items-center">
+                    <button (click)="slidePrev()" class="border-0 box rounded-2 " style="padding: 15px;background-color: #f2f7f7;">
+                      <i *ngIf="checkLang === 'en'" class="fa-solid fa-chevron-right"></i>
+                      <i *ngIf="checkLang === 'ar'" class="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- more from brand name -->
+
+        </div>
+  </div>
+</div>
+
+<app-side-bar [productsCart]="carts" [sum]="sum"></app-side-bar>
+
+<app-skeleton-loader [productDetailsShow]="show"></app-skeleton-loader>
+<!--  -->

@@ -1,0 +1,54 @@
+<p-dialog
+  [(visible)]="dialogToggle"
+  [style]="{ width: '30vw' }"
+  class="dialog"
+  [modal]="true"
+  [breakpoints]="{ '960px': '75vw', '640px': '97vw' }"
+  (onHide)="changeDialogTogg()"
+  [baseZIndex]="10000"
+  [draggable]="false"
+>
+  <ng-template pTemplate="header">
+    <div class="head">
+      <p class="text-muted my-2 fs-6" *ngIf="tabName == 'login'">Welcome Back!</p>
+      <p class="fw-bold fs-5">
+        {{
+          tabName == "login"
+            ? "Login To Your Account"
+            : tabName == "register"
+            ? "Create To Your Account"
+            : tabName == "otp"
+            ? "Verify Phone"
+            : tabName == "forget"
+            ? "Forget Your Password?"
+            : tabName == "reset"
+            ? "Reset  Your Password"
+            : ""
+        }}
+      </p>
+    </div>
+  </ng-template>
+  <app-web-login
+    *ngIf="tabName == 'login'"
+    (tabNameChild)="changetabName($event)"
+    (closeDialog)="closeDialog($event)"
+  ></app-web-login>
+  <app-web-register
+    *ngIf="tabName == 'register'"
+    (tabNameChild)="changetabName($event)"
+  ></app-web-register>
+  <app-web-otp
+    *ngIf="tabName == 'otp'"
+    (tabNameChild)="changetabName($event)"
+    (closeDialog)="closeDialog($event)"
+  ></app-web-otp>
+  <app-web-forget-password
+    *ngIf="tabName == 'forget'"
+    (tabNameChild)="changetabName($event)"
+  ></app-web-forget-password>
+  <app-web-reset-password
+    *ngIf="tabName == 'reset'"
+    (tabNameChild)="changetabName($event)"
+    (closeDialog)="closeDialog($event)"
+  ></app-web-reset-password>
+</p-dialog>

@@ -1,0 +1,72 @@
+<div class="wishList" *ngIf="productWishList.length !== 0">
+  <div class="container">
+    <div class="col-md-12 all-wish  ">
+      <div class="header my-3 ">
+        <div class="mt-5">
+          <button class="btn btnBack p-0 m-0" (click)="back()">
+            <i [ngClass]="
+              checkLang === 'en'
+                ? 'fa-solid fa-chevron-left fs-1'
+                : 'fa-solid fa-chevron-right fs-1'
+            "></i>
+          </button>
+          <h3 class="d-inline mx-2 mt-5">
+            {{ "HOME.WishList" | translate }}
+          </h3>
+        </div>
+        <p class="mt-1 fs-6 mx-5 d-inline float-end">
+          {{ productWishList.length
+          }}<span class="mx-1">{{ "HOME.Items" | translate }}</span>
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-md-3 cards p-0 mt-2" *ngFor="let item of products; let i = index">
+          <app-product-card (wishListed)="addToWishList($event)" [item]="item"></app-product-card>
+        </div>
+      </div>
+      <!-- <div class="col-md-10 d-flex justify-content-center align-items-center flex-column py-3"
+        *ngIf="products.length == 0">
+        <h3 class="text-center" style="margin-top: -30px; color: gray">
+          {{ "HOME.No_results_Found" | translate }}
+        </h3>
+      </div> -->
+    </div>
+  </div>
+</div>
+<app-skeleton-loader [offerShow]="show"></app-skeleton-loader>
+
+<div *ngIf="productWishList.length === 0" class="mt-5 mb-5 emptyData  web pt-5  ">
+  <!-- <div class="col-12"> -->
+  <!-- <div class="empty">
+    <img src="../../../assets/images/4496-empty-cart.gif" width="30%"
+      style="color: #5e2d77; font-size: 20px; font-weight: 500" alt="" />
+    <h2 class="text-center mt-3">
+      {{ "HOME.Your_Wish_List_Empty" | translate }}
+    </h2>
+    <button (click)="toHomePage()" class="empty-btn w-75">
+      {{ "HOME.Start_Shopping" | translate }}
+    </button>
+  </div> -->
+  <img src="assets/images/Social media-rafiki.png" alt="" class="d-flex justify-content-center mx-auto" width="42%" srcset="">
+  <h2 class="text-center my-2">Empty WishList</h2>
+  <p class="text-center my-4 mb-5">There is No Item In Your WishList!</p>
+  <!-- </div> -->
+</div>
+<div *ngIf="productWishList.length === 0" class="mt-5  emptyData wishEmpty mobile pt-5 vh-100 ">
+  <!-- <div class="col-12"> -->
+  <!-- <div class="empty">
+    <img src="../../../assets/images/4496-empty-cart.gif" width="30%"
+      style="color: #5e2d77; font-size: 20px; font-weight: 500" alt="" />
+    <h2 class="text-center mt-3">
+      {{ "HOME.Your_Wish_List_Empty" | translate }}
+    </h2>
+    <button (click)="toHomePage()" class="empty-btn w-75">
+      {{ "HOME.Start_Shopping" | translate }}
+    </button>
+  </div> -->
+  <img src="assets/images/Social media-rafiki.png" alt="" class="d-flex justify-content-center mx-auto" width="68%" srcset="">
+  <h2 class="text-center my-2">Empty WishList</h2>
+  <p class="text-center my-4 mb-5">There is No Item In Your WishList!</p>
+  <!-- </div> -->
+</div>
+

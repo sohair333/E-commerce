@@ -1,0 +1,172 @@
+<div class="wrapper" *ngIf="step === 1">
+  <div class="header d-flex align-items-center justify-content-lg-start">
+    <div (click)="backToMain()" class="btn">
+      <i [ngClass]="checkLang !== 'en'?'fa-solid fa-chevron-right fs-5 mx-2' :'fa-solid fa-chevron-left mx-2 fs-5'"></i>
+
+    </div>
+    <h4>{{"Orders.Orders" | translate}}</h4>
+  </div>
+  <div class="container-fluid">
+    <div class="orders  p-3 my-4 bg-white shadow my-2 w-100" *ngFor="let order of orders">
+      <div class="order-info d-flex align-items-center justify-content-between">
+        <div class="order-name">
+          <h4>{{"Orders.Orders" | translate}} {{order?.id}}</h4>
+          <p class="date">{{'Orders.Placed' | translate}}{{order?.formattedDate}}</p>
+        </div>
+        <div class="order-status">
+          <h5 class="status">{{order.status?.label}}</h5>
+          <p class="items-qty">{{order.total_requested_quantity}} {{'Orders.Items' | translate}}</p>
+        </div>
+      </div>
+      <div class="order-summary pt-2 d-flex align-items-center justify-content-between">
+        <div class="amount d-flex align-items-center justify-content-start gap-2">
+          <p class="total">{{'Orders.Total_Amount' | translate}}</p>
+          <p class="price"> {{'Orders.EGP' | translate}} {{order.total_price}} </p>
+        </div>
+        <div (click)="viewOrderDetails(order.id)" style="color:#5E2D77" class="btn m-0 p-0">{{'Orders.View_Details' |
+          translate}}<i [ngClass]="checkLang === 'en' ? 'fa-solid fa-angle-right':'fa-solid fa-angle-left'"></i></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="details" *ngIf="step === 2">
+  <div class="header d-flex align-items-center justify-content-lg-start">
+    <div (click)="backToList()" class="btn">
+      <i [ngClass]="checkLang !== 'en'?'fa-solid fa-chevron-right fs-5 mx-2' :'fa-solid fa-chevron-left mx-2 fs-5'"></i>
+    </div>
+    <h4>{{'Orders.Order_Details' | translate}}</h4>
+  </div>
+  <div class="container-fluid my-4">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="details-info p-3">
+          <div class="name my-2">
+            <div class="order-info d-flex align-items-center justify-content-between">
+              <div class="order-name">
+                <h4>{{'Orders.Orders' | translate}} {{details?.id}}</h4>
+                <p class="date">{{'Orders.Placed' | translate}}{{formattedDate}}</p>
+              </div>
+              <div class="order-status">
+                <h5 class="status">{{details?.status?.label}}</h5>
+                <p class="items-qty">{{details?.total_requested_quantity}} {{'Orders.Items'}}</p>
+              </div>
+            </div>
+            <div class="invoice py-3 gap-2 d-flex align-items-center justify-content-center w-100">
+              <svg id="document-text" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path id="Vector" d="M19.993,8v5c0,5-2,7-7,7H7c-5,0-7-2-7-7V7C0,2,2,0,7,0h5"
+                  transform="translate(2.004 2.004)" fill="none" stroke="#573273" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="1.5" />
+                <path id="Vector-2" data-name="Vector" d="M8.014,8.014H4.007C1,8.014,0,7.013,0,4.007V0Z"
+                  transform="translate(13.982 2.004)" fill="none" stroke="#573273" stroke-linecap="round"
+                  stroke-linejoin="round" stroke-width="1.5" />
+                <path id="Vector-3" data-name="Vector" d="M0,0H6.011" transform="translate(6.996 13)" fill="none"
+                  stroke="#573273" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                <path id="Vector-4" data-name="Vector" d="M0,0H4.007" transform="translate(6.997 17)" fill="none"
+                  stroke="#573273" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" />
+                <path id="Vector-5" data-name="Vector" d="M0,0H24V24H0Z" fill="none" opacity="0" />
+              </svg>
+              {{'Orders.Order_Invoice' | translate}}
+            </div>
+          </div>
+          <div class="address">
+            <div class="row">
+              <div class="col-12">
+                <h5 class="my-3">{{'Orders.Shipping_Address' | translate}}</h5>
+              </div>
+              <div class="col-12">
+                <div class="address-info">
+                  <div class="d-flex align-items-baseline gap-2 justify-content-lg-start">
+                    <i class="fa-solid fa-location-dot pt-2"></i>
+                    <div>
+                      <p class="nameAddress text-capitalize">
+                        {{details.shipping_address.first_name}} {{details.shipping_address.last_name}}
+                      </p>
+                      <p class="address-details py-1">{{details.shipping_address.address_details}}</p>
+                      <p class="phone">{{details.shipping_address.phone}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="products p-3 my-3" *ngFor="let item of details.shipment_items, let i= index">
+          <div class="d-flex header align-items-center justify-content-between">
+            <h5>{{'Orders.Shipment' | translate}} {{i+1}} </h5>
+            <p class="fw-500">{{item.status.name}}</p>
+            <!-- <button (click)="click(item?.sellerVariation)">test</button> -->
+          </div>
+          <div class="product-info mt-2">
+            <div class="d-flex gap-1 align-items-center justify-content-lg-start ">
+              <div class="img">
+                <img *ngIf="item?.seller_variation?.variation?.images.length !== 0"
+                  [src]="item?.seller_variation?.variation?.images[0]?.url" class="prod-img" alt="Product Image">
+                <img *ngIf="item?.seller_variation?.variation?.images.length === 0"
+                  [src]="item?.seller_variation?.variation?.product?.images[0]?.url" class="prod-img"
+                  alt="Product Image">
+              </div>
+              <div class="description">
+                <div class="title">
+                  {{item?.seller_variation?.variation?.product.title}}
+                </div>
+                <div style="font-weight: 700;" class="price">
+                  <span>{{'Orders.EGP' | translate}}</span> {{item?.seller_variation?.price.toFixed(2)}}
+                </div>
+              </div>
+            </div>
+
+            <div class="brand">
+              <div class="qty border rounded px-3 py-1">
+                <p style="font-size: 12px;" class="d-flex  gap-1"> <span class=""
+                    style="color: #9FA3B2; ">{{'Orders.QTY' | translate}}</span>
+                  {{item.quantity}}
+                </p>
+              </div>
+              <img [src]="item?.seller_variation?.variation?.product?.brand?.logo" style="width: 50px;"
+                alt="brand Image">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-5">
+        <div class="payment-method  p-3">
+          <div class="pay-header">
+            <h5>{{"Orders.Payment_Method" | translate}}</h5>
+          </div>
+          <div class="method">
+            <i class="fa-solid fa-money-check-dollar"></i>
+            <span> {{details.payment_info}} </span>
+          </div>
+        </div>
+        <div class="summary p-3 my-3">
+          <h5>{{'Orders.Order_Summary' | translate}}</h5>
+          <div class="summary-numbers">
+            <div class="sub d-flex align-items-center justify-content-between">
+              <p style="color :#9FA3B2; font-size: 14px;"> {{'Orders.Subtotal' | translate}} /
+                {{details?.total_requested_quantity}} </p>
+              <p> {{'Orders.EGP' | translate}} {{details.subtotal}}</p>
+            </div>
+            <div class="shippeng-details d-flex align-items-center justify-content-between">
+              <p class="text-orange">{{'Orders.Shipping_Details' | translate}}</p>
+              <p class="text-orange">+ {{'Orders.EGP' |translate}} {{details.delivery_price}}</p>
+            </div>
+            <hr>
+            <div class="total d-flex align-items-center justify-content-between">
+              <div class="total-header d-flex align-items-baseline gap-2 justify-content-lg-start">
+                <h4>{{'Orders.Total' | translate}}</h4>
+                <p>{{'Orders.Incl._Tax' | translate}}</p>
+              </div>
+              <div class="total-price">
+                <h4>{{'Orders.EGP' | translate}} {{details.total_price}}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,229 @@
+<section
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="5"
+  (scrolled)="onScroll()"
+  class="mobile all all2"
+>
+  <div class="row">
+    <div class="col-12 pt-3">
+      <div class="header  d-flex align-items-center m-0 p-0">
+        <!-- <div class="col-3 filter">
+          <button class="btn">
+            <i class="fa-solid fa-filter-circle-xmark mx-1"></i>
+            {{ "offers.Filter" | translate }}
+          </button>
+        </div>
+        <div class="col-6 search">
+          <input
+            type="text"
+            class="w-100"
+            #input
+            placeholder="Search here..."
+          />
+        </div>
+        <div class="col-3 search-btn">
+          <button class="btn btn-warning" (click)="SearchProduct(input)">
+            {{ "offers.Search" | translate }}
+          </button>
+        </div> -->
+        <button class="btn btn-sm bg-white text-nowrap btn-inline-block me-3 " (click)="sortItems()">
+          <i class="fa-solid fa-arrow-down-wide-short me-1"></i>
+          Sort by
+        </button>
+        <swiper  class="mySwiper" [slidesPerView]="2" [spaceBetween]="5" [loop]="false"  >
+          <ng-template swiperSlide *ngFor="let item of filterPromtions" >
+            <button class="btn d-block w-100 btn-sm bg-white text-nowrap btn-inline-block" (click)="filterItems(item.id)">
+              {{item.title}}
+            </button>
+            <!-- <div>
+              <div role="button" class="text-nowrap bg-info">
+                {{item.title}}
+              </div>
+            </div> -->
+          </ng-template>
+        </swiper>
+      </div>
+    </div>
+    <div class="row products-container p-4 pt-1">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6 p-2" *ngFor="let item of data; let i = index">
+            <app-product-card
+              (wishListed)="addToWishList($event)"
+              [item]="item"
+            ></app-product-card>
+          </div>
+
+          <div class="col-md-12 p-5">
+            <!-- <ngx-spinner>
+
+            </ngx-spinner> -->
+          </div>
+          <!-- <div
+            class="flex-grow-1 d-flex justify-content-center align-items-center col-6 text-center"
+            *ngIf="loading"
+          >
+            <i class="fa-solid fa-circle-notch fa-4x fa-spin"></i>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="emptyData">
+      <img
+        src="assets/images/Discount-pana.jpg"
+        alt=""
+        class="rounded d-block mx-auto"
+        width="300"
+        srcset=""
+      />
+      <h2 class="text-center my-4">NO Offers</h2>
+      <p class="text-center my-3 mb-5">
+        There is no Offer To Show! You will Find here All Offers Soon..
+      </p>
+    </div>
+  </div>
+</section>
+
+<section
+infiniteScroll
+[infiniteScrollDistance]="1"
+[infiniteScrollThrottle]="5"
+(scrolled)="onScroll()"
+class="search-results web container-fluid all2">
+  <div class="row">
+    <div class="header mt-5 ms-2">
+      <button
+        class="btn btnBack ms-3"
+        style="cursor: pointer; margin-top: -2px"
+        (click)="back()"
+      >
+        <i
+          [ngClass]="
+            checkLang == 'en'
+              ? 'fa-solid fa-chevron-left fs-3  ms-4  mb-2 fw-bold'
+              : 'fa-solid fa-chevron-right fs-3  ms-4  mb-2 fw-bold'
+          "
+        ></i>
+      </button>
+      <p class="d-inline fs-3 offerText">{{ "offers.offers" | translate }}</p>
+    </div>
+  </div>
+  <div class="row ms-5 ps-2">
+    <div class="col-md-3 p-0 card" *ngFor="let item of data; let i = index">
+      <!-- <div class=" " routerLink="/product-details/{{  item.id }}">
+        <div class=" ">
+          <div class="wishlist-wrapper position-relative" [ngClass]="checkLang == 'en' ? 'moveWish':''">
+            <button
+              *ngIf="item.flag == true"
+              class="wishlist-btn"
+              (click)="clickEvent(item, i)"
+            >
+              <i class="fa-solid fa-heart text-danger"></i>
+            </button>
+            <button
+              *ngIf="item.flag == false"
+              class="wishlist-btn"
+              (click)="clickEvent(item, i)"
+            >
+              <i class="fa-solid fa-heart text-white"></i>
+            </button>
+          </div>
+          <div class="w-100 position-relative">
+            <div class="label">
+              <span class="left" [ngClass]="checkLang == 'en' ? '':'leftLan'">{{'offers.Buy_X' | translate}}</span>
+              <span class="right " [ngClass]="checkLang == 'en' ? '':'rightLan'">{{'offers.Get_Y' | translate}}</span>
+            </div>
+            <img
+              *ngIf="item?.images.length !== 0"
+              class="img2"
+              style="object-fit: contain"
+              [src]="item?.images[0]?.url"
+              [alt]="item?.title"
+            />
+            <img
+              *ngIf="item?.images.length === 0"
+              style="
+                width: 150px !important;
+                object-fit: contain;
+                height: 180px;
+              "
+              src="../../../assets/images/logog.png"
+              alt=""
+            />
+          </div>
+          <div class="">
+            <div class="row d-flex m-3 justify-content-end align-items-center">
+              <div class="col-4 text-center mb-2 mt-3">
+                <p class="m-0" *ngIf="item?.color_count > 2">{{ item?.color_count }} {{'offers.Colors' | translate}}</p>
+              </div>
+              <div class="col-3 text-center m-0 p-0">
+                <p class="m-0 rate">
+                  {{ item?.rate }} <i class="mx-1 fa-solid fa-star"></i>
+                </p>
+              </div>
+              <div class="col-5 text-muted text-center">
+                <p class="m-0">
+                  {{ item?.view_count }}
+                  <i class="fa-regular fa-eye"></i>
+                </p>
+              </div>
+            </div>
+            <div class="row d-flex align-items-center justify-content-between">
+              <div class="col-12  py-2">
+                <p class="title text-muted fw-bold">{{ item?.title }}</p>
+              </div>
+              <div class="col-7">
+                <p class="price text-muted">
+                  <span class="" >{{ item?.min_price }}</span> <span class="mx-1" [ngClass]="checkCountry == 'Egypt'? 'EGP':'KSA'">{{'offers.EGP' | translate}}</span>
+                </p>
+              </div>
+              <div class="col-md-5">
+                <img
+                  class="logo"
+                  [src]="item?.brand.logo"
+                  style="mix-blend-mode: multiply; width: 50px"
+                  alt=" "
+                />
+              </div>
+            </div>
+            <div>
+              <div class="">
+                <p class="dicount">
+                  <del>5000</del>
+                  <span class="fw-bold">20% Off</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <app-product-card
+        (wishListed)="addToWishList($event)"
+        [item]="item"
+      ></app-product-card>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="emptyData">
+      <img
+        src="assets/images/Discount-pana.jpg"
+        alt=""
+        class="rounded d-block mx-auto"
+        width="450"
+        srcset=""
+      />
+      <h2 class="text-center my-4">NO Offers</h2>
+      <p class="text-center my-3 mb-5">
+        There is no Offer To Show! You will Find here All Offers Soon..
+      </p>
+    </div>
+  </div>
+</section>
+
+<app-skeleton-loader [offerShow]="show"></app-skeleton-loader>
+<div *ngIf="placeOrderLoading == true" class="loader mx-auto web"></div>

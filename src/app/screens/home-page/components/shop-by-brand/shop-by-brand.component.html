@@ -1,0 +1,121 @@
+<div class="web">
+  <div class="shopbybrand p-2" *ngIf="brands">
+    <h2 class="text-center section-title text-light mt-5 mb-3">{{"HOME.Shop_By_Brand" | translate}}</h2>
+    <div class="d-flex justify-content-between align-items-center gap-5 mx-4 mb-5">
+      <div class="arrow-left  d-flex justify-content-center align-items-center">
+        <button (click)="slideNext2()" class="border-0 box rounded-3" style="background-color: #794C91">
+          <i [ngClass]="language === 'en' ? 'fa-solid fa-chevron-left text-white':'fa-solid fa-chevron-right text-white'"></i>
+        </button>
+      </div>
+      <swiper #swipers [slidesPerView]="brands.length < 6? brands.length:6" [autoplay]="false" [navigation]="false"
+        [spaceBetween]="10" [loop]="true" class="mySwiper">
+        <ng-template swiperSlide *ngFor="let item of brands; let i = index">
+          <div class="">
+            <div class="brand">
+
+              <div class="brandImage">
+                <img width="55%" [src]="item?.logo" [alt]="item?.title">
+              </div>
+
+              <button class="btn-details" [ngClass]="id === item.id ? 'active' : ''"
+                (click)="getProducts(item)">{{item.title}}</button>
+            </div>
+          </div>
+        </ng-template>
+      </swiper>
+
+      <div class="arrow-right  d-flex justify-content-center align-items-center">
+        <button (click)="slidePrev2()" class="border-0 box rounded-3" style="background-color: #794C91">
+          <i  [ngClass]="language === 'en' ? 'fa-solid fa-chevron-right text-white':'fa-solid fa-chevron-left text-white'"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <!-- <div class="col-md-4 d-flex align-items-center justify-content-center flex-column px-5" *ngIf="brands">
+                <img width="150px" style="mix-blend-mode: multiply;" [src]="brandLogo" alt=" ">
+                <p class="my-3">{{ brand?.title }}</p>
+
+            </div> -->
+      <div class="col-md-12">
+        <div class="newArrival p-0 d-flex justify-content-between align-items-center gap-5 mx-4">
+          <div class="arrow-left  d-flex justify-content-center align-items-center">
+            <button (click)="slideNext()" class="border-0 box rounded-3 bg-white">
+              <i [ngClass]="language === 'en' ? 'fa-solid fa-chevron-left':'fa-solid fa-chevron-right'"></i>
+            </button>
+          </div>
+          <swiper #swiper [slidesPerView]="4" [autoplay]="false" [spaceBetween]="10" [centeredSlides]="false"
+            [loop]="true" class="mySwiper">
+            <ng-template swiperSlide *ngFor="let item of brandsProducts;let i=index">
+              <app-product-card (wishListed)="addToWishList($event)"  [brandLogo]="brandLogo" [item]="item"></app-product-card>
+            </ng-template>
+          </swiper>
+          <div class="arrow-right  d-flex justify-content-center align-items-center">
+            <button (click)="slidePrev()" class="border-0 box rounded-3 bg-white">
+              <i [ngClass]="language === 'en' ? 'fa-solid fa-chevron-right':'fa-solid fa-chevron-left'"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 text-end ">
+        <button [ngClass]="language === 'en' ?'enSeeAll':'arSeeAll'" type="button" (click)="seeAll()" class="btn bg-transparent" style="color: #65397d;
+        font-weight: 500;">
+          {{'BUTTONS.SEE_ALL' | translate}} <span class="btn-label">
+            <i *ngIf="language === 'en'" class="fa-solid fa-chevron-right"></i>
+            <i *ngIf="language !== 'en'" class="fa-solid fa-chevron-left"></i>
+          </span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="mobile ">
+  <div class="" *ngIf="brands">
+
+    <div class=" position-relative shopByBrandImageBack">
+      <div class="d-flex justify-content-between align-items-baseline mx-1 pt-2  header-brands">
+        <h2 class=" section-title text-light " >{{"HOME.Shop_By_Brand" | translate}}</h2>
+        <button class="btn text-white float-end see-all" (click)="seeAll()">{{'BUTTONS.SEE_ALL'  | translate}}
+          <i *ngIf="language === 'en'" class="fa-solid fa-chevron-right mx-1"></i>
+          <i *ngIf="language !== 'en'" class="fa-solid fa-chevron-left mx-1"></i>
+        </button>
+      </div>
+      <div class="all-brands">
+        <swiper [slidesPerView]="3" [autoplay]="false" [navigation]="false" [scrollbar]="{ draggable: true }"
+        [spaceBetween]="10" [scrollbar]="{ draggable: true }" [loop]="false" class="mySwiper ms-2 ">
+        <ng-template swiperSlide *ngFor="let item of brands; let i = index">
+          <div class="my-2  d-flex justify-content-center brand-wrapper">
+            <div class="brand">
+              <div class="brandImage">
+                <img width="50%" [src]="item?.logo" [alt]="item?.title">
+              </div>
+              <button class="btn-details" [ngClass]="id === item.id ? 'active' : ''" (click)="getProducts(item)"
+                style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">{{item.title}}</button>
+            </div>
+
+          </div>
+        </ng-template>
+      </swiper>
+      </div>
+    </div>
+
+
+
+    <div class="newArrival py-2">
+      <swiper [slidesPerView]="2" [spaceBetween]="9" class="mySwiper ms-2">
+        <ng-template swiperSlide *ngFor="let item of brandsProducts;let i = index">
+          <app-product-card (wishListed)="addToWishList($event)" [brandLogo]="brandLogo" [item]="item"></app-product-card>
+        </ng-template>
+      </swiper>
+      <div class="seeAll w-100 text-center my-2">
+        <button (click)="seeAll()" class="btn  px-5 seeAllBtn">{{'BUTTONS.SEE_ALL' | translate}}
+          <i *ngIf="language === 'en'" class="fa-solid fa-chevron-right"></i>
+          <i *ngIf="language !== 'en'" class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+</div>

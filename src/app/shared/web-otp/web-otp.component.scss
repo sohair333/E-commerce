@@ -1,0 +1,125 @@
+.verify
+{
+  margin: 10px 0px;
+  .txt-header
+  {
+    h1{
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+  .txt-phone
+  {
+    p{
+      font-size: 13px;
+      color: #9FA3B2;
+    }
+  }
+  .btn-submit{
+    button{
+      background-color: #0E1740;
+      color: #FFF;
+      border: 1px solid #0E1740;
+      font-size: 15px;
+      height: 45px;
+      width: 200px;
+    }
+    button:hover{
+      background-color: transparent;
+      color: #0E1740;
+
+    }
+  }
+  .footer
+  {
+    .foot
+    {
+      font-size: 12px;
+      color: #9FA3B2;
+    }
+    .btn-foot{
+      button{
+
+        color: #0E1740;
+        font-size: 14px;
+        font-weight: 600;
+        background-color: transparent;
+        border: 0px;
+      }
+    }
+  }
+
+
+}
+
+.timer
+{
+  p{
+    color: #0E1740;
+    font-size: 13px;
+  }
+  span{
+    color: #D92059;
+    font-size: 13px;
+  }
+}
+:host ::ng-deep{
+  .otp-input
+  {
+        color: #00A599 !important;
+        border: 1px solid #ced4d46e !important;
+        background-color: #F5F9F9 !important;
+        height: 50px !important;
+        width: 35px !important;
+        border-radius: 8px !important;
+  }
+
+  .otp-input:focus
+  {
+        outline: none;
+  }
+
+
+}
+
+@media screen and (max-width: 700px) {
+  :host ::ng-deep{
+    .otp-input
+    {
+          color: #00A599 !important;
+          border: 1px solid #ced4d46e !important;
+          background-color: #F5F9F9 !important;
+          height: 50px !important;
+          width: 35px !important;
+          border-radius: 8px !important;
+    }
+
+    .otp-input:focus
+    {
+          outline: none;
+    }
+
+
+  }
+
+}
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #0E1740;
+  width: 25px;
+  height: 25px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

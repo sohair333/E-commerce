@@ -1,0 +1,227 @@
+@mixin fontStyle {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+@mixin box {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 5px 10px #7f828d1a;
+  border-radius: 20px;
+}
+
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  .orders {
+    border-radius: 10px;
+    .order-info {
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgb(219, 219, 219);
+      .order-name {
+        h4 {
+          font-size: 16px;
+          font-weight: 600;
+          color: #0e1740;
+          text-transform: uppercase;
+        }
+        .date {
+          font-size: 14px;
+          font-weight: 400;
+          color: #0e1740;
+        }
+      }
+      .order-status {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
+        .status {
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .items-qty {
+          font-size: 13px;
+          font-weight: 400;
+          letter-spacing: 0px;
+          color: #9fa3b2;
+          opacity: 1;
+        }
+      }
+    }
+    .order-summary {
+      .amount {
+        .total {
+          // font: normal normal bold 18px/23px Helvetica Neue;
+          font-weight: bold;
+          font-size: 14px;
+          color: #9fa3b2;
+        }
+        .price {
+          font-weight: bold;
+          font-size: 14px;
+          color: #2c3341;
+        }
+      }
+    }
+  }
+}
+
+.details {
+  .details-info {
+    @include box;
+    .name {
+      .invoice {
+        background: #efeaf1 0% 0% no-repeat padding-box;
+        border-radius: 10px;
+        color: #5e2d77;
+        font-size: 12px;
+        margin: 10px 0px;
+      }
+      .order-info {
+        padding-bottom: 10px;
+        .order-name {
+          h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0e1740;
+            text-transform: uppercase;
+          }
+          .date {
+            font-size: 14px;
+            font-weight: 400;
+            color: #0e1740;
+          }
+        }
+        .order-status {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          justify-content: center;
+          .status {
+            font-size: 14px;
+            font-weight: 600;
+          }
+          .items-qty {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0px;
+            color: #9fa3b2;
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .address {
+      border-top: 1px solid rgb(219, 219, 219);
+      .address-info {
+        background-color: #f5f9f9;
+        padding: 0.5rem;
+        border-radius: 10px;
+        .nameAddress {
+          @include fontStyle;
+          color: #2c3341;
+        }
+        .address-details,
+        .phone {
+          color: #2c3341;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .products {
+    @include box;
+    .product-info {
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      justify-content: space-between;
+      .img {
+        @include center;
+        img {
+          width: 80px;
+          height: 80px;
+          border-radius: 10px;
+          object-fit: cover;
+        }
+      }
+      .description {
+        .price {
+          span {
+            color: #a0a3b1;
+            font-weight: 500;
+          }
+        }
+      }
+      .brand {
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        align-items: center;
+        gap: 2px;
+      }
+    }
+  }
+  .payment-method {
+    @include box;
+    .method {
+      @include center;
+      background: #f5f9f9 0% 0% no-repeat padding-box;
+      border-radius: 10px;
+      padding: 12px 0px;
+      gap: 5px;
+      margin-top: 10px;
+      span {
+        color: #0e1740;
+        @include fontStyle;
+        font-weight: 400;
+      }
+    }
+  }
+  .summary {
+    @include box;
+    .total {
+      .total-header {
+        h4 {
+          font-size: 25px !important;
+          font-weight: bold;
+        }
+        p {
+          font-size: 11px;
+          color: #9fa3b2;
+        }
+      }
+    }
+  }
+}
+
+.text-orange {
+  color: #f15f30;
+  font-size: 14px !important;
+}
+
+.icon {
+  display: none;
+}
+
+@media only screen and (max-width: 800px) {
+  .wrapper {
+    padding: 75px 0px;
+    .header {
+      padding-left: 10px;
+    }
+  }
+  .details {
+    padding: 75px 0px;
+    .header {
+      padding-left: 10px;
+    }
+  }
+  .icon {
+    display: inline !important;
+  }
+}

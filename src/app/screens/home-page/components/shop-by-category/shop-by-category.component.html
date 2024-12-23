@@ -1,0 +1,46 @@
+<div class="web pb-3">
+  <h2 class="section-title">{{"HOME.SHOP_BY_CATEGORY" | translate}}</h2>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let categories of categories;let i=index;">
+        <div class="categoryWrapper" (mouseover)="onHoverParent(i)" (mouseleave)="onLeaveHoverParent(i)"
+          [id]="categories.id">
+          <div class="overlay" [ngClass]="categories.isHoverd ? 'fadeOut' : 'fadeIn'"
+            (click)="navigateToproductList(categories.id)"></div>
+          <img [src]="categories?.cover" width="100%" alt="">
+          <img *ngIf="categories?.cover === ''" width="100%" src="https://placehold.jp/3d4070/ffffff/588x588.png"
+            alt="">
+          <!-- <img src="https://ae01.alicdn.com/kf/HTB1OF.NbifrK1RjSspbq6A4pFXaA/SIMWOOD-2020-Print-Denim-Shirts-Men-Fashion-Brand-Long-Sleeve-Men-Shirts-Casual-Denim-Shirt-Male.jpg" width="100%" alt=""> -->
+          <h3 class="categoriesName" [ngClass]="categories.isHoverd ? 'fadeOut' : 'fadeIn'">{{categories?.title}}</h3>
+          <div class="categoryName" [ngClass]="categories.isHoverd ? 'fadeIn' : 'fadeOut'">
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="text-center text-light">{{categories?.title}}</h3>
+              </div>
+              <div class="col-md-6" *ngFor="let item of categories.children">
+                <button class="w-100 sub_category-btn" (click)="navigateToproductList(item.id)">{{item?.title}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- category Slider -->
+<div class="category_slider mobile p-2 mb-3">
+  <h2 class="mb-3 m-0 section-title-mobile" style="margin-top: 0 !important;">{{"HOME.SHOP_BY_CATEGORY" | translate}}</h2>
+  <swiper [slidesPerView]="3" [spaceBetween]="5" [scrollbar]="{ draggable: true }" [loop]="true" class="mySwiper">
+    <ng-template swiperSlide *ngFor="let item of categories">
+      <div  class="category rounded" (click)="navigateToproductList(item.id)">
+        <img [src]="item?.cover" [alt]="item?.cover" class="w-100 ">
+        <div class="overlay">
+          {{item.title}}
+        </div>
+      </div>
+    </ng-template>
+  </swiper>
+</div>
+<!-- category Slider -->

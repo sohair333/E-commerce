@@ -1,0 +1,453 @@
+section {
+    background-color: #f5f9f9;
+}
+
+::ng-deep {
+   .web .p-dialog .p-dialog-header .p-dialog-title {
+        font-size: 18px !important;
+        padding: 4px 15px;
+    }
+    .myPanelClass {
+        margin-top: 40px !important;
+    }
+   .web .p-dialog .p-dialog-content:last-of-type {
+      border-radius: 0px !important;
+      padding: 10px 20px !important;
+      display: block !important;
+    }
+
+}
+
+.btn-save-address {
+    background-color: #ffffff;
+    color: #5f2d79;
+    border: 1px solid #5f2d79;
+    padding: 8px 25px;
+    margin: 10px 0px;
+    font-size: 14px;
+}
+
+.btn-save-address:hover {
+    background-color: #5f2d79;
+    color: #ffffff;
+    border: 1px solid #5f2d79;
+}
+
+// .all-content
+// {
+//   height: 510px;
+//   overflow-y: auto;
+// }
+.txt-header {
+    font-size: 21px;
+    font-weight: 400;
+    color: #0e1740;
+}
+
+.review {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    .rev-header {
+        p {
+            font-size: 13px;
+        }
+    }
+    .rev-content {
+        .prod-img img {
+            width: 100px;
+            height: 100px;
+            mix-blend-mode: multiply;
+            border-radius: 7px;
+        }
+        margin: 10px 0px;
+        .name-pro {
+            font-size: 16px;
+        }
+        .price-pro {
+            font-size: 14px;
+        }
+        .row {
+            padding: 7px;
+            margin: 0;
+            border-radius: 8px;
+            background-color: #f5f9f9;
+        }
+        .color-order {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgb(213, 209, 209);
+            border-radius: 2px;
+        }
+        .btn-minus {
+            background-color: transparent;
+            font-size: 10px;
+            border: none;
+            margin: 0px 8px;
+            // margin-right: 8px;
+        }
+        .btn-plus {
+            background-color: #ffffff;
+            font-size: 10px;
+            border: none;
+            padding: 2px;
+            margin: 0px 8px;
+        }
+        .btn-remove {
+            background-color: #ffffff;
+            // padding: 4px 10px;
+            width: 100px;
+            height: 27px;
+            color: #d92059;
+            border: 1px solid #d92059;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    }
+}
+
+.credit {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    h5 {
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .credit-check {
+        .span-check {
+            font-weight: 500;
+            font-size: 14px;
+            margin: 0px 6px;
+        }
+        p {
+            font-size: 10px;
+        }
+        .span-cash {
+            color: #00a599;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    }
+}
+
+//
+.payment {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    h4 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .payment-check {
+        padding: 10px;
+        width: 100%;
+        background-color: #f5f9f9;
+        margin: 10px 0px;
+        border-radius: 10px;
+        .span-check {
+            font-weight: 500;
+            font-size: 14px;
+            margin: 0px 8px;
+            font-weight: 600;
+        }
+    }
+}
+
+.shipping-address {
+    h4 {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    h5 {
+        font-size: 13px;
+        font-weight: 500;
+    }
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    .address-content {
+        background-color: #f5f9f9;
+        padding: 10px;
+        border-radius: 7px;
+        p {
+            font-size: 16px;
+        }
+        h4 {
+            font-weight: 500;
+            font-size: 13px;
+        }
+        h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+    }
+    button {
+        color: #00a599;
+        font-size: 14px;
+    }
+}
+
+//
+.order-summary {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    h4 {
+        font-weight: 600;
+        font-size: 16px;
+    }
+    .input-group {
+        input:focus {
+            box-shadow: none;
+        }
+        .input-group-text {
+            background-color: #0e1740;
+            color: white;
+            width: 70px;
+            height: 58px;
+        }
+    }
+}
+
+.sub-total {
+    color: black;
+    p4 {
+        font-size: 14px;
+    }
+}
+
+.shipping-details {
+    color: black;
+    p4 {
+        font-size: 14px;
+    }
+}
+
+.total {
+    color: black;
+}
+
+.a4dress-info {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    h3 {
+        font-weight: 600;
+        font-size: 14px;
+    }
+}
+
+.address-content-notselect {
+    background-color: #f5f9f9;
+    padding: 10px;
+    border-radius: 7px;
+    color: #0e1740;
+}
+
+.address-content-select {
+    background-color: #ffff;
+    padding: 10px;
+    border: 1px solid #48a299;
+    border-radius: 7px;
+    color: #0e1740;
+}
+
+.adding {
+    border: 1px solid #0e1740;
+    background-color: white;
+    color: #0e1740;
+    padding: 6px;
+    border-radius: 7px;
+    font-weight: 500;
+    width: 100%;
+    font-size: 14px;
+}
+
+.adding:hover {
+    background-color: #0e1740;
+    color: white;
+}
+
+.save-address {
+    width: 135px;
+    height: 40px;
+    font-weight: 600;
+    border: 1px solid #0e1740;
+    color: #FFF;
+    background-color: #0e1740;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+
+
+.cancel-address {
+    color: #7f828e;
+    font-size: 14px;
+    width: 80px;
+    height: 40px;
+    background-color: #d8dae0;
+    border: 1px solid #d8dae0;
+    margin: 0px 10px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.cancel-address:hover {
+    border: 1px solid black;
+    color: black;
+    background-color: white;
+}
+
+.edit-icon-address {
+    background-color: transparent;
+    color: #0e1740 !important;
+    font-size: 18px;
+    border: none;
+}
+
+.delete-icon-address {
+    background-color: transparent;
+    font-size: 18px;
+    border: none;
+}
+
+.btn-save-order {
+    background-color: #ffffff;
+    font-weight: 600;
+    color: #5f2d79;
+    height: 60px;
+    border: 1px solid #5f2d79;
+}
+
+.btn-save-order:hover {
+    background-color: #5f2d79;
+    color: #ffffff;
+    border: 1px solid #5f2d79;
+}
+
+.btn-place-order {
+    background-color: #5f2d79;
+    font-weight: 600;
+    color: white;
+    height: 40px;
+    width: 100%;
+    border: 1px solid #5f2d79;
+    font-size: 14px;
+    padding: 25px;
+    &:hover {
+        background-color: #ffffff;
+        color: #5f2d79;
+        border: 1px solid #5f2d79;
+    }
+}
+
+//
+.sec-load {
+    padding: 300px 0px;
+    background-color: #f5f9f9;
+}
+
+.loader-data {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #5f2d79;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #5f2d79;
+    width: 25px;
+    height: 25px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+
+/* Safari */
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn-home {
+    background-color: #ffffff;
+    color: #5f2d79;
+    border: 1px solid #5f2d79;
+    border-radius: 8px;
+}
+
+.btn-home:hover {
+    background-color: #5f2d79;
+    color: #ffffff;
+    border: 1px solid #5f2d79;
+}
+
+.card {
+  background-color: white;
+  border: none;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 3px 0 lightgray;
+}
+:host ::ng-deep{
+  // .p-inputwrapper
+  // {
+  //   width: 35% !important;
+  // }
+  .p-dropdown
+  {
+    width: 100%!important;
+  }
+  .p-button
+  {
+    color: #000 !important;
+    background-color:transparent !important;
+    border: none !important;
+    border-top: 1px solid #b7b9bb !important;
+    border-right: 1px solid #b7b9bb !important;
+    border-bottom: 1px solid #b7b9bb !important;
+  }
+  .p-button:hover
+  {
+    color: #000;
+  }
+}
+.address-info label{
+  color: #000;
+  margin: 5px ;
+  font-size: 13px;
+  font-weight: 600;
+}
+.dialog-content label{
+  color: #000;
+  margin: 5px ;
+  font-size: 13px;
+  font-weight: 600;
+}

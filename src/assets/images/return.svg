@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="refresh" transform="translate(-364 -508)">
+    <circle id="Ellipse_1732" data-name="Ellipse 1732" cx="5" cy="5" r="5" transform="translate(371 515)" fill="#00ae9f"/>
+    <g id="Group_14619" data-name="Group 14619" transform="translate(-0.514 -0.514)">
+      <path id="Vector" d="M0,5.56H4" transform="translate(367.505 510.954)" fill="none" stroke="#0f183d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Vector-2" data-name="Vector" d="M11.306,17.72A9.009,9.009,0,0,0,9.009,0,11.082,11.082,0,0,0,0,5.009V.9" transform="translate(367.505 511.505)" fill="none" stroke="#0f183d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Vector-3" data-name="Vector" d="M0,0A9.012,9.012,0,0,0,9.009,9.009" transform="translate(367.505 520.514)" fill="none" stroke="#0f183d" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="3 3"/>
+    </g>
+    <path id="Vector-4" data-name="Vector" d="M0,0H24V24H0Z" transform="translate(388 532) rotate(180)" fill="none" opacity="0"/>
+    <path id="Icon_feather-check" data-name="Icon feather-check" d="M12,9,7.875,13,6,11.182" transform="translate(367 509)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+  </g>
+</svg>

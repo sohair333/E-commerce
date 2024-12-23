@@ -1,0 +1,96 @@
+.sidebar {
+    box-shadow: 0px 2px 14px lightgray;
+    border-radius: 20px;
+    position: sticky;
+    top: 5%;
+    background-color: #FFFFFF;
+    .line
+  {
+    background-color: #D8DADF !important;
+    height: 1px;
+    width: 95%;
+    margin: 8px 0px;
+  }
+  p{
+    padding: 18px 45px;
+    color: #0E1740;
+    font-size: 20px;
+  }
+}
+
+
+
+section
+{
+  background-color: #F5F9F9;
+}
+
+::ng-deep {
+    p-button {
+        button {
+            width: 100%;
+            text-align: left !important;
+            border-bottom: 1px solid rgba(211, 211, 211, 0.308) !important;
+            &:hover {
+                border-bottom: 1px solid transparent !important;
+            }
+        }
+    }
+}
+.txt-acc
+{
+
+  .content-acc:hover button
+  {
+      color: #000 !important;
+  }
+}
+.content-acc
+{
+
+  padding: 18px 45px;
+  // border-bottom:1px solid #D8DADF !important;
+  span{
+    color: gray;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  svg
+  {
+    margin: 0px 20px 0px 0px;
+  }
+
+}
+.btn-log-Out
+{
+  border-radius: 5px;
+  border: 1px solid #D8DADF !important;
+  padding: 8px 15px;
+  width: 95%;
+}
+.btn-logout
+{
+  background-color: #0E1740;
+  color: #FFFFFF;
+  padding: 8px 0px;
+  border: 1px solid #0E1740;
+}
+.btn-logout:hover
+{
+  background-color: #FFFFFF;
+  color: #0E1740;
+  padding: 8px 0px;
+  border: 1px solid #0E1740;
+}
+.btn-active
+{
+  background-color: #EFEAF1 !important;
+  span ,svg{
+  color: #5F2D79 !important;
+
+  }
+  svg path{
+    stroke: #5F2D79 !important;;
+
+  }
+}

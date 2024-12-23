@@ -1,0 +1,84 @@
+.address {
+  margin-top: 75px !important;
+  background-color: #f5f9f9;
+  padding: 0px 20px;
+  height: 100%;
+}
+.icon-home {
+  background-color: #f5f9f9;
+}
+.address-details {
+  margin-top: -0.6rem !important;
+}
+
+.edit {
+  background: transparent !important;
+  border: none;
+  color: black;
+}
+
+.default {
+  background-color: #00ae9f;
+  padding: 5px 20px !important;
+  border-radius: 25px;
+  color: #f5f9f9;
+  font-weight: 300;
+}
+
+.card {
+  border: none;
+  border-radius: 20px !important;
+  // margin: 1.5rem ;
+}
+
+::ng-deep {
+  .dropDown {
+    .p-dropdown {
+      background-color: #fff;
+    }
+  }
+}
+
+.save-address {
+  width: 140px;
+  height: 35px;
+  font-weight: 600;
+  border: 1px solid black;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.line {
+  background-color: rgb(230, 221, 221) !important;
+  height: 80px !important;
+  width: 1px !important;
+  margin: 0px 15px;
+}
+
+.save-address:hover {
+  border: 1px solid #0e1740;
+  color: white;
+  background-color: #0e1740;
+}
+
+.cancel-address {
+  color: #7f828e;
+  font-size: 14px;
+  width: 80px;
+  height: 35px;
+  background-color: #d8dae0;
+  border: 1px solid #d8dae0;
+  margin: 0px 10px;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.cancel-address:hover {
+  border: 1px solid black;
+  color: black;
+  background-color: white;
+}

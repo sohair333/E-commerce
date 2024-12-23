@@ -1,0 +1,216 @@
+<div class="container-fluid pb-5">
+  <h3 class="mb-3">{{'Profile.Profile' | translate}}</h3>
+  <div class="card mt-5">
+    <h5 class="mb-5">{{'Profile.General_Info' | translate}}</h5>
+    <!-- form -->
+    <form [formGroup]="profile">
+      <div class="row">
+        <div class="col-md-6 mb-5">
+          <span class="p-float-label w-100">
+            <input id="float-input" class="w-100" formControlName="first_name" type="text" pInputText>
+            <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatRight'">* {{'Profile.First_Name' | translate}}</label>
+          </span>
+        </div>
+        <div class="col-md-6 mb-5">
+          <span class="p-float-label w-100">
+            <input id="float-input" class="w-100" formControlName="last_name" type="text" pInputText>
+            <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatRight'">* {{'Profile.Last_Name' | translate}}</label>
+          </span>
+        </div>
+        <div class="col-md-6 mb-5 d-flex align-items-center">
+          <p-dropdown [disabled]="disabled" [options]="countries" formControlName="code" optionLabel="name" [showClear]="false"
+            [placeholder]="'Profile.Select_a_Country' | translate" class="me-1">
+            <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value">
+                <div>
+                  {{ profile.get("code")?.value.name }}
+                  <img width="20" height="20" class="ms-2" [src]="profile.get('code')?.value.img">
+                </div>
+              </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+              <div class="country-item">
+                <div class="d-flex align-items-center justify-content-between">
+                  {{ country.name }}
+                  <img width="20" height="20" class="mx-3" [src]="country.img" alt="" />
+                </div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <span class="p-float-label ">
+            <input   id="float-input" class="w-100" formControlName="phone" type="text" pInputText [disabled]="disabled" readonly>
+            <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatNumber'">* {{'PLACEHOLDERS.phoneNumber' | translate}}</label>
+          </span>
+        </div>
+        <div class="col-md-6 mb-5">
+          <span class="p-float-label w-100">
+            <input id="float-input" class="w-100" formControlName="email" type="text" pInputText>
+            <label for="float-input" [ngClass]="checkLang === 'en' ? '':'float'">* {{'Profile.email' | translate}}</label>
+          </span>
+
+        </div>
+      </div>
+      <div class=" mt-3 text-end">
+        <button (click)="saveProfile()" type="button" class="btn btn-custom ">
+          <div *ngIf="Loading == true " class="loader m-auto"></div>
+            {{Loading == false? 'Update Info':''}}
+          </button>
+      </div>
+    </form>
+  </div>
+  <div class="row mt-3">
+    <div *ngIf="changePassword==false" class="col-md-6">
+      <div class="card">
+        <h5 class="mb-3">{{'Profile.Security' | translate}}</h5>
+        <button type="button" (click)="changePasswordFlag()" class="btn btn-custom-change " style="width: 100%;">{{'Profile.Change_Password' | translate}}</button>
+      </div>
+    </div>
+    <div *ngIf="changePassword==true" class="col-md-12">
+      <div class="card ">
+        <h5 class="mb-3">{{'Profile.Security' | translate}}</h5>
+        <form [formGroup]="profileForm" class="d-flex justify-content-between align-items-center">
+          <div class="w-50 mb-2">
+            <label>* {{'Profile.Change_Password' | translate}}</label>
+            <input id="float-input" class="w-100" [placeholder]="'Profile.Type_here' | translate" formControlName="current_password"
+              type="password" pInputText>
+            <small class="text-danger" *ngIf="submited && profileForm.get('current_password')?.hasError('required')">
+              {{'Profile.current_pass' | translate}}</small>
+          </div>
+
+          <div class="w-50 ms-3 mb-2">
+            <label>* {{'Profile.New_Password_Label' | translate}}</label>
+            <input id="float-input" class="w-100" [placeholder]="'Profile.Type_here' | translate" formControlName="new_password" type="password"
+              pInputText>
+
+            <small class="text-danger" *ngIf="submited && profileForm.get('new_password')?.hasError('required')">
+              {{'Profile.New_Passwrod' | translate}}</small>
+
+          </div>
+        </form>
+        <div class="btns text-end mt-2">
+          <button (click)="closeChangePassword()" class="btn-cancel btn me-2">{{'Profile.Cancel' | translate}}</button>
+
+          <button (click)="setNewPassword()" class="btn-save btn">
+            <div *ngIf="Loading == true " class="loader m-auto"></div>
+            {{Loading == false? 'SAVE NEW PASSWORD':''}}
+
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-confirmDialog [style]="{ width: '30vw' }" [breakpoints]="{ '960px': '75vw', '640px': '97vw' }" [baseZIndex]="10000">
+</p-confirmDialog>
+
+<p-toast></p-toast>
+
+
+<!-- faaaaaaaaaaaaaake -->
+
+<!-- <div class="d-flex justify-content-between align-items-center">
+  <mat-form-field class="example-full-width position-relative">
+    <mat-label>{{'menu.Country'|translate}}</mat-label>
+    <mat-select (selectionChange)="getGovern()" [(ngModel)]="countryId" placeholder="Select your Country"
+      formControlName="country_id">
+      <mat-option *ngFor="let coun of country" [value]="coun.id">{{ coun.name }}
+      </mat-option>
+    </mat-select>
+    <small class="text-danger position-absolute bottom-0 top-100 mt-2" style="left: 0" *ngIf="
+        submitted &&
+        addressForm.get('country_id')?.hasError('required')
+      ">
+      {{'MESSAGES.Country_required'|translate}}</small>
+  </mat-form-field>
+  <mat-form-field class="example-full-width position-relative px-2">
+    <mat-label>{{'LABELS.GOV' | translate}}</mat-label>
+    <mat-select [placeholder]="'PLACEHOLDERS.GOV' | translate" formControlName="governorate_id">
+      <mat-option *ngFor="let gov of governs" [value]="gov.id" (onSelectionChange)="getCities(gov.id)">{{
+        gov.name }}</mat-option>
+    </mat-select>
+    <small class="text-danger position-absolute bottom-0 top-100 mt-2" style="left: 0" *ngIf="
+        submitted &&
+        addressForm.get('governorate_id')?.hasError('required')
+      ">
+      {{'MESSAGES.GOV' | translate}}</small>
+  </mat-form-field>
+  <mat-form-field class="example-full-width position-relative">
+    <mat-label>{{'LABELS.City'|translate
+      }}</mat-label>
+    <mat-select [placeholder]="'PLACEHOLDERS.CITY' | translate" formControlName="city_id">
+      <mat-option *ngFor="let city of cities" [value]="city.id">{{
+        city.name
+        }}</mat-option>
+    </mat-select>
+    <small class="text-danger position-absolute bottom-0 top-100 mt-2" style="left: 0" *ngIf="
+        submitted &&
+        addressForm.get('city_id')?.hasError('required')
+      ">
+      {{'MESSAGES.CITY_MESSAGE' | translate}}</small>
+  </mat-form-field>
+</div>
+<mat-form-field class="example-full-width w-100">
+  <mat-label>{{'LABELS.Additional_Address_Details' | translate}}</mat-label>
+  <input matInput placeholder="Building no,Floor no,Flat no" formControlName="address_details" />
+</mat-form-field>
+<small class="text-danger" *ngIf="
+    submitted &&
+    addressForm.get('address_details')?.hasError('required')
+  ">
+  {{'MESSAGES.Additional_Address' | translate}}</small>
+<h3 class="my-2 fw-bolder">{{'HOME.Personal_Info' | translate}}</h3>
+
+<div class="d-flex justify-content-between align-items-center">
+  <mat-form-field class="example-full-width position-relative" style="width: 45%; margin-right: 20px">
+    <mat-label>{{'LABELS.First_Name' | translate}}</mat-label>
+    <input matInput [placeholder]="'PLACEHOLDERS.First_Name' | translate" formControlName="first_name" />
+    <small class="text-danger position-absolute bottom-0 top-100 mt-2" style="left: 0" *ngIf="
+        submitted &&
+        addressForm.get('first_name')?.hasError('required')
+      ">
+      {{'MESSAGES.First_Name' | translate}}</small>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width position-relative" style="width: 45%">
+    <mat-label>{{'LABELS.Last_Name'}}</mat-label>
+    <input matInput [placeholder]="'PLACEHOLDERS.Last_Name' | translate" formControlName="last_name" />
+    <small class="text-danger position-absolute bottom-0 top-100 mt-2" style="left: 0" *ngIf="
+        submitted &&
+        addressForm.get('last_name')?.hasError('required')
+      ">
+      {{'MESSAGES.Last_Name' | translate}}</small>
+  </mat-form-field>
+</div>
+<div class="d-flex justify-content-between align-items-center position-relative">
+  <div class="d-flex justify-content-between align-items-center" style="width: 45%">
+    <mat-form-field class="example-full-width position-relative pe-1" style="width: 20%">
+      <mat-label>{{'PLACEHOLDERS.Code' | translate}}</mat-label>
+      <input matInput [placeholder]="'PLACEHOLDERS.Code' | translate" formControlName="phoneCode"
+        readonly />
+
+      <small class="text-danger position-absolute bottom-0 top-100 mt-2" style="left: 0" *ngIf="
+          submitted &&
+          addressForm.get('phoneCode')?.hasError('required')
+        ">
+        {{'MESSAGES.required' | translate}}</small>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width position-relative">
+      <mat-label>{{'LABELS.Phone' | translate}}</mat-label>
+      <input matInput [placeholder]="'PLACEHOLDERS.phoneNumber' | translate"
+        formControlName="phoneNumber" />
+      <small class="text-danger position-absolute bottom-0 top-100 mt-2" style="left: 0" *ngIf="
+          submitted &&
+          addressForm.get('phoneNumber')?.hasError('required')
+        ">
+        {{'MESSAGES.PHONE_NUMBER' | translate}}</small>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field class="example-full-width" style="width: 45%">
+    <mat-label>{{'LABELSAdditional_Number' | translate}}</mat-label>
+    <input matInput [placeholder]="'PLACEHOLDERS.Additional_Number' | translate"
+      formControlName="additonalNumber" />
+  </mat-form-field>
+</div> -->

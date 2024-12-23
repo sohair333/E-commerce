@@ -1,0 +1,135 @@
+<div class="categories">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 p-2">
+        <div class="categories_header">
+          <p class="all px-2">
+            All<br>Categories
+          </p>
+          <div class="search_btn">
+            <input type="text" class="p-inputtext me-4 "  pInputText placeholder="Search..." />
+            <button>Search</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-3  m-0 p-0">
+            <div class="parents pt-2 ">
+              <a *ngFor="let item of categories; let i = index"
+                [ngClass]="childsIndex === i? 'active_parent':'not_active_parent'" (click)="getChilds(i, item)">
+                {{item.title| uppercase }} </a>
+            </div>
+          </div>
+
+          <div class="col-9  m-0 p-0 ">
+            <div class="childs mt-2 p-2 ">
+              <div class="brands" *ngIf="brands">
+                <swiper [slidesPerView]="brands.length" [autoplay]="false" [spaceBetween]="0" [navigation]="false"
+                  [loop]="true" class="mySwiper pe-3" style="align-items: center;">
+                  <ng-template swiperSlide *ngFor="let item of brands">
+                    <a (click)="viewbrandProducts(item.id)"
+                      style="text-decoration: none; display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                      <img width="50px" [src]="item?.logo" [alt]="item?.cover_en"
+                        style="mix-blend-mode: multiply !important;">
+                    </a>
+                  </ng-template>
+                </swiper>
+              </div>
+              <mat-expansion-panel [expanded]="false" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+                hideToggle *ngFor="let item of childs">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <div class="collapse-header py-0 w-100">
+                      <p (click)="viewCategoriesProducts(item.id)" class="ps-3">{{item.title}}</p>
+                      <mat-icon *ngIf="item.children.length !== 0">
+                        {{panelOpenState ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+                      <mat-icon *ngIf="item.children.length === 0">keyboard_arrow_right</mat-icon>
+                    </div>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row">
+                  <div class="col-4" *ngFor="let childs2 of item.children">
+                    <div (click)="viewCategoriesProducts(childs2.id)" class="test">
+                      <img *ngIf="childs2.cover" [src]="childs2.cover" alt="child" class="children-cover m-2">
+                      <img *ngIf=" childs2.cover == '' " src="../../../assets/images/logog.png" alt="child"
+                        class="children-contain m-2">
+                      <p style="font-size: 12px; font-weight: 500;">{{childs2.title}}</p>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-12">
+    <div class="row">
+      <div class="col-3 m-0 p-0">
+        <div class="parents pt-2">
+          <a *ngFor="let item of categories; let i = index" [ngClass]="
+                  childsIndex === i ? 'active_parent' : 'not_active_parent'
+                " (click)="getChilds(i, item)">
+            {{ item.title | uppercase }}
+          </a>
+        </div>
+      </div>
+
+      <div class="col-9 m-0 p-0">
+        <div class="childs mt-2 p-2">
+          <div class="brands" *ngIf="brands">
+            <swiper [slidesPerView]="brands.length" [autoplay]="false" [spaceBetween]="0" [navigation]="false"
+              [loop]="true" class="mySwiper" style="align-items: center">
+              <ng-template swiperSlide *ngFor="let item of brands">
+                <a (click)="viewbrandProducts(item.id)" tyle="
+                        text-decoration: none;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                      ">
+                  <img width="50px" [src]="item?.logo" [alt]="item?.cover_en"
+                    style="mix-blend-mode: multiply !important" />
+                </a>
+              </ng-template>
+            </swiper>
+          </div>
+
+
+          <mat-expansion-panel [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+            hideToggle *ngFor="let item of childs">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <div class="collapse-header py-0 w-100">
+                  <p class="ps-3">{{ item.title }}</p>
+                  <mat-icon *ngIf="item.children.length !== 0">
+                    {{
+                    panelOpenState
+                    ? "keyboard_arrow_up"
+                    : "keyboard_arrow_down"
+                    }}</mat-icon>
+                  <mat-icon *ngIf="item.children.length === 0">keyboard_arrow_right</mat-icon>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <div class="col-4" *ngFor="let childs2 of item.children">
+                <button (click)="viewCategoriesProducts(childs2.id)" class="btn m-0 p-0">
+                  <img *ngIf="childs2.cover" [src]="childs2.cover" alt="child" class="children-cover m-2" />
+                  <img *ngIf="childs2.cover == ''" src="http://dev.etmana.com/media/logo/stores/2/logoa.png" alt="child"
+                    class="children-contain m-2" />
+                  <p style="font-size: 12px; font-weight: 500">
+                    {{ childs2.title }}test
+                  </p>
+                </button>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</div>

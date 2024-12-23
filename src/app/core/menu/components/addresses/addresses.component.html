@@ -1,0 +1,298 @@
+<div class="address">
+  <div *ngIf="isListing" class="row">
+    <div class="col-12 my-3">
+      <button class="btn p-0 m-0 me-3" (click)="back()">
+        <i
+          [ngClass]="
+            checkLang == 'en'
+              ? 'fa-solid fa-chevron-left fs-4 mx-2'
+              : 'fa-solid fa-chevron-right fs-4 mx-2'
+          "
+        ></i>
+      </button>
+      <h4 class="fw-bold fs-3 pt-1 d-inline productTitle">
+        {{ "HOME.productTitle" | translate }}
+      </h4>
+    </div>
+    <div class="col-md-12">
+      <div
+        class="card my-4 bg-white p-3 rounded"
+        *ngFor="let address of allAddresses"
+      >
+        <div class="head d-flex align-items-center justify-content-between">
+          <div class="title d-flex align-items-center gap-1">
+            <i class="fa-solid fa-location-dot icon-home p-1 rounded"></i>
+            <p class="fw-bold">{{ "HOME.TITLE" | translate }}</p>
+            <p *ngIf="address.is_default_shipping" class="default ms-2">
+              {{ "HOME.default_shipping" | translate }}
+            </p>
+          </div>
+          <!-- <button pButton class="edit" type="button" label="Edit" icon="pi pi-pencil"></button> -->
+          <button
+            (click)="handleEditAddressCustomer(address)"
+            class="btn d-flex gap-2"
+          >
+            <i class="fa-solid fa-pen"></i> {{ "BUTTONS.EDITE" | translate }}
+          </button>
+        </div>
+        <div class="name w-100 address-details">
+          <h4 class="my-4 fw-bold fs-3 text-black">
+            {{ address.first_name }} {{ address.last_name }}
+          </h4>
+        </div>
+        <div class="address-details">
+          <p class="fs-5" style="color: #7f828e">
+            {{ address.address_details }}
+          </p>
+        </div>
+        <div class="mb-1 mt-3">
+          <p class="fs-5">{{ address.phone }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 mb-4">
+      <button
+        (click)="addAddress()"
+        class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2"
+      >
+        <i class="fa-solid fa-plus"></i>
+        {{ "HOME.Add_New_Address" | translate }}
+      </button>
+      <!-- <button pButton class="edit w-100" type="button" label="Create Address" icon="pi pi-plus"></button> -->
+    </div>
+  </div>
+
+  <!-- crud -->
+  <div *ngIf="!isListing" class="row">
+    <div class="col-12 my-3">
+      <button class="btn p-0 m-0 me-3" (click)="backToList()">
+        <i class="pi pi-angle-left fs-4"></i>
+      </button>
+      <h4 class="fw-bold fs-3 pt-1 d-inline productTitle">
+        {{ "HOME.Add_New_Address" | translate }}
+      </h4>
+    </div>
+    <div class="col-12">
+      <div class="address-form pt-1">
+        <form [formGroup]="newAddressForm">
+          <div class="dropDown" style="width: 100%">
+            <label class="ms-2 d-block text-muted my-2">{{
+              "LABELS.GOV" | translate
+            }}</label>
+            <p-dropdown
+              [options]="governs"
+              formControlName="governorate_id"
+              optionLabel="name"
+              [placeholder]="'PLACEHOLDERS.GOV' | translate"
+            >
+            </p-dropdown>
+            <small
+              class="text-danger"
+              *ngIf="
+                submitted &&
+                newAddressForm.get('governorate_id')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.GOV" | translate }}</small
+            >
+          </div>
+          <div class="dropDown" style="width: 100%">
+            <label class="ms-2 d-block text-muted my-2">{{
+              "LABELS.CITY" | translate
+            }}</label>
+            <p-dropdown
+              [options]="cities"
+              formControlName="city_id"
+              optionLabel="name"
+              [placeholder]="'PLACEHOLDERS.CITY' | translate"
+            >
+            </p-dropdown>
+            <small
+              class="text-danger"
+              *ngIf="
+                submitted && newAddressForm.get('city_id')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.CITY_MESSAGE" | translate }}</small
+            >
+          </div>
+
+          <div>
+            <label for="address" class="ms-2 d-block text-muted my-2">{{
+              "LABELS.Additional_Address_Details" | translate
+            }}</label>
+            <input
+              id="address"
+              class="d-block mb-2"
+              style="width: 100%"
+              [placeholder]="
+                'PLACEHOLDERS.Additional_Address_Details' | translate
+              "
+              formControlName="address_details"
+              pInputText
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                submitted &&
+                newAddressForm.get('address_details')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.Additional_Address" | translate }}</small
+            >
+          </div>
+
+          <div class="phone">
+            <label
+              for="phoneNumber"
+              class="d-block labelPhoneNumber ms-2"
+              style="margin-top: 20px"
+              >{{ "HOME.Personal_Info" | translate }}</label
+            >
+
+            <div
+              class="d-flex justify-content-between align-items-center w-100"
+            >
+              <div class="row">
+                <p-dropdown
+                  [options]="countries"
+                  formControlName="phoneCode"
+                  optionLabel="name"
+                  [showClear]="false"
+                  [placeholder]="'Profile.Select_a_Country' | translate"
+                  class="my-2 col-md-1 me-3"
+                >
+                  <ng-template pTemplate="selectedItem">
+                    <div class="country-item country-item-value">
+                      <div>
+                        {{ newAddressForm.get("phoneCode")?.value.name }}
+                        <img
+                          width="20"
+                          height="20"
+                          class="ms-2"
+                          [src]="newAddressForm.get('phoneCode')?.value.img"
+                        />
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                      <div
+                        class="d-flex align-items-center justify-content-between"
+                      >
+                        {{ country.name }}
+                        <img
+                          width="20"
+                          height="20"
+                          class="mx-3"
+                          [src]="country.img"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+
+              <input
+                id="phoneNumber"
+                class="d-block me-2 w-75"
+                [placeholder]="'PLACEHOLDERS.phoneNumber' | translate"
+                formControlName="phoneNumber"
+                pInputText
+              />
+            </div>
+            <div class="d-block">
+              <small
+                class="text-danger mt-1 phone me-5 pe-5"
+                *ngIf="submitted && newAddressForm.get('phoneNumber')?.errors?.['required']"
+              >
+                {{ "MESSAGES.PHONE_NUMBER" | translate }}</small
+              >
+
+              <small
+                *ngIf="submitted && newAddressForm.get('phoneNumber')?.errors?.['pattern']"
+                class="text-danger mt-1 phone me-5 pe-5"
+              >
+                {{ "MESSAGES.PHONE_NUMBER2" | translate }}</small
+              >
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 pe-0">
+              <label class="ms-2 d-block text-muted my-2" for="first_name">{{
+                "LABELS.First_Name" | translate
+              }}</label>
+              <input
+                id="first_name"
+                [placeholder]="'PLACEHOLDERS.First_Name' | translate"
+                formControlName="first_name"
+                pInputText
+                style="width: 100%"
+              />
+              <small
+                class="text-danger"
+                *ngIf="
+                  submitted &&
+                  newAddressForm.get('first_name')?.hasError('required')
+                "
+              >
+                {{ "MESSAGES.First_Name" | translate }}</small
+              >
+            </div>
+
+            <div class="col-md-6">
+              <label class="ms-2 d-block text-muted my-2" for="last_Name">{{
+                "LABELS.Last_Name" | translate
+              }}</label>
+              <input
+                id="last_Name"
+                [placeholder]="'PLACEHOLDERS.Last_Name' | translate"
+                formControlName="last_name"
+                pInputText
+                style="width: 100%"
+              />
+              <small
+                class="text-danger"
+                *ngIf="
+                  submitted &&
+                  newAddressForm.get('last_name')?.hasError('required')
+                "
+              >
+                {{ "MESSAGES.Last_Name" | translate }}</small
+              >
+            </div>
+          </div>
+
+          <div class="my-4">
+            <div class="text-muted d-flex align-items-center">
+              <input
+                id="choose"
+                type="checkbox"
+                class="me-2"
+                formControlName="setAddress"
+              />
+              <label for="choose" class="" style="font-size: 14px">{{
+                "Profile.Set_as_Selected_Address" | translate
+              }}</label>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <button
+                class="btn save-address"
+                type="submit"
+                (click)="setCustomerNewAddress()"
+              >
+                {{ editAddressMode == true ? "Edit Address" : "Save Address" }}
+              </button>
+
+              <button class="btn cancel-address" (click)="backToList()">
+                {{ "BUTTONS.Cancel" | translate }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

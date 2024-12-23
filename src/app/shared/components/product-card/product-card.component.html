@@ -1,0 +1,140 @@
+<div class="m-2 bg-white newArrivalItem overflow-hidden shadow-sm">
+  <div class="position-relative">
+    <div class="buyX-getY" *ngIf="showXYoffer">
+      <div class="yFree" *ngIf="isYvalueFree">
+        <div class="xValue">
+          {{ "PRODUCT_LIST.Buy" | translate }} {{ xValue }}
+        </div>
+        <div class="yValue">
+          {{ "PRODUCT_LIST.Get" | translate }} {{ yValue }}
+          {{ "PRODUCT_LIST.Free" | translate }}
+        </div>
+      </div>
+      <div class="yFree" *ngIf="!isYvalueFree">
+        <div class="xValue">
+          {{ "PRODUCT_LIST.Buy" | translate }} {{ xValue }}
+        </div>
+        <div class="yValue">
+          {{ "PRODUCT_LIST.Get" | translate }} {{ yValue }}
+          {{ "PRODUCT_LIST.with" | translate }} {{ yDiscountValue }}%
+        </div>
+      </div>
+    </div>
+    <p *ngIf="showFlashOffer" class="flash-discount">{{ offerPercentage }}%</p>
+    <!-- wish list -->
+    <div class="wishlist-wrapper">
+      <button
+        *ngIf="item?.flag == true"
+        class="wishlist-btn"
+        (click)="clickEvent(item)"
+      >
+        <i class="fa-solid fa-heart text-danger"></i>
+      </button>
+      <button
+        *ngIf="item?.flag == false"
+        class="wishlist-btn"
+        (click)="clickEvent(item)"
+      >
+        <i class="fa-solid fa-heart text-white"></i>
+      </button>
+    </div>
+    <!-- wish list -->
+
+    <!-- product image -->
+    <div
+      class="productImage bg-white"
+      routerLink="/product-details/{{ item.id }}"
+    >
+      <img
+        *ngIf="item?.images.length !== 0"
+        [src]="item?.images[0]?.url"
+        [alt]="item?.title"
+      />
+      <img
+        *ngIf="item?.images.length === 0"
+        style="width: 200px !important; object-fit: contain"
+        src="../../../assets/images/logog.png"
+        alt=""
+      />
+    </div>
+    <!-- product image -->
+    <!-- detaiiils -->
+    <div class="details">
+      <div class="row">
+        <div class="d-flex justify-content-end align-items-center gap-2">
+          <div style="width: auto" class="text-center colorCount">
+            <p *ngIf="item?.color_count >= 2" class="m-0 colors">
+              {{ item?.color_count }} {{ "CART.Colors" | translate }}
+            </p>
+          </div>
+
+          <div class="rate-container text-center m-0 p-0">
+            <p
+              class="m-0 rate d-flex justify-content-center gap-1 align-items-center"
+            >
+              <span> {{ item?.rate }}</span> <i class="fa-solid fa-star"></i>
+            </p>
+          </div>
+
+          <div
+            style="width: auto"
+            class="text-muted count-container text-center"
+          >
+            <p
+              class="m-0 count d-flex justify-content-center gap-1 align-items-center"
+            >
+              <span>{{ item?.view_count }}</span>
+              <i class="fa-regular fa-eye"></i>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row d-flex align-items-center mt-2">
+        <div class="col-md-12">
+          <p class="productTitle">{{ item.title }}</p>
+        </div>
+        <div class="col-6 my-2">
+          <div class="all-prices">
+            <p class="productPrice">
+              <span *ngIf="currency" class="currency">EGB</span>
+              <span *ngIf="!currency" class="currency">SA</span>
+              <!-- <span *ngIf="!currency" class="currency">
+                {{ "HOME.currency" | translate }}
+              </span> -->
+              <span *ngIf="item.discounted_price !== null">{{
+                item?.discounted_price.toFixed(2)
+              }}</span>
+              <span *ngIf="item.discounted_price === null">{{
+                item?.min_price.toFixed(2)
+              }}</span>
+            </p>
+            <p class="old-price" *ngIf="item.discounted_price !== null">
+              <span class="discount-price">{{ item.min_price }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="col-6 text-center my-2">
+          <div class="image-brand">
+            <img
+              *ngIf="brandLogo !== ''"
+              [src]="brandLogo"
+              alt="brandLogo"
+              style="mix-blend-mode: multiply"
+              alt="brand logo"
+              class="brandLogo"
+            />
+            <img
+              *ngIf="brandLogo === ''"
+              [src]="item.brand?.logo"
+              style="mix-blend-mode: multiply"
+              alt="brand logo"
+              class="brandLogo"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- details -->
+  </div>
+</div>

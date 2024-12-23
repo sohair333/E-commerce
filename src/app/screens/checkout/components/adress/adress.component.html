@@ -1,0 +1,285 @@
+<div class="address">
+  <div *ngIf="isListing" class="row">
+    <div class="col-12 my-3">
+      <button class="btn p-0 m-0 me-3" (click)="back()">
+        <i [ngClass]="checkLang === 'en'?'fa-solid fa-chevron-left fs-5':'fa-solid fa-chevron-right fs-5'"></i>
+      </button>
+      <h4 class="fw-bold fs-3 pt-1 d-inline productTitle">
+        {{ "HOME.productTitle" | translate }}
+      </h4>
+    </div>
+    <div class="col-md-12">
+      <div
+        class="card my-4 bg-white p-3 rounded"
+        *ngFor="let address of allAddresses"
+      >
+        <div class="head d-flex align-items-center justify-content-between">
+          <div class="title d-flex align-items-center gap-1">
+            <i class="fa-solid  fs-6 fa-location-dot icon-home p-1 rounded"></i>
+            <p class="fw-bold">{{ "HOME.TITLE" | translate }}</p>
+            <p *ngIf="address.is_default_shipping" class="default ">
+              {{ "HOME.default_shipping" | translate }}
+            </p>
+          </div>
+          <!-- <button pButton class="edit" type="button" label="Edit" icon="pi pi-pencil"></button> -->
+          <button
+            (click)="handleEditAddressCustomer(address)"
+            class="btn d-flex gap-2 fw-bold "
+            [ngClass]="checkLang == 'en'? 'handleBtn':'handleAr'"
+          >
+            <i class="fa-solid fa-pen mx-1"></i>
+            {{ "BUTTONS.EDITE" | translate }}
+          </button>
+          <button
+            class="delete-icon-address"
+            (click)="deleteAddressClient(address)"
+          >
+            <i class="fa-solid fa-trash text-danger"></i>
+          </button>
+        </div>
+        <div class="name w-100">
+          <h4 class="my-3 fs-5 userName text-black">
+            {{ address.first_name }} {{ address.last_name }}
+          </h4>
+        </div>
+        <div class="address-details">
+          <p class="fs-5" style="color: #7f828e">
+            {{ address.address_details }}
+          </p>
+        </div>
+        <div class="mobile  mt-4">
+          <p class="fs-5">{{ address.phone }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 mb-4">
+      <button
+        (click)="addAddress()"
+        class="btn btn-outline-dark w-100 d-flex align-items-center justify-content-center gap-2 p-3"
+      >
+        <i class="fa-solid fa-plus"></i>
+        {{ "HOME.Add_New_Address" | translate }}
+      </button>
+      <!-- <button pButton class="edit w-100" type="button" label="Create Address" icon="pi pi-plus"></button> -->
+    </div>
+  </div>
+
+  <!-- crud -->
+  <div *ngIf="!isListing" class="row">
+    <div class="col-12 my-3">
+      <button class="btn p-0 m-0 me-3" (click)="backToList()">
+        <i [ngClass]="checkLang === 'en'?'fa-solid fa-chevron-left fs-5':'fa-solid fa-chevron-right fs-5'"></i>
+      </button>
+      <h4 class="fw-bold fs-3 pt-1 d-inline productTitle">
+        {{ "HOME.Add_New_Address" | translate }}
+      </h4>
+    </div>
+    <div class="col-12">
+      <div class="address-form mt-5 pt-1">
+        <form [formGroup]="newAddressForm">
+          <mat-form-field
+            class="example-full-width w-50 px-2 position-relative"
+          >
+            <mat-label>{{ "LABELS.GOV" | translate }}</mat-label>
+            <mat-select
+              (selectionChange)="getCities($event)"
+              [placeholder]="'PLACEHOLDERS.GOV' | translate"
+              formControlName="governorate_id"
+            >
+              <mat-option *ngFor="let gov of governs" [value]="gov.id">{{
+                gov.name
+              }}</mat-option>
+            </mat-select>
+            <small
+              class="text-danger position-absolute bottom-0 top-100 mt-2"
+              style="left: 0"
+              *ngIf="
+                submitted &&
+                newAddressForm.get('governorate_id')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.GOV" | translate }}</small
+            >
+          </mat-form-field>
+          <mat-form-field
+            class="example-full-width position-relative w-50 px-2"
+          >
+            <mat-label>{{ "LABELS.CITY" | translate }}</mat-label>
+            <mat-select
+              [placeholder]="'PLACEHOLDERS.CITY' | translate"
+              formControlName="city_id"
+            >
+              <mat-option *ngFor="let city of cities" [value]="city.id">{{
+                city.name
+              }}</mat-option>
+            </mat-select>
+            <small
+              class="text-danger position-absolute bottom-0 top-100 mt-2"
+              style="left: 0"
+              *ngIf="
+                submitted && newAddressForm.get('city_id')?.hasError('required')
+              "
+            >
+              {{ "HOME.CITY_MESSAGE" | translate }}</small
+            >
+          </mat-form-field>
+          <mat-form-field class="example-full-width w-100">
+            <mat-label>{{
+              "LABELS.Additional_Address_Details" | translate
+            }}</mat-label>
+            <input
+              matInput
+              [placeholder]="
+                'PLACEHOLDERS.Additional_Address_Details' | translate
+              "
+              formControlName="address_details"
+            />
+          </mat-form-field>
+          <small
+            class="text-danger"
+            *ngIf="
+              submitted &&
+              newAddressForm.get('address_details')?.hasError('required')
+            "
+          >
+            {{ "MESSAGES.Additional_Address" | translate }}</small
+          >
+
+          <h3 class="my-2" style="font-weight: 600; font-size: 14px">
+            {{ "HOME.Personal_Info" | translate }}
+          </h3>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="w-100">
+              <mat-form-field
+                class="example-full-width px-2 w-25 position-relative"
+              >
+                <mat-label>Code</mat-label>
+                <input
+                  matInput
+                  [placeholder]="'PLACEHOLDERS.Code' | translate"
+                  formControlName="phoneCode"
+                  readonly
+                />
+                <small
+                  class="text-danger position-absolute bottom-0 top-100 mt-2"
+                  style="left: 0"
+                  *ngIf="
+                    submitted &&
+                    newAddressForm.get('phoneCode')?.hasError('required')
+                  "
+                >
+                  {{ "MESSAGES.required" | translate }}</small
+                >
+              </mat-form-field>
+              <!-- formControlName -->
+              <!-- formControlName -->
+              <mat-form-field
+                class="example-full-width px-1 w-75 position-relative"
+              >
+                <mat-label>{{ "LABELS.Phone" | translate }}</mat-label>
+                <input
+                  matInput
+                  [placeholder]="'PLACEHOLDERS.phoneNumber' | translate"
+                  formControlName="phoneNumber"
+                />
+                <small
+                  class="text-danger position-absolute bottom-0 top-100 mt-2"
+                  style="left: 0"
+                  *ngIf="
+                    submitted &&
+                    newAddressForm.get('phoneNumber')?.hasError('required')
+                  "
+                >
+                  {{ "MESSAGES.PHONE_NUMBER" | translate }}</small
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center my-3">
+            <mat-form-field
+              class="example-full-width position-relative"
+              style="width: 45%; margin-right: 20px"
+            >
+              <mat-label>{{ "LABELS.First_Name" | translate }}</mat-label>
+              <input
+                matInput
+                [placeholder]="'PLACEHOLDERS.First_Name' | translate"
+                formControlName="first_name"
+              />
+              <small
+                class="text-danger position-absolute bottom-0 top-100 mt-2"
+                style="left: 0"
+                *ngIf="
+                  submitted &&
+                  newAddressForm.get('first_name')?.hasError('required')
+                "
+              >
+                {{ "MESSAGES.First_Name" | translate }}</small
+              >
+            </mat-form-field>
+
+            <mat-form-field
+              class="example-full-width position-relative"
+              style="width: 45%"
+            >
+              <mat-label>{{ "LABELS.Last_Name" | translate }}</mat-label>
+              <input
+                matInput
+                [placeholder]="'PLACEHOLDERS.Last_Name' | translate"
+                formControlName="last_name"
+              />
+              <small
+                class="text-danger position-absolute bottom-0 top-100 mt-2"
+                style="left: 0"
+                *ngIf="
+                  submitted &&
+                  newAddressForm.get('last_name')?.hasError('required')
+                "
+              >
+                {{ "MESSAGES.Last_Name" | translate }}</small
+              >
+            </mat-form-field>
+          </div>
+
+          <div
+            class="d-flex w-100 justify-content-between align-items-center my-4"
+          >
+            <div class="text-muted  w-50 me-3 d-flex align-items-center">
+              <input
+                type="checkbox"
+                class="me-2 mx-1"
+                formControlName="setAddress"
+              />
+              <span style="font-size: 12px">{{
+                "HOME.Selected_Address" | translate
+              }}</span>
+            </div>
+            <div class=" leftBtns d-flex">
+              <button
+                class="btn cancel-address btn-outline-dark mx-2"
+                (click)="backToList()"
+              >
+                {{ "BUTTONS.Cancel" | translate }}
+              </button>
+              <button
+                class="btn btn-outline-dark save-address"
+                type="submit"
+                (click)="setCustomerNewAddress()"
+              >
+                {{ editAddressMode == true ? "Edit Address" : "Save Address" }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog
+  [style]="{ width: '30vw' }"
+  [breakpoints]="{ '960px': '75vw', '640px': '97vw' }"
+  [baseZIndex]="10000"
+>
+</p-confirmDialog>

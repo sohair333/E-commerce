@@ -1,0 +1,124 @@
+<p-sidebar [(visible)]="_ProductDetailsService.sidebarToggle" position="right"
+  [showCloseIcon]="false"
+  [style]="{ width: '30vw' ,height:'100vh'}">
+  <h5 id="BasketOffcanvasLabel" class="d-flex justify-content-start
+    align-items-center mx-2 px-3"><p class="head-cart">{{'CART.CART'|translate}}</p>
+    <p class="item-counter mx-2">{{_ProductDetailsService.addedItems}}
+      {{'CART.ITEMS'|translate}}</p></h5>
+  <div class="rev-content position-relative px-3">
+    <hr>
+    <div class="row my-1" *ngFor="let product of productsCart;let i= index">
+      <div class="col-md-3 ">
+        <div *ngIf="product?.sellerVariation?.variation?.images.length !== 0"
+          class="d-flex justify-content-center align-items-center prod-img ">
+          <img [src]="product?.sellerVariation?.variation?.images[0].url"
+            alt="Logo" />
+        </div>
+        <div *ngIf="product?.sellerVariation?.variation?.images.length === 0"
+          class="d-flex justify-content-center align-items-center prod-img ">
+          <img
+            [src]="product?.sellerVariation?.variation?.product?.images[0].url"
+            alt="Logo" />
+        </div>
+
+      </div>
+      <div class="col-md-9 content-product pe-0 m-0">
+        <div class=" my-1">
+          <div class="fw-bolder name-pro">{{
+            product?.sellerVariation?.variation?.product?.title }}</div>
+
+        </div>
+
+        <div class="d-flex align-items-center">
+
+          <div class="col-6" *ngFor="let variation of
+            product.sellerVariation?.variation?.attributeValues">
+            <p class=" d-flex align-items-center justify-content-start"
+              *ngIf="variation?.attribute_type === 6">
+              <span class="text-color me-2"> {{'CART.Color'|translate}} </span>
+              <span class=" p-1 rounded text-color d-flex align-items-center
+                justify-content-start">
+                <div style="padding: 10px; border-radius: 5px;"
+                  [style.background-color]="variation?.value?.code"
+                  class="box">
+                </div>
+                <p class="ms-2 text-dark fw-bold"> {{variation?.value?.value}}
+                </p>
+              </span>
+            </p>
+            <p class="" *ngIf="variation?.attribute_type === 8">
+              <span class="text-color me-2"> {{'CART.Size'|translate}} </span>
+              <span class=" fw-bold p-1 rounded me-2">
+                {{variation?.value?.value}}
+              </span>
+            </p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center">
+          <span class=" me-1" style="font-size: 12px;font-weight: 600;color:
+            #000000;">{{'CART.Qty'|translate}}</span>
+
+          <span class="fw-bolder mx-1" style="font-size: 13px">{{product.quantity
+            }}</span>
+
+        </div>
+        <div class="">
+
+          <div class="d-flex justify-content-between align-items-center
+            offcanvas-footer my-2 pt-2 ">
+            <div class="">
+              <span class="text-muted price-pro me-1">{{'HOME.EGP'|translate}}</span>
+              <span class="fw-bolder" style="font-size: 13px;font-weight:
+                600;color: #000000;">
+                {{product?.sellerVariation?.price }}.00</span>
+            </div>
+
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    <!-- <div class="offcanvas-footer basket-container  m-3 border-top pt-3   ">
+      <div class="d-flex justify-content-between align-items-center">
+        <p class="text-muted fs-6">{{'CART.SubTotal'|translate}}</p>
+        <h3 class="fw-bold p-0 m-0"><span class="pe-2">{{'HOME.EGP'|translate}}</span><span>{{sum}}.00</span></h3>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <button class="checkout w-50 text-white" routerLink="/View-Cart">{{'CART.Go_To_Cart'|translate}}</button>
+        <button class="add-item w-50 " routerLink="/View-Cart">+ {{'CART.Add_Item'|translate}}</button>
+      </div>
+    </div> -->
+  </div>
+  <div class="summary p-3">
+    <div class="old">
+      <p class="fw-bold mb-2 mt-3" style="color: #2C3341; font-size: 15px !important;">{{'CART.Old_Summary'|translate}}</p>
+      <div class="d-flex align-items-center justify-content-between">
+        <span class="text-color" style="color: #7f828e;">
+          {{'CART.SubTotal'|translate}} / {{_ProductDetailsService.addedItems}}
+          {{'CART.Items'|translate}}</span>
+        <span class="fw-bold">{{'HOME.EGP'|translate}} {{sum ? sum :0}}.00</span>
+      </div>
+      <div class=" my-2 d-flex align-items-center justify-content-between">
+        <span class="text-color"><span style="color: #7f828e;">{{'CART.Shipping'|translate}}</span>
+          <span
+            class="mx-1" style="color:#F28D6C">{{"CART.Details" |translate}}</span></span>
+        <span class="fw-bold" style="color:#F28D6C">+ {{'HOME.EGP'|translate}}
+          {{'CART.37.00'|translate}}</span>
+      </div>
+      <hr>
+      <div class="d-flex align-items-center justify-content-between">
+        <span class="fw-bold fs-6"> {{'CART.Total'|translate}} <span
+            class="total-title">Incl. Tax</span></span>
+        <span class="fw-bold fs-6">{{'HOME.EGP'|translate}} {{sum ? sum :0}}.00</span>
+      </div>
+      <div class="d-flex justify-content-between gap-2 align-items-center my-2">
+        <button class="add-item text-uppercase w-100 p-3" (click)="closeSidbar()">{{'CART.Add_Item'|translate}}</button>
+        <button class="checkout text-uppercase text-white w-100 p-3" routerLink="/View-Cart">{{'CART.Go_To_Cart'|translate}}</button>
+      </div>
+
+    </div>
+  </div>
+</p-sidebar>

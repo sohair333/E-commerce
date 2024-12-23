@@ -1,0 +1,53 @@
+<div class="credit mobile">
+  <div class="row">
+    <div class="col-12 d-flex py-3 mb-2">
+      <div class="back" (click)="back()">
+        <i class="fa-solid fa-chevron-left ms-2 me-3 fs-5 mt-1"></i>
+      </div>
+      <div class="fw-bold fs-5">
+        Etmana Credit
+      </div>
+    </div>
+    <div class="col-12 availableBalance">
+      <p class="pt-3 pb-2 ps-2 fw-bold">Available Balance</p>
+      <div class="ps-2 fs-4 fw-bold totalPrice">EGP {{totalPrice}}</div>
+      <div class="position-absolute shape">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="132.29" height="102" viewBox="0 0 132.29 102">
+          <defs>
+            <clipPath id="clip-path">
+              <rect width="150.29" height="150" fill="none"/>
+            </clipPath>
+          </defs>
+          <g id="Repeat_Grid_1" data-name="Repeat Grid 1" clip-path="url(#clip-path)">
+            <g transform="translate(-216.71 -475.873)">
+              <path id="Path_36327" data-name="Path 36327" d="M1579.758,161.551s-19.984,76.119,35.026,81.523,98.23-12.549,99.736-33.458-41.607-18.209-47.518,17.647,17.529,79.951,50.386,91.82" transform="translate(-1359 300.449)" fill="none" stroke="#573273" stroke-width="0.5"/>
+            </g>
+          </g>
+        </svg>
+
+      </div>
+    </div>
+    <div class="col-12  d-flex justify-content-between item bg-white mt-3" *ngFor="let creditItem of crediteData">
+      <div>
+        <h6 class="fw-bolder pt-4 fs-6 ps-3 head">{{creditItem.type}}</h6>
+        <p class="ps-3 head"><span>Placed On</span> {{creditItem.created_at| date:'MMM d, y'}} <span class="text-muted mx-3">{{creditItem.amount}} <span class="text-muted">Items</span></span></p>
+      </div>
+      <div class="mt-4 pt-3  fw-bold total me-1">
+       EGP {{totalPrice}}
+      </div>
+    </div>
+    <!-- <div class="col-12" *ngIf="crediteData.length === 0">
+      <img src="assets/images/Group 15179.svg" alt="" srcset="">
+      <h6>Empty Credit</h6>
+      <p>you don't have any Credit , you can start Shopping Now!</p>
+    </div> -->
+  </div>
+  <div class="mt-2" *ngIf="showEmtpPage">
+    <div class="d-flex justify-content-center">
+      <img src="assets/images/Group 15179.png" width="350px"  alt="" srcset="">
+    </div>
+    <h3 class="text-center my-2">Empty Credit</h3>
+    <p class="text-center mb-5">You don't have any credit, you can start shopping Now! </p>
+  </div>
+</div>
+

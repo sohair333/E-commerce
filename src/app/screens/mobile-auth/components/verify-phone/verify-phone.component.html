@@ -1,0 +1,39 @@
+<section class="d-flex justify-content-center align-items-center otpDiv vh-100">
+  <div class="verify container">
+    <div>
+      <button class="btn p-0 back my-5" (click)="backToHome()">
+        <i class="fa-solid fa-chevron-left fs-3"></i>
+      </button>
+    </div>
+    <div class="txt-header mt-4">
+      <h1>{{'HOME.VERIFY_PHONE' | translate}}</h1>
+    </div>
+    <div class="txt-phone my-3">
+      <p class="text-muted fs-6">{{'HOME.SEND_CODE' | translate}}<span class="mx-2">{{phone}}</span></p>
+    </div>
+
+    <!-- Ng Otp -->
+    <div class="otp my-5 text-center">
+      <ng-otp-input (onInputChange)="onOtpChange($event)" [config]="{length:4}"></ng-otp-input>
+    </div>
+
+    <div class="my-3 timer d-flex justify-content-center align-items-center">
+      <p class="fs-6">{{'HOME.RESEND_OTP' | translate}} <span class="">{{display}}</span></p>
+    </div>
+    <!-- Ng Otp -->
+
+    <div class="btn-submit text-center my-5 ">
+      <button class="btn  fw-bold" (click)="submit()">
+        <div *ngIf="Loading == true " class="loader "></div>
+        {{Loading == false? 'Submit':''}}
+      </button>
+    </div>
+
+    <div class="footer d-flex justify-content-center align-items-center my-3">
+      <div class="me-1 foot fs-6">{{'HOME.RESEIVE_CODE' | translate}}</div>
+      <div class="btn-foot">
+        <button class="fs-6">{{'BUTTONS.SEND_AGAIN' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</section>

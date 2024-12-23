@@ -1,0 +1,23 @@
+<div class="all-brands">
+  <section class=" container">
+    <h4 class="txt-header py-4">
+      <button (click)="back()" class="border-0 bg-transparent">
+        <i [ngClass]="checkLang == 'en'?'fa-solid fa-chevron-left':'fa-solid fa-chevron-right'"></i>
+      </button> {{'allBrands.brands'|translate }}
+    </h4>
+
+    <div class="brands row pb-4">
+      <div class="col-md-2 col-sm-6 my-3" *ngFor="let item of brands">
+        <div class="brand">
+
+          <div class="brandImage">
+            <img width="55%" [src]="item?.logo" [alt]="item?.title">
+          </div>
+
+          <button class="btn-details" (click)="navigateByBrands(item.id)"
+            >{{item.title}}</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

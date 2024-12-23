@@ -1,0 +1,332 @@
+.web
+{
+  .enSeeAll{
+    margin-right:120px;
+  }
+  .arSeeAll{
+    float:left;
+    margin-left: 120px;
+  }
+  .shopbybrand {
+    // border-radius: 10px;
+    overflow: hidden;
+    background-image: url("https://d2ytpgtfi9ni9b.cloudfront.net/wysiwyg/landing/shop-by-brand.webp");
+    background-size: cover;
+    background-position: top;
+    h2{
+      font-size: 50px;
+    }
+    .brand {
+        background-color: white;
+        display: flex;
+        // justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        width: 170px;
+        height: 170px;
+        border-radius: 20px;
+        overflow: hidden;
+        padding-top: 18px;
+        .brandImage {
+            text-align: center;
+        }
+    }
+    .btn-details {
+        background-color: #F5F9F9;
+        padding: 10px;
+        position: absolute;
+        bottom: 5px;
+        right: 7px;
+        left: 7px;
+        border-radius: 9px;
+        border: none;
+    }
+}
+
+.wishlist-wrapper {
+    position: absolute;
+    top: 30px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background-color: #35353517;
+    z-index: 1111111111;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .wishlist-btn {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        margin: 0;
+        color: #2c3341;
+        .wishlist-active {
+            color: red;
+        }
+    }
+}
+
+.newArrival {
+    border-radius: 10px;
+    max-width: 100%;
+    .productImage {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            height: 300px;
+            padding: 15px;
+            object-fit: contain;
+        }
+    }
+    .details {
+        background-color: #ffff;
+        padding: 10px;
+        position: relative;
+        border-radius: 0 0 10px 10px;
+        .productTitle {
+            height: 3em;
+        }
+        .productTitle,
+        .productPrice {
+            .currency {
+                font-size: 16px !important;
+                color: #7f828e;
+                margin-right: 5px;
+            }
+            line-height: 1.5em;
+            // height: 3em;
+            // /* height is 2x line-height, so two lines will display */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: wrap;
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3341;
+            margin: 0;
+            text-align: left;
+        }
+    }
+}
+}
+
+@media  (max-width: 768px) {
+  .mobile
+  {
+    .swiper-backface-hidden .swiper-slide
+    {
+      width: 100% !important;
+    }
+    // .header-brands
+    // {
+
+    // }
+    .shopByBrandImageBack {
+      // border-radius: 10px;
+      // overflow: hidden;
+      background-image: url("https://d2ytpgtfi9ni9b.cloudfront.net/wysiwyg/landing/shop-by-brand.webp");
+      // background-size: cover;
+      background-position: top;
+      height: 135px;
+      .brand {
+        background-color: white;
+        display: flex;
+        // justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        // width: 200px;
+        height: 110px;
+        border-radius: 10px;
+        overflow: hidden;
+        padding-top: 15px;
+        .brandImage {
+          text-align: center;
+      }
+      }
+
+      .btn-details {
+          background-color: #F5F9F9;
+          padding: 7px;
+          position: absolute;
+          bottom: 3px;
+          right: 5px;
+          left: 5px;
+          border-radius: 5px;
+          border: none;
+          font-size: 12px;
+          font-weight: normal;
+          letter-spacing: 1px;
+      }
+  }
+
+    .section-title
+    {
+      font-size: 15px !important;
+    }
+    .see-all
+    {
+      font-size: 15px !important;
+    }
+    .mySwiper
+    {
+      padding: 0px 50px 0px 0px;
+    }
+    .all-brands
+    {
+      position: absolute;
+      top: 45%;
+      left: 0 ;
+      right: 0;
+    }
+    .newArrival
+    {
+      background-color: #efeaf1;
+      margin: 45px 0px 0px 0px;
+    }
+
+      .newArrivalItem {
+          .promotion {
+              position: absolute;
+              left: 10px;
+              top: 30px;
+              background-color: #0e1740;
+              border-radius: 5px;
+              overflow: hidden;
+              p {
+                  margin-bottom: 0 !important;
+                  padding: 1px;
+                  font-size: 12px;
+              }
+              .buy-x {
+                  color: white;
+                  padding: 0 5px;
+                  border-radius: 5px 0 0 5px;
+              }
+              .get-y {
+                  background-color: #ed2b8c;
+                  color: white;
+                  padding: 0 5px;
+                  border-radius: 0 5px 5px 0;
+              }
+          }
+          .rate {
+              color: white;
+              background-color: #5e2d77;
+              border-radius: 10px;
+              padding: 2px 7px;
+              font-size: 12px;
+              display: flex;
+              align-items: center;
+          }
+          .productImage {
+              max-width: 180px;
+              img {
+                  height: 200px;
+                  object-fit: contain;
+                  width: 100%;
+              }
+          }
+          .productPrice {
+              font-size: 16px !important;
+              font-weight: 600 !important;
+              span {
+                  font-size: 20px !important;
+              }
+          }
+          .wishlist-wrapper {
+              position: absolute;
+              top: 25px;
+              right: 10px;
+              width: 30px;
+              height: 30px;
+              background-color: #35353517;
+              z-index: 1;
+              border-radius: 10px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .wishlist-btn {
+                  border: none;
+                  background-color: transparent;
+                  padding: 0;
+                  margin: 0;
+                  color: #2c3341;
+                  .wishlist-active {
+                      color: red;
+                  }
+              }
+          }
+          .details {
+              background-color: #fff;
+              padding: 10px;
+              position: relative;
+              border-radius: 0 0 10px 10px;
+              max-width: 100%;
+              .info {
+                  p {
+                      font-size: 12px;
+                  }
+              }
+              .productTitle {
+                  height: 3em;
+              }
+              .productTitle,
+              .productPrice {
+                  line-height: 1.5em;
+                  /* height is 2x line-height, so two lines will display */
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: wrap;
+                  font-size: 14px;
+                  font-weight: 500;
+                  color: #2c3341;
+                  margin: 0;
+                  text-align: left;
+                  span {
+                      font-size: 28px;
+                  }
+              }
+              .productPrice {
+                  span {
+                      font-size: 16px !important;
+                  }
+                  .currency {
+                      font-size: 10px !important;
+                      color: #7f828e;
+                      margin-right: 5px;
+                  }
+              }
+              .old-price {
+                  font-size: 10px !important;
+                  color: #7f828e;
+                  margin-right: 5px;
+              }
+              .productTitle {
+                  margin-top: 10px;
+              }
+              .info {
+                  p {
+                      font-size: 12px;
+                  }
+              }
+          }
+      }
+  }
+}
+
+.active {
+    background-color: #5f2d79 !important;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+.seeAllBtn{
+color: #5f2d79;
+}
+
+
+.box{
+  padding: 15px 19px !important;
+}

@@ -1,0 +1,143 @@
+.register{
+  margin: 10px 0px;
+
+}
+
+.txt-header
+{
+  h1
+  {
+    color: #0E1740;
+    font-size: 24px;
+    font-weight: 700;
+
+  }
+}
+.register-form
+{
+  .terms
+  {
+    color: #5E2D77;
+    border: 0;
+    background-color: transparent;
+    font-size: 13px;
+  }
+  .btn-form
+  {
+    background-color: #5E2D77;
+    color: #FFF;
+    border: 1px solid #5E2D77;
+    font-size: 15px;
+    padding: 8px 10px;
+    height: 45px;
+    width: 70%;
+  }
+  .btn-form:hover
+  {
+    background-color: #FFF;
+    color: #5E2D77;
+  }
+}
+
+.txt-foot
+{
+  font-size: 12px;
+
+}
+
+.btn-login
+{
+  border: 0;
+  background-color: transparent;
+  color: #5E2D77;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 4px solid #5F2D79;
+  width: 25px;
+  height: 25px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn-eye
+{
+  position: absolute;
+  bottom: 13px !important;
+  margin: 0px ;
+  right: 20px;
+  background-color: transparent;
+  border: 0;
+  font-size: 13px;
+  color: rgb(163, 157, 157) !important;
+}
+
+::ng-deep{
+  .inputText
+  {
+    width: 90%;
+}
+.inputTextLastName{
+  width: 99%;
+}
+.inputEmail{
+  width: 100%;
+}
+
+.passwordInput{
+  width: 100% !important;
+}
+.labelPhoneNumber{
+  margin-bottom:-1.5rem !important
+}
+
+  // .p-dropdown-label{
+  //   width: 2vw;
+  // }
+  .p-dropdown {
+    border: 1px solid #beb8b8 !important;
+  }
+  .p-dropdown .p-dropdown-trigger {
+    background: transparent;
+    margin-left: -1rem;
+    color: #6c757d;
+    /* width: 3rem; */
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+.p-dropdown .p-dropdown-label.p-placeholder {
+  color: #fff;
+  //border: 1px solid #beb8b8;
+  width: 80px;
+  padding: 7px !important;
+
+
+
+}
+}
+label{
+  font-size: 15px !important;
+}
+.requiredMsg{
+position: absolute;
+left: 3px;
+top: 2.3rem;
+}
+.phone{
+  margin-left: -5rem !important;
+}

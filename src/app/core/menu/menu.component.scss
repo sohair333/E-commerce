@@ -1,0 +1,123 @@
+.all {
+  background-color: #eee;
+  padding: 70px 0px;
+}
+@media screen and (max-width: 700px) {
+  // .logo {
+  //   margin-top: -0.5rem;
+  // }
+  .fa-magnifying-glass,
+  .fa-bag-shopping {
+    color: black;
+  }
+  // .searchBtn{
+  //   margin-left: -4.5rem;
+  // }
+  // .searchInput{
+  //   border: none;
+  //   outline: none;
+  //   background-color: #eee;
+  //   border-radius: 5px;
+  // }
+  .register {
+    background-color: #ecdff1;
+    border-radius: 20px;
+  }
+  .registerDiv {
+    border-radius: 20px;
+  }
+  .btnRegister {
+    background-color: #5e2d77;
+    color: white;
+    margin-left: 5.5rem;
+  }
+  .SettingBtns {
+    border-radius: 10px;
+  }
+  #settingIcon {
+    margin-top: 0.3rem;
+  }
+  .appBtn {
+    background-color: #0e1740;
+    border-radius: 10px;
+    height: 3.6rem;
+    font-size: 14px !important;
+    button {
+      height: 100%;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      margin-left: 15px !important;
+    }
+  }
+  .fa-apple {
+    font-size: 20px;
+  }
+  .payMethod {
+    border-radius: 10px;
+  }
+  .leftSide,
+  .rightSide {
+    border-radius: 10px;
+    background-color: #ecdff1;
+  }
+  .logoutBtn,.logoutBtn:hover{
+    border: 1px solid #0e1740;
+    color: #0e1740;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .filterItem {
+    background-color: #eee;
+  }
+  .closebtn {
+    outline: none;
+    border: none;
+  }
+  ul li i {
+    color: #9fa3b2;
+    font-size: 2.5rem;
+  }
+  .popup {
+    position: fixed !important;
+    z-index: 999;
+    height: 35vh;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .slideUp {
+    bottom: 0% !important;
+  }
+
+  .slideDown {
+    bottom: -50% !important;
+  }
+
+  .callBtn,
+  .emailBtn {
+    border: 1px solid #0e1740;
+    border-radius: 10px;
+  }
+}
+
+.btn-country {
+  width: 100%;
+  margin: 10px 2px;
+  padding: 15px 0px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  flex-direction: row-reverse;
+}
+.selected-btn {
+  background-color: transparent !important;
+  border-color: #0f183d !important;
+}
+.notSelected-btn {
+  background-color: #efeaf1 !important;
+  border: none !important;
+}

@@ -1,0 +1,13 @@
+<div *ngIf="loading">
+  loadding...
+</div>
+<div>
+  <input type="text" [(ngModel)]="searchItem" (input)="filterData()" placeholder="Search job by title">
+</div>
+  <ul *ngIf="!err && !loading">
+    <li *ngFor="let job of filterJobs">
+      <h3>{{job.title}}</h3>
+      <p>{{job.company}}</p>
+      <p>{{job.location}}</p>
+    </li>
+  </ul>

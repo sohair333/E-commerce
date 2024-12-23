@@ -1,0 +1,132 @@
+.rev-content
+  {
+    height: 45vh;
+    max-height: 45vh;
+    overflow-y: scroll;
+    .prod-img img
+      {
+        width: 120px;
+        height: 110px;
+        mix-blend-mode: multiply;
+        border-radius: 15px;
+      }
+    // margin: 10px 0px;
+    .name-pro
+    {
+      font-size: 14px;
+      font-weight: 800;
+      color: #000000;
+    }
+
+    .price-pro
+    {
+      font-size: 14px;
+    }
+    .row
+    {
+      padding: 7px;
+      margin: 0;
+      border-radius: 8px;
+      background-color:#FFFFFF ;
+    }
+    .color-order
+        {
+          width: 20px;
+          height: 20px;
+          border: 1px solid rgb(213, 209, 209);
+          border-radius: 2px;
+        }
+        .btn-minus
+        {
+          background-color: transparent;
+          font-size: 10px;
+          border: none;
+          margin: 0px 8px;
+          // margin-right: 8px;
+        }
+        .btn-plus
+        {
+          background-color: #FFFFFF;
+          font-size: 10px;
+          border: none;
+          padding: 2px;
+          margin: 0px 8px;
+        }
+        .btn-remove
+        {
+          background-color: #F5F9F9;
+          // padding: 4px 10px;
+          width: 100px;
+          height: 27px;
+          color: #D92059;
+          border-radius: 4px;
+          font-size: 12px;
+          border: none;
+        }
+  }
+  .checkout {
+    background-color: #5e2d77;
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+  .add-item {
+    background-color: transparent;
+    border: 1px solid #0F183D;
+    border-radius: 12px;
+    color: #0F183D;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+:host ::ng-deep{
+  .p-dialog .p-dialog-content:last-of-type
+  {
+    border-radius: 0px !important;
+    padding: 10px !important;
+    display: block !important;
+  }
+  .p-dialog .p-dialog-header{
+    padding: 10px;
+  }
+  .p-sidebar .p-sidebar-content {
+    padding: 0 !important;
+  }
+}
+.head-cart
+{
+  color:#000000 ;
+  font-size: 23px;
+  font-weight: 900;
+}
+.item-counter
+{
+  font-size: 14px;
+  color: #9FA3B2;
+  font-weight: 300;
+}
+.summary
+{
+  background-color: #F5F9F9;
+  .total-title
+  {
+    font-size: 12px;
+    color: #7F828E;
+  }
+}
+.size-bordring
+{
+  border: 1px solid #0F183D;
+  border-radius: 5px;
+  padding: 2px 8px;
+  font-weight: 600;
+  font-size: 13px;
+}
+.color-bordring
+{
+  border: 1px solid #0F183D;
+  border-radius: 5px;
+  padding: 1px;
+  margin: 0px 10px 0px 5px;
+}

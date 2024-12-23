@@ -1,0 +1,18 @@
+.info {
+  padding: 75px 0px;
+  background-color: #f5f9f9;
+  min-height: 100vh;
+  .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 5px;
+  }
+  .pages {
+    p {
+      color: #0e1740;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}

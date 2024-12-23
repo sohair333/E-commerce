@@ -1,0 +1,338 @@
+<section class="mobile all" *ngIf="step === 1 && !show">
+  <div class="row">
+    <div class="col-12 ">
+      <div class="shadow bg-white d-flex justify-content-start gap-2 align-items-center py-3">
+        <button (click)="BackHome($event)" class="pe-1 btn mx-2 p-0">
+          <i [ngClass]="checkLang === 'en'?'fa-solid fa-chevron-left fs-5':'fa-solid fa-chevron-right fs-5'"></i>
+        </button>
+        <div class="">
+          <button (click)="FilterData($event)" class="btn filterBtn "><i
+              class="fa-solid fa-filter-circle-xmark  mx-1"></i>{{'PRODUCT_LIST.Filter'|translate}}</button>
+        </div>
+        <!-- <div class="search">
+          <input type="text" (keyup)="handleSearchValue($event)" pInputText [placeholder]="'PRODUCT_LIST.Search_here'|translate">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div> -->
+        <span [ngClass]="checkLang === 'en'?'p-input-icon-right':'p-input-icon-left'">
+          <i class="pi pi-search"></i>
+          <input (keyup)="handleSearchValue($event)" type="text" pInputText
+            [placeholder]="'PRODUCT_LIST.Search_here'|translate">
+        </span>
+      </div>
+    </div>
+    <!-- quick Filters -->
+    <div class="col-md-12 listFilters">
+      <ul class=" list-unstyled mt-3 p-0 m-0  d-flex align-items-center gap-2 mx-1 ">
+        <li>
+          <div>
+            <button (click)="sortProducts($event)" class="sortByBtn py-2 px-3 fs-5  text-muted"
+              data-bs-toggle="dropdown">
+              {{'PRODUCT_LIST.Sort'|translate}} <i class="fa-solid  fa-arrow-up-wide-short"></i>
+            </button>
+          </div>
+        </li>
+        <li>
+          <div class="position-relative">
+            <div style="background-color: #EFEFEF;" class="dropdown  ">
+              <button class="btn  mx-1 dropdown-toggle py-2 px-3 fs-5  sortByBtn text-muted" type="button"
+                id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                {{'PRODUCT_LIST.Brands'|translate}}
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li (click)="sortByBrands($event)" *ngFor="let brand of brands">
+                  <a class="dropdown-item" [id]="brand.id"><img [src]="brand.logo" width="20px"
+                      class="mx-2" />{{brand.title}}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="p-1 ">
+            <button class="sortByBtn py-2 px-2 fs-5  text-muted" (click)="NewArrival($event)" data-bs-toggle="dropdown">
+              {{'PRODUCT_LIST.New_Arrival'|translate}}
+            </button>
+          </div>
+        </li>
+        <!-- <li>
+          <div>
+            <p-menu appendTo="body" #menu3 [popup]="true" [model]="colorsItems"></p-menu>
+            <button class="dropdownmenu text-muted m-0 col-3" type="button" pButton icon="pi pi-chevron-down"
+              label="Colors" (click)="menu3.toggle($event)"></button>
+          </div>
+        </li> -->
+      </ul>
+    </div>
+    <!-- quick Filters -->
+    <div class="col-md-12 ">
+      <div class="row products-container p-3">
+        <div class="col-12">
+          <div class="row  ">
+            <div class="col-6 p-2" *ngFor="let item of allProducts;let i = index">
+              <app-product-card (wishListed)="addToWishList($event)"  [item]="item"></app-product-card>
+
+              <!-- <div class="my-2 shadow">
+                <div style="height: 370px ;background-color: #f5f9f9;" routerLink="/product-details/{{  item.id }}"
+                  class="newArrival bg-white rounded-3  newArrivalItem">
+                  <div class="wishlist-wrapper">
+                    <button *ngIf="item.flag == true " class="wishlist-btn" (click)="clickEvent(item,i)">
+                      <i class="fa-solid fa-heart text-danger"></i>
+                    </button>
+                    <button *ngIf="item.flag == false " class="wishlist-btn" (click)="clickEvent(item,i)">
+                      <i class="fa-solid fa-heart text-white"></i>
+                    </button>
+                  </div>
+                  <div class="productImage w-100 position-relative">
+                    <div class="label">
+                      <span class="left">Buy X</span>
+                      <span class="right">Get Y Free</span>
+                    </div>
+                    <div class="images  d-flex align-items-center justify-content-center">
+                      <img *ngIf="item?.images.length !== 0" class="img1" [src]="item?.images[0]?.url"
+                        [alt]="item?.title" />
+                      <img *ngIf="item?.images.length === 0"
+                        style="width: 150px !important; object-fit: contain ; height: 180px;"
+                        src="http://dev.etmana.com/media/logo/stores/2/logoa.png" alt="" />
+                    </div>
+                  </div>
+                  <div class="details">
+                    <div class="row d-flex justify-content-end align-items-center">
+                      <div class="col-4 text-center colorCount">
+                        <p *ngIf="item?.color_count >= 2" class="m-0">{{ item?.color_count }}
+                          {{'PRODUCT_LIST.Colors'|translate}}</p>
+                      </div>
+                      <div class="col-3 text-center m-0 p-0">
+                        <p class="m-0 rate ">
+                          {{ item?.rate }} <i class="mx-1 fa-solid fa-star"></i>
+                        </p>
+                      </div>
+                      <div class="col-5 text-muted text-center">
+                        <p class="m-0">
+                          {{ item?.view_count }}
+                          <i class="fa-regular fa-eye"></i>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row d-flex align-items-center justify-content-between">
+                      <div class="col-12 py-2">
+                        <p class="productTitle">{{ item?.title }}</p>
+                      </div>
+                      <div class="col-7">
+                        <p class="productPrice text-muted my-3">
+                          <span class="">{{ item?.min_price }}</span> {{'HOME.EGP'|translate}}
+                        </p>
+                      </div>
+                      <div class="col-5">
+                        <img class="brandImg" [src]="item?.brand.logo" style="mix-blend-mode: multiply" alt=" " />
+                      </div>
+                    </div>
+                    <div>
+                      <div *ngIf="promotion" class="discount-price">
+                        <p class="">
+                          <del>5000</del>
+                          <span class="priceDiscount fw-bold">20% Off</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+
+            <!-- <div class="flex-grow-1 d-flex justify-content-center align-items-center col-6 text-center" *ngIf="loading">
+              <i class="fa-solid fa-circle-notch fa-4x fa-spin"></i>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mobile all" *ngIf="step === 2  && !show">
+  <div class="d-flex bg-white">
+    <div class="back mx-3" (click)="backStep()">
+      <i [ngClass]="checkLang === 'en'?'fa-solid fa-chevron-left fs-6':'fa-solid fa-chevron-right fs-6'"></i>
+    </div>
+    <div>
+      <p class="my-3 fw-bolder fs-5">{{'PRODUCT_LIST.Filter'|translate}}</p>
+    </div>
+    <div class="mx-5 my-3 align-content-end countItems">
+      <p class="text-muted "><span class="mx-1">2015</span>Items</p>
+    </div>
+  </div>
+  <div *ngFor="let Filter of filters" class="d-flex justify-content-between bg-white my-2 mx-3 p-3 filterItem "
+    (click)="fitlerType(Filter)">
+    <div>
+      <P class="fs-6">{{Filter.name}}</P>
+    </div>
+    <div>
+      <i [ngClass]="checkLang === 'en'?'fa-solid fa-chevron-right fs-6':'fa-solid fa-chevron-left fs-6'"></i>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center my-3">
+    <button class="btn resetBtn p-2 mx-2">{{'PRODUCT_LIST.Reset'|translate}}</button>
+    <button class="btn applyBtn p-2 ">{{'PRODUCT_LIST.Apply_Filter'|translate}}</button>
+  </div>
+
+</section>
+
+<section class="mobile all filter-step-3" *ngIf="step === 3  && !show ">
+  <div class="d-flex bg-white">
+    <div class="back mx-3" (click)="backStep()">
+      <i [ngClass]="checkLang !== 'en'?'fa-solid fa-chevron-right fs-6':'fa-solid fa-chevron-left fs-6'"></i>
+
+    </div>
+    <div>
+      <p class="my-3 fw-bolder fs-5">{{'PRODUCT_LIST.Filter'|translate}}</p>
+    </div>
+    <div class="mx-5 my-3 align-content-end countItems">
+      <p class="text-muted "><span class="mx-1">2015</span>Items</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-3 m-0 p-0 bg-white  sideMenu">
+      <ul>
+        <li *ngFor="let Filter of filters">
+          <button (click)="filterOptions(Filter)"
+            [ngClass]="Filter.value === selectedFilter? 'active_parent':'not_active_parent'"
+            class="filter-btn">{{Filter.name}}</button>
+        </li>
+      </ul>
+    </div>
+    <div class="col-9 m-0 p-0 main-menu">
+      <!-- category filters -->
+      <div *ngIf="type === 'CATEGORY'" class="Category">
+        <div class="parent-categories">
+          <a [ngClass]="childsIndex === i? 'active-parent':'not-active'" *ngFor="let item of filterData; let i = index"
+            (click)="getChilds(i, item)">
+            {{item.title| uppercase }} </a>
+        </div>
+        <mat-expansion-panel [expanded]="child.children.length !== 0 ? true : false" (opened)="panelOpenState"
+          (closed)="panelOpenState" hideToggle *ngFor="let child of childs, let firstChildIndex = index">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="collapse-header py-0 w-100">
+                <div class="title px-2">
+                  <p-checkbox (click)="$event.stopPropagation();" (onChange)="SelectAll(child, firstChildIndex)"
+                    name="groupname" value="val1" [(ngModel)]="child.selectedchild"></p-checkbox>
+                  <p [ngClass]="child.selectedchild ? 'child-title-active' : 'text-black' " class="px-2 child-title">
+                    {{child.title}}
+                  </p>
+                </div>
+                <mat-icon *ngIf="child.children.length !== 0">
+                  {{panelOpenState ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+                <mat-icon *ngIf="child.children.length === 0 && checkLang === 'en' ">
+                  keyboard_arrow_right
+                </mat-icon>
+                <mat-icon *ngIf="child.children.length === 0 && checkLang === 'ar' ">
+                  keyboard_arrow_left
+                </mat-icon>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="row">
+            <div class="col-4" *ngFor="let childs2 of child.LastChildrens, let i = index">
+              <button [ngClass]="childs2.selectedChildren? 'selected-btn':'not-Selected-btn'" class="btn m-2"
+                (click)="selectCategory(i, firstChildIndex)">{{childs2.title}}</button>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+      <!-- category filters -->
+
+      <!-- Brands Fitlers -->
+      <div *ngIf="type === 'BRANDS'">
+        <div class="brand" *ngFor="let item of brandsFilterData, let i = index">
+          <div class="brand-logo">
+            <img [src]="item.logo" alt="logo" class="img">
+            <p class="title">{{item.title}}</p>
+          </div>
+          <p-checkbox (onChange)="selectBrand(item, i)" name="groupname" value="val1"
+            [(ngModel)]="item.isSelectedbrand"></p-checkbox>
+        </div>
+      </div>
+      <!-- Brands Fitlers -->
+
+      <!-- Price Fiilter -->
+      <div *ngIf="type ==='PRICE'">
+        <div class="row">
+          <div class="col-10 m-auto">
+            <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
+            <!-- <p-slider [min]="rangeValues[0]" [max]="rangeValues[1]" class="w-100" [(ngModel)]="rangeValues" [range]="true"></p-slider> -->
+          </div>
+        </div>
+
+        <!-- <p-slider [(ngModel)]="PriceRange" [min]="minPrice" [max]="maxPrice"></p-slider> -->
+      </div>
+      <!-- price filters -->
+
+      <!-- color Filter -->
+      <div *ngIf="type ==='COLOR_SWATCH'">
+        <div class="color-main">
+          <div class="row w-100">
+            <div class="col-6 " *ngFor="let color of colors, let i = index">
+              <button (click)="selectColor(i)" [ngClass]="color.selectedColor? 'selected-btn':'bg-white'"
+                class="btn p-0 my-2 color">
+                <div class="box rounded" style="height: 34px; width: 34px;" [style.background]="color.code"></div>
+                <span class="fs-5"> {{color.value}} </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- color Filter -->
+
+      <!-- size Filter -->
+      <div *ngIf="type ==='SIZE'">
+        <mat-expansion-panel [expanded]="true" (opened)="panelOpenState" (closed)="panelOpenState" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="collapse-header py-0 w-100">
+                <div class="title px-2">
+                  <p-checkbox (click)="$event.stopPropagation();" (onChange)="SelectAllSizes()" name="groupname"
+                    value="val1" [(ngModel)]="selectAllFlag"></p-checkbox>
+                  <p [ngClass]="selectAllFlag ? 'child-title-active' : 'text-black' " class="px-2 child-title">
+                    Size
+                  </p>
+                </div>
+                <mat-icon>keyboard_arrow_up</mat-icon>
+              </div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="row">
+            <div class="col-3" *ngFor="let value of sizes, let i = index">
+              <button [ngClass]="value.selectedSize? 'selected-btn':'not-Selected-btn'" class="btn m-2"
+                (click)="selectSize(i)">{{value.value}}</button>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+      <!-- size Filter -->
+
+      <!-- attribute Filter -->
+      <div
+        *ngIf="type !=='SIZE' && type !=='COLOR_SWATCH' && type !=='PRICE' && type !== 'BRANDS' && type !== 'CATEGORY' ">
+        <div class="brand" *ngFor="let attr of attributes, let i = index">
+          <div class="brand-logo">
+            <p class="title">{{attr.value}}</p>
+          </div>
+          <p-checkbox (onChange)="selectAttribute(attr, i)" name="groupname" value="val1"
+            [(ngModel)]="attr.selectedAttr"></p-checkbox>
+        </div>
+      </div>
+
+      <!-- attribute Filter -->
+
+
+    </div>
+  </div>
+  <div class=" d-flex justify-content-center  my-3">
+    <button (click)="Reset()" class="btn resetBtn p-2 mx-2">{{'PRODUCT_LIST.Clear'|translate}}</button>
+    <button (click)="applyFilters()" class="btn applyBtn p-2 ">{{'PRODUCT_LIST.Apply_Filter'|translate}}</button>
+  </div>
+</section>
+
+
+
+<app-skeleton-loader [productListShow]="show"></app-skeleton-loader>

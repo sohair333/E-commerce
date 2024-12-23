@@ -1,0 +1,84 @@
+<div class="credit">
+  <h6 class="my-2 mx-3 fs-4">ETMANA CREDIT</h6>
+  <div class="p-4 availableData my-3">
+    <p class="fw-bold">Available Balance</p>
+    <div class=" my-1 totlaPrice">EGP {{totalPrice}}</div>
+    <div class="position-absolute shape">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="132.29" height="102" viewBox="0 0 132.29 102">
+        <defs>
+          <clipPath id="clip-path">
+            <rect width="150.29" height="150" fill="none"/>
+          </clipPath>
+        </defs>
+        <g id="Repeat_Grid_1" data-name="Repeat Grid 1" clip-path="url(#clip-path)">
+          <g transform="translate(-216.71 -475.873)">
+            <path id="Path_36327" data-name="Path 36327" d="M1579.758,161.551s-19.984,76.119,35.026,81.523,98.23-12.549,99.736-33.458-41.607-18.209-47.518,17.647,17.529,79.951,50.386,91.82" transform="translate(-1359 300.449)" fill="none" stroke="#573273" stroke-width="0.5"/>
+          </g>
+        </g>
+      </svg>
+
+    </div>
+  </div>
+  <div>
+  <div class="row my-3">
+   <div class="d-flex">
+    <div>
+      <button class="btn allBtn p-2">All</button>
+    </div>
+    <div>
+      <button class="btn expireBtn ms-3  p-2">Expiring</button>
+    </div>
+   </div>
+  </div>
+  <p-table id="myTable" [columns]="tableHeaders" styleClass="p-datatable-striped"   [value]="crediteData"
+
+   responsiveLayout="scroll" [rowHover]="true" [resizableColumns]="true"
+   #dataTable>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+      </td>
+      <td *ngFor="let col of columns">
+        <span *ngIf="rowData && rowData[col.field]">
+          {{ rowData[col.field] }}</span>
+      </td>
+    </tr>
+    </ng-template>
+
+
+
+  </p-table>
+ <!-- <div class="bg-white pb-2 pt-2">
+  <div  class="row  d-flex  align-items-center justify-content-between pagenator-export-wrapper mx-auto text-center">
+    <div class="col-md-3 p-0 m-0">
+      <button class=" btn btn-export p-2 d-flex align-items-center justify-content-center" >
+        <h4 class="m-0">
+          <i class="pi pi-download me-2"></i> Export
+        </h4>
+      </button>
+    </div>
+    <div class="col-md-6 me-0 pe-0">
+      <p-paginator appendTo="body" class="paginator" [rows]="15" #p [totalRecords]="totalItems" [rowsPerPageOptions]="[5, 15, 50]"></p-paginator>
+    </div>
+  </div>
+  </div> -->
+</div>
+</div>
+<div *ngIf="showEmtpPage">
+  <div class="d-flex justify-content-center">
+    <img src="assets/images/Group 15179.png" width="350px" class="mt-3" alt="" srcset="">
+  </div>
+  <h3 class="text-center my-2">Empty Credit</h3>
+  <p class="text-center mb-5">You don't have any credit, you can start shopping Now! </p>
+</div>

@@ -1,0 +1,127 @@
+<div class="web flash mb-5">
+
+  <div class="d-flex px-4 mb-2 align-items-center justify-content-between">
+    <h2 class="section-title">{{'HOME.Flash_Offer' | translate}}</h2>
+    <div class="counter">
+      <div class="timer d-flex align-items-center justify-content-end gap-2">
+        <span *ngIf="daysToDday !== 0" class="timer-box" id="days "> {{daysToDday}} </span> :
+        <span *ngIf="hoursToDday !== 0" class="timer-box" id="hours"> {{hoursToDday}} </span> :
+        <span *ngIf="daysToDday !== 0" class="timer-box" id="minutes"> {{minutesToDday}} </span> :
+        <span *ngIf="daysToDday !== 0" class="timer-box" id="seconds"> {{secondsToDday}} </span>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between align-items-center gap-4 mx-4">
+    <div class="arrow-left  d-flex justify-content-center align-items-center">
+      <button (click)="slideNext()" class="border-0 box rounded-2 bg-white">
+        <i  [ngClass]="language === 'en' ? 'fa-solid fa-chevron-left':'fa-solid fa-chevron-right'"></i>
+      </button>
+
+    </div>
+    <swiper #swiper [spaceBetween]="10" [slidesPerView]="4" [autoplay]="false" [navigation]="false" [loop]="true"
+      class="mySwiper ">
+      <ng-template swiperSlide *ngFor="let item of flashOfferData">
+        <app-product-card  (wishListed)="addToWishList($event)" [item]="item"></app-product-card>
+      </ng-template>
+    </swiper>
+
+
+    <div class="arrow-right  d-flex justify-content-center align-items-center">
+      <button (click)="slidePrev()" class="border-0 box rounded-2 bg-white">
+        <i  [ngClass]="language === 'en' ? 'fa-solid fa-chevron-right':'fa-solid fa-chevron-left'"></i>
+      </button>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="mobile flash">
+
+ <div class="d-flex justify-content-center">
+  <div>
+    <h2 class="section-title-mobile">{{'HOME.Flash_Offer' | translate}}</h2>
+  </div>
+  <div class=" ms-5 counter">
+    <div class="timer d-flex align-items-center justify-content-end gap-2">
+      <span *ngIf="daysToDday !== 0" class="timer-box" id="days "> {{daysToDday}} </span> :
+      <span *ngIf="hoursToDday !== 0" class="timer-box" id="hours"> {{hoursToDday}} </span> :
+      <span *ngIf="daysToDday !== 0" class="timer-box" id="minutes"> {{minutesToDday}} </span> :
+      <span *ngIf="daysToDday !== 0" class="timer-box" id="seconds"> {{secondsToDday}} </span>
+    </div>
+  </div>
+ </div>
+
+  <div class="newArrival  " *ngIf="flashOffer.products">
+
+    <swiper dir="ltr" [slidesPerView]="2" [autoplay]="true " [spaceBetween]="9" [scrollbar]="{ draggable: true } "
+      [loop]="true " class="mySwiper ">
+      <ng-template swiperSlide *ngFor="let item of  flashOfferData;let i=index ">
+        <app-product-card (wishListed)="addToWishList($event)" [item]="item"></app-product-card>
+
+        <!-- <div class="mt-2 mb-4 d-flex justify-content-center align-items-center ">
+          <div class="newArrival newArrivalItem w-100 overflow-hidden">
+            <div class="wishlist-wrapper ">
+              <button *ngIf="item.flag==true " class="wishlist-btn " (click)="clickEvent(item) ">
+                <i class="fa-solid fa-heart text-danger "></i>
+              </button>
+              <button *ngIf="item.flag==false " class="wishlist-btn " (click)="clickEvent(item) ">
+                <i class="fa-solid fa-heart text-white "></i>
+              </button>
+            </div>
+            <div class="promotion ">
+              <p>
+                <span class="buy-x ">Buy X</span>
+                <span class="get-y ">Get Y</span>
+              </p>
+            </div>
+            <div class="productImage " routerLink="/product-details/{{ item.id }} ">
+              <img *ngIf="item?.images.length !==0 " width="100% " [src]="item?.images[0]?.url " [alt]="item?.title ">
+              <img *ngIf="item?.images.length===0 " style="width: 100px !important; object-fit: contain; "
+                src="../../../assets/images/logog.png " alt=" ">
+
+            </div>
+            <div class="details ">
+              <div class="d-flex justify-content-end  align-items-center">
+                <div *ngIf="item?.color_count >= 2"  class=" colorCount" style="padding: 0px 16px 0px 0px;">
+                  <p  class="m-0" style="font-size: 9px;">
+                    {{ item?.color_count }} Colors</p>
+                </div>
+                <div  [ngClass]="item?.color_count >= 2 ? '':'mx-2'" class=" m-0 p-0">
+                  <p class="m-0 rate " >
+                    {{ item?.rate }} <i class="mx-1 fa-solid fa-star"></i>
+                  </p>
+                </div>
+                <div  class="text-muted ">
+                  <p class="m-0" style="font-size: 10px;">
+                    {{ item?.view_count }}
+                    <i class="fa-regular fa-eye"></i>
+                  </p>
+                </div>
+              </div>
+              <div class="row d-flex align-items-center ">
+                <div class="col-12 ">
+                  <p class="productTitle ">{{item?.title}}</p>
+
+                </div>
+                <div class="col-8 ">
+                  <p class="productPrice "><span class="currency ">EGP</span> <span>{{ item?.min_price.toFixed(2)
+                      }}</span></p>
+                  <p class="old-price "><span class="currency "
+                      style="text-decoration: line-through; margin-right: 5px; ">500:00 </span> <span
+                      class="text-success fw-bold ">20% OFF</span></p>
+                </div>
+                <div class="col-4 ">
+                  <img width="100% " [src]="item?.brand.logo " style="mix-blend-mode: multiply; " alt=" ">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div> -->
+      </ng-template>
+    </swiper>
+  </div>
+
+</div>

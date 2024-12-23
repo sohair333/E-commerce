@@ -1,0 +1,33 @@
+.success {
+  // page 100vh - height of footer - height of header
+  // height: calc(100vh - 355px - 135px);
+
+  height: 500px;
+  display: flex;
+
+  .content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    .images {
+      width: 100px;
+      height: 100px;
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .info {
+      display: flex;
+      align-items: center;
+      margin-left: 30px;
+      h5 {
+        font-weight: bold;
+        span {
+          color: #52cc99;
+        }
+      }
+    }
+  }
+}

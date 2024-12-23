@@ -1,0 +1,227 @@
+<section class=" d-flex justify-content-center align-items-center">
+  <div class="register container">
+    <!-- <div class="txt-header d-flex justify-content-center align-items-center mt-1 mb-3">
+        <h1>Create To Your Account</h1>
+      </div> -->
+
+    <div class="register-form">
+      <form [formGroup]="registerForm">
+        <div class="col-md-12">
+
+          <div class="d-flex justify-content-center">
+
+            <!-- <mat-form-field
+                  class="example-full-width position-relative"
+                  style="width: 45%"
+                > -->
+            <!-- <mat-label>{{'LABELS.First_Name' | translate}}</mat-label>
+                  <input matInput [placeholder]="'PLACEHOLDERS.First_Name' |translate" type="text" formControlName="first_name"/> -->
+            <div>
+              <label class="ms-2 text-muted my-1" for="first_name">*First Name</label>
+              <input class="inputText  d-block" [placeholder]="'PLACEHOLDERS.First_Name' |translate"
+                formControlName="first_name" pInputText />
+            </div>
+
+            <div>
+              <label class="ms-1 text-muted my-1" for="last_name">*Last Name</label>
+              <input class="inputTextLastName d-block" [placeholder]="'PLACEHOLDERS.Last_Name' | translate"
+                formControlName="last_name" pInputText />
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <div>
+              <small class="text-danger position-relative  mt-1 ms-3" style="left: 0"
+                *ngIf="submitted && registerForm.get('first_name')?.errors?.['required']">
+                {{'MESSAGES.First_Name' | translate}}</small>
+              <small *ngIf="
+          submitted && registerForm.get('first_name')?.errors?.['minlength']" class="text-danger mt-1 ms-3"
+                style="left: 0">
+                {{'MESSAGES.MIN_LENGTH_OF_FIRST_NAME' | translate}}</small>
+              <small *ngIf="submitted && registerForm.get('first_name')?.errors?.['maxlength']"
+                class="text-danger ms-3 mt-1" style="left: 0">
+                {{'MESSAGES.MAX_LENGTH_OF_FIRST_NAME' | translate}}</small>
+            </div>
+            <!-- </mat-form-field> -->
+
+            <!-- <mat-form-field
+            class="example-full-width position-relative"
+            style="width: 45%"
+          > -->
+            <!-- <mat-label>{{'LABELS.Last_Name' | translate}}</mat-label>
+            <input
+              matInput
+              [placeholder]="'PLACEHOLDERS.Last_Name' | translate"
+              type="text"
+              formControlName="last_name"
+            /> -->
+
+            <div>
+              <small class="text-danger  position-relative mt-1" style="left: -3rem"
+                *ngIf="submitted && registerForm.get('last_name')?.errors?.['required']">
+                {{'MESSAGES.Last_Name' | translate}}</small>
+              <small *ngIf="
+          submitted && registerForm.get('last_name')?.errors?.['minlength']" class="text-danger  mt-1 me-4">
+                {{'MESSAGES.MIN_LENGTH_OF_LAST_NAME' | translate}}</small>
+              <small *ngIf="submitted && registerForm.get('last_name')?.errors?.['maxlength']"
+                class="text-danger   mt-1 me-4">
+                {{'MESSAGES.MAX_LENGTH_OF_LAST_NAME' | translate}}</small>
+            </div>
+          </div>
+          <!-- </mat-form-field> -->
+
+        </div>
+        <!-- <mat-form-field
+          class="example-full-width position-relative w-100"
+
+        >
+          <mat-label>{{'LABELS.mail_Address' | translate}}</mat-label>
+          <input matInput [placeholder]="'PLACEHOLDERS.Email' | translate" type="email" formControlName="email"/>
+
+        </mat-form-field> -->
+
+        <div class="row ">
+          <label class="ms-2 d-block text-muted my-2" for="Email">*Email</label>
+          <input class=" d-block ms-3  mb-2 col-md-11" [placeholder]="'PLACEHOLDERS.Email' | translate"
+            formControlName="email" pInputText />
+        </div>
+
+        <div>
+
+          <label for="phoneNumber" class="d-block labelPhoneNumber  ms-2 ">*Phone Number</label>
+
+
+          <div class="d-flex justify-content-between align-items-center w-100 my-3">
+            <!-- <mat-form-field class="example-full-width position-relative pe-2 w-25">
+              <mat-label>Code</mat-label>
+              <mat-select formControlName="phoneCode" [placeholder]="'PLACEHOLDERS.Code' | translate"
+                panelClass="myPanelClass" (selectionChange)="checkCode()">
+                <mat-option value="+20">+20</mat-option>
+                <mat-option value="+966">+966</mat-option>
+              </mat-select>
+              <small class="text-danger requiredMsg" *ngIf="
+                  submitted && registerForm.get('phoneCode')?.hasError('required')
+                ">
+                {{'MESSAGES.required' | translate}}</small>
+            </mat-form-field> -->
+            <div class="row">
+              <p-dropdown  [options]="countries" formControlName="phoneCode" optionLabel="name" [showClear]="false"
+              [placeholder]="'Profile.Select_a_Country' | translate" class="my-3 col-md-1 me-3">
+              <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                  <div>
+                    {{ registerForm.get("phoneCode")?.value.name }}
+                    <img width="20" height="20" class="ms-2" [src]="registerForm.get('phoneCode')?.value.img">
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template let-country pTemplate="item">
+                <div class="country-item">
+                  <div class="d-flex align-items-center justify-content-between">
+                    {{ country.name }}
+                    <img width="20" height="20" class="mx-3" [src]="country.img" alt="" />
+                  </div>
+                </div>
+              </ng-template>
+            </p-dropdown>
+            </div>
+            <!-- formControlName -->
+            <!-- formControlName -->
+            <!-- <mat-form-field class="example-full-width position-relative w-75">
+              <mat-label>{{'LABELS.Phone' | translate}}</mat-label>
+              <input
+                matInput type="number"
+                [placeholder]="'PLACEHOLDERS.phoneNumber' | translate"
+                type="number"
+                formControlName="phoneNumber"
+              />
+              <small
+              class="text-danger position-absolute bottom-0 top-100 mt-1"
+              style="left: 0"
+              *ngIf="submitted && registerForm.get('phoneNumber')?.errors?.['required']">
+              {{'MESSAGES.PHONE_NUMBER' | translate}}</small>
+
+            <small
+              *ngIf="submitted && registerForm.get('phoneNumber')?.errors?.['pattern']"
+              class="text-danger position-absolute bottom-0 top-100 mt-1" style="left: 0">
+               {{'MESSAGES.PHONE_NUMBER2' | translate}}</small
+            >
+            </mat-form-field> -->
+            <input class=" d-block me-2 w-75 " [placeholder]="'PLACEHOLDERS.phoneNumber' | translate"
+              formControlName="phoneNumber" pInputText />
+
+          </div>
+          <div class="d-block float-end" style="margin-top: -1rem;">
+            <small class="text-danger mt-1 phone me-5 pe-5 "
+              *ngIf="submitted && registerForm.get('phoneNumber')?.errors?.['required']">
+              {{'MESSAGES.PHONE_NUMBER' | translate}}</small>
+
+            <small *ngIf="submitted && registerForm.get('phoneNumber')?.errors?.['pattern']"
+              class="text-danger  mt-1 phone me-5 pe-5">
+              {{'MESSAGES.PHONE_NUMBER2' | translate}}</small>
+          </div>
+        </div>
+
+
+        <!-- <mat-form-field class="example-full-width position-relative w-100">
+            <mat-label>{{'LABELS.Password' | translate}}</mat-label>
+            <input
+              matInput
+              [placeholder]="'PLACEHOLDERS.Password' | translate"
+              type="password"
+              formControlName="password"
+              [type]="!showPassword ? 'password':'text'"
+            />
+            <button *ngIf="!showPassword" class="btn-eye" type="button" (click)="checkPassword()">
+              <i *ngIf="!showPassword" class="fa-regular fa-eye-slash"></i>
+            </button>
+            <button *ngIf="showPassword" class="btn-eye" type="button" (click)="checkPassword()">
+              <i *ngIf="showPassword" class="fa-regular fa-eye"></i>
+            </button>
+            <small
+              class="text-danger position-absolute bottom-0 top-100 mt-1"
+              style="left: 0"
+              *ngIf="
+                submitted && registerForm.get('password')?.hasError('required')
+              "
+            >
+              {{'MESSAGES.Message_Password' | translate}}</small
+            >
+          </mat-form-field> -->
+        <div class=" position-relative" style="margin-top: -1.5rem;">
+          <label for="password" class="my-1 ms-2">*Password</label>
+          <input [type]="!showPassword ? 'password':'text'" class=" d-block   col-md-12 ms-1 "
+            [placeholder]="'PLACEHOLDERS.Password' | translate" formControlName="password" pInputText />
+          <button *ngIf="!showPassword" class="btn-eye " type="button" (click)="checkPassword()">
+            <i *ngIf="!showPassword" class="fa-regular fa-eye-slash"></i>
+          </button>
+          <button *ngIf="showPassword" class="btn-eye" type="button" (click)="checkPassword()">
+            <i *ngIf="showPassword" class="fa-regular fa-eye"></i>
+          </button>
+          <small class="text-danger position-absolute bottom-0 top-100 mt-1" style="left: 0" *ngIf="
+                  submitted && registerForm.get('password')?.hasError('required')
+                ">
+            {{'MESSAGES.Message_Password' | translate}}</small>
+        </div>
+        <div class="my-4 ms-2 text-center">
+          <span class="txt-foot me-1 text-muted">{{'HOME.AGREE_TERMS' | translate}}</span>
+          <a class="terms">{{'HOME.TERMS_CONDITION' | translate}}</a>
+        </div>
+        <div class="d-flex justify-content-center align-items-center my-3">
+          <button class="btn-form btn" (click)="register()">
+
+            <div *ngIf="Loading == true " class="loader m-auto"></div>
+            {{Loading == false? 'Create an account':''}}
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center mb-3">
+          <div class="text-muted txt-foot me-1">{{'HOME.HAVE_ACCOUNT' | translate}}</div>
+          <div class="">
+            <button (click)="tab('login')" class="btn-login">{{'HOME.Login' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</section>

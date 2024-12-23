@@ -1,0 +1,679 @@
+<section class="web pb-5">
+  <h3 class="mb-3">{{ "Profile.ADDRESSES2" | translate }}</h3>
+  <div
+    class="shipping-address d-flex justify-content-between align-items-center"
+    (mouseenter)="hoverOn(i)"
+    (mouseleave)="hoverOff(i)"
+    *ngFor="let coustomerDetail of data; let i = index"
+  >
+    <!-- shipping address content-->
+    <div class="my-1">
+      <div class="d-flex" style="font-size: 14px">
+        <h4 class="">
+          <i class="fa-solid fa-location-dot" style="font-size: 12px"> </i>
+          {{ coustomerDetail?.first_name }} {{ coustomerDetail?.last_name }}
+        </h4>
+      </div>
+      <div class="lead text-muted">
+        <div style="font-size: 16px">
+          {{ coustomerDetail?.city?.name }} -
+          {{ coustomerDetail?.governorate?.name }} Governorate-{{
+            coustomerDetail?.country?.name
+          }}
+        </div>
+      </div>
+      <div style="font-size: 16px" class="lead text-muted">
+        {{ coustomerDetail?.address_details }}
+      </div>
+      <div class="" style="font-size: 14px">
+        {{ coustomerDetail?.phone }}
+        <i style="color: #00a599" class="fa-solid fa-circle-check mx-2"></i>
+      </div>
+    </div>
+    <div
+      *ngIf="selectedLang === 'en'"
+      [ngClass]="
+        coustomerDetail.isHovered ? 'actionsSlideIn' : 'actionsSlideOut'
+      "
+      class="defualt actions d-flex align-items-center"
+    >
+      <div
+        *ngIf="coustomerDetail.is_default_shipping == true"
+        class="mx-1 rounded-pill"
+        style="
+          background-color: #00a599;
+          color: white;
+          padding: 7px 15px 7px 11px;
+          font-size: 14px;
+        "
+      >
+        {{ "HOME.default_shipping" | translate }}
+      </div>
+      <div class="line"></div>
+      <div class="d-flex align-items-center">
+        <div class="edit me-3">
+          <div class="">
+            <button
+              class="edit-icon-address"
+              (click)="handleEditAddressCustomer(coustomerDetail, i)"
+            >
+              <i class="fa-solid fa-pen"></i>
+              {{ "BUTTONS.EDITE" | translate }}
+            </button>
+          </div>
+        </div>
+        <div
+          class="delete del"
+          [ngClass]="coustomerDetail.isHovered ? 'fadeIn' : 'fadeOut'"
+        >
+          <div class="">
+            <button
+              class="delete-icon-address text-danger d-flex align-items-center"
+              (click)="deleteAddressClient(coustomerDetail)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="15"
+                viewBox="0 0 24 24"
+              >
+                <g id="trash" transform="translate(-108 -188)">
+                  <path
+                    id="Vector"
+                    d="M18,.5C14.67.17,11.32,0,7.98,0A59.068,59.068,0,0,0,2.04.3L0,.5"
+                    transform="translate(111 193.48)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-2"
+                    data-name="Vector"
+                    d="M0,2.97.22,1.66C.38.71.5,0,2.19,0H4.81C6.5,0,6.63.75,6.78,1.67L7,2.97"
+                    transform="translate(116.5 190)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-3"
+                    data-name="Vector"
+                    d="M13.7,0l-.65,10.07c-.11,1.57-.2,2.79-2.99,2.79H3.64C.85,12.86.76,11.64.65,10.07L0,0"
+                    transform="translate(113.15 197.14)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-4"
+                    data-name="Vector"
+                    d="M0,0H3.33"
+                    transform="translate(118.33 204.5)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-5"
+                    data-name="Vector"
+                    d="M0,0H5"
+                    transform="translate(117.5 200.5)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-6"
+                    data-name="Vector"
+                    d="M0,0H24V24H0Z"
+                    transform="translate(108 188)"
+                    fill="none"
+                    opacity="0"
+                  />
+                </g>
+              </svg>
+              {{ "BUTTONS.Delete" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="selectedLang === 'ar'"
+      [ngClass]="
+        coustomerDetail.isHovered ? 'actionsSlideInAR' : 'actionsSlideOutAR'
+      "
+      class="defualt actions d-flex align-items-center"
+    >
+      <div
+        *ngIf="coustomerDetail.is_default_shipping == true"
+        class="mx-1 rounded-pill"
+        style="
+          background-color: #00a599;
+          color: white;
+          padding: 7px 15px 7px 11px;
+          font-size: 14px;
+        "
+      >
+        {{ "HOME.default_shipping" | translate }}
+      </div>
+      <div class="line"></div>
+      <div class="d-flex align-items-center">
+        <div class="edit me-3">
+          <div class="">
+            <button
+              class="edit-icon-address"
+              (click)="handleEditAddressCustomer(coustomerDetail, i)"
+            >
+              <i class="fa-solid fa-pen"></i>
+              {{ "BUTTONS.EDITE" | translate }}
+            </button>
+          </div>
+        </div>
+        <div
+          class="delete del"
+          [ngClass]="coustomerDetail.isHovered ? 'fadeIn' : 'fadeOut'"
+        >
+          <div class="">
+            <button
+              class="delete-icon-address text-danger d-flex align-items-center"
+              (click)="deleteAddressClient(coustomerDetail)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="15"
+                viewBox="0 0 24 24"
+              >
+                <g id="trash" transform="translate(-108 -188)">
+                  <path
+                    id="Vector"
+                    d="M18,.5C14.67.17,11.32,0,7.98,0A59.068,59.068,0,0,0,2.04.3L0,.5"
+                    transform="translate(111 193.48)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-2"
+                    data-name="Vector"
+                    d="M0,2.97.22,1.66C.38.71.5,0,2.19,0H4.81C6.5,0,6.63.75,6.78,1.67L7,2.97"
+                    transform="translate(116.5 190)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-3"
+                    data-name="Vector"
+                    d="M13.7,0l-.65,10.07c-.11,1.57-.2,2.79-2.99,2.79H3.64C.85,12.86.76,11.64.65,10.07L0,0"
+                    transform="translate(113.15 197.14)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-4"
+                    data-name="Vector"
+                    d="M0,0H3.33"
+                    transform="translate(118.33 204.5)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-5"
+                    data-name="Vector"
+                    d="M0,0H5"
+                    transform="translate(117.5 200.5)"
+                    fill="none"
+                    stroke="#c8375b"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    id="Vector-6"
+                    data-name="Vector"
+                    d="M0,0H24V24H0Z"
+                    transform="translate(108 188)"
+                    fill="none"
+                    opacity="0"
+                  />
+                </g>
+              </svg>
+              {{ "BUTTONS.Delete" | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-end">
+    <button class="btn adding" (click)="changeNewAddressMode()">
+      + {{ "HOME.New_Address" | translate }}
+    </button>
+  </div>
+  <p-dialog
+    [(visible)]="showModel"
+    [modal]="true"
+    [draggable]="false"
+    [header]="editAddressMode == true ? 'Edit Address' : 'Add a New Address'"
+    [style]="{ width: '40vw' }"
+    [breakpoints]="{ '960px': '75vw', '640px': '97vw' }"
+    [baseZIndex]="10000"
+  >
+    <!-- [closable]="" -->
+
+    <ng-container class="new-address">
+      <div class="">
+        <!-- new address content form-->
+
+        <form [formGroup]="newAddressForm">
+          <div class="dropDown">
+            <label class="ms-2 d-block text-muted my-2">{{
+              "LABELS.GOV" | translate
+            }}</label>
+            <p-dropdown
+              [options]="governs"
+              formControlName="governorate_id"
+              optionLabel="name"
+              (onChange)="getCities($event)"
+              [placeholder]="'PLACEHOLDERS.GOV' | translate"
+            >
+            </p-dropdown>
+            <small
+              class="text-danger"
+              *ngIf="
+                submitted &&
+                newAddressForm.get('governorate_id')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.GOV" | translate }}</small
+            >
+          </div>
+
+          <div class="dropDown">
+            <label class="ms-2 d-block text-muted my-2">{{
+              "LABELS.CITY" | translate
+            }}</label>
+            <p-dropdown
+              [options]="cities"
+              formControlName="city_id"
+              optionLabel="name"
+              [placeholder]="'PLACEHOLDERS.CITY' | translate"
+            >
+            </p-dropdown>
+            <small
+              class="text-danger"
+              *ngIf="
+                submitted && newAddressForm.get('city_id')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.CITY_MESSAGE" | translate }}</small
+            >
+          </div>
+
+          <div>
+            <label for="address" class="ms-2 d-block text-muted my-2">{{
+              "LABELS.Additional_Address_Details" | translate
+            }}</label>
+            <input
+              id="address"
+              class="d-block mb-2"
+              style="width: 100%"
+              [placeholder]="
+                'PLACEHOLDERS.Additional_Address_Details' | translate
+              "
+              formControlName="address_details"
+              pInputText
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                submitted &&
+                newAddressForm.get('address_details')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.Additional_Address" | translate }}</small
+            >
+          </div>
+
+          <div class="phone">
+            <label
+              for="phoneNumber"
+              class="d-block labelPhoneNumber ms-2"
+              style="margin-top: 20px"
+              >{{ "HOME.Personal_Info" | translate }}</label
+            >
+
+            <div
+              class="d-flex justify-content-between align-items-center w-100"
+            >
+              <div class="row">
+                <p-dropdown
+                  [options]="countries"
+                  formControlName="phoneCode"
+                  optionLabel="name"
+                  [showClear]="false"
+                  [placeholder]="'Profile.Select_a_Country' | translate"
+                  class="my-2 col-md-1 me-3"
+                >
+                  <ng-template pTemplate="selectedItem">
+                    <div class="country-item country-item-value">
+                      <div>
+                        {{ newAddressForm.get("phoneCode")?.value.name }}
+                        <img
+                          width="20"
+                          height="20"
+                          class="ms-2"
+                          [src]="newAddressForm.get('phoneCode')?.value.img"
+                        />
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template let-country pTemplate="item">
+                    <div class="country-item">
+                      <div
+                        class="d-flex align-items-center justify-content-between"
+                      >
+                        {{ country.name }}
+                        <img
+                          width="20"
+                          height="20"
+                          class="mx-3"
+                          [src]="country.img"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-dropdown>
+              </div>
+
+              <input
+                id="phoneNumber"
+                class="d-block me-2 w-75"
+                [placeholder]="'PLACEHOLDERS.phoneNumber' | translate"
+                formControlName="phoneNumber"
+                pInputText
+              />
+            </div>
+            <div class="d-block">
+              <small
+                class="text-danger mt-1 phone me-5 pe-5"
+                *ngIf="submitted && newAddressForm.get('phoneNumber')?.errors?.['required']"
+              >
+                {{ "MESSAGES.PHONE_NUMBER" | translate }}</small
+              >
+
+              <small
+                *ngIf="submitted && newAddressForm.get('phoneNumber')?.errors?.['pattern']"
+                class="text-danger mt-1 phone me-5 pe-5"
+              >
+                {{ "MESSAGES.PHONE_NUMBER2" | translate }}</small
+              >
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 pe-0">
+              <label class="ms-2 d-block text-muted my-2" for="first_name">{{
+                "LABELS.First_Name" | translate
+              }}</label>
+              <input
+                id="first_name"
+                [placeholder]="'PLACEHOLDERS.First_Name' | translate"
+                formControlName="first_name"
+                pInputText
+                style="width: 100%"
+              />
+              <small
+                class="text-danger"
+                *ngIf="
+                  submitted &&
+                  newAddressForm.get('first_name')?.hasError('required')
+                "
+              >
+                {{ "MESSAGES.First_Name" | translate }}</small
+              >
+            </div>
+
+            <div class="col-md-6">
+              <label class="ms-2 d-block text-muted my-2" for="last_Name">{{
+                "LABELS.Last_Name" | translate
+              }}</label>
+              <input
+                id="last_Name"
+                [placeholder]="'PLACEHOLDERS.Last_Name' | translate"
+                formControlName="last_name"
+                pInputText
+                style="width: 100%"
+              />
+              <small
+                class="text-danger"
+                *ngIf="
+                  submitted &&
+                  newAddressForm.get('last_name')?.hasError('required')
+                "
+              >
+                {{ "MESSAGES.Last_Name" | translate }}</small
+              >
+            </div>
+          </div>
+
+          <!-- <mat-form-field
+            class="example-full-width position-relative w-50 px-2"
+          >
+            <mat-label>{{ "LABELS.GOV" | translate }}</mat-label>
+            <mat-select
+              panelClass="myPanelClass"
+              [placeholder]="'PLACEHOLDERS.GOV' | translate"
+              formControlName="governorate_id"
+            >
+              <mat-option
+                *ngFor="let gov of governs"
+                [value]="gov.id"
+                (onSelectionChange)="getCities(gov.id)"
+                >{{ gov.name }}</mat-option
+              >
+            </mat-select>
+            <small
+              class="text-danger position-absolute bottom-0 top-100 mt-2"
+              style="left: 0"
+              *ngIf="
+                submitted &&
+                newAddressForm.get('governorate_id')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.GOV" | translate }}</small
+            >
+          </mat-form-field>
+
+          <mat-form-field
+            class="example-full-width position-relative w-50 px-2"
+          >
+            <mat-label>{{ "LABELS.CITY" | translate }}</mat-label>
+            <mat-select
+              [placeholder]="'PLACEHOLDERS.CITY' | translate"
+              formControlName="city_id"
+            >
+              <mat-option *ngFor="let city of cities" [value]="city.id">{{
+                city.name
+              }}</mat-option>
+            </mat-select>
+            <small
+              class="text-danger position-absolute bottom-0 top-100 mt-2"
+              style="left: 0"
+              *ngIf="
+                submitted && newAddressForm.get('city_id')?.hasError('required')
+              "
+            >
+              {{ "MESSAGES.CITY_MESSAGE" | translate }}</small
+            >
+          </mat-form-field> -->
+
+          <!-- <p-dropdown appendTo="body" [options]="governs" optionLabel="name" [(ngModel)]="selectedGovern" [style]="{width: '50%'}"></p-dropdown> -->
+
+          <!-- <mat-form-field class="example-full-width w-100">
+            <mat-label>{{
+              "LABELS.Additional_Address_Details" | translate
+            }}</mat-label>
+            <input
+              matInput
+              [placeholder]="
+                'PLACEHOLDERS.Additional_Address_Details' | translate
+              "
+              formControlName="address_details"
+            />
+          </mat-form-field>
+          <small
+            class="text-danger"
+            *ngIf="
+              submitted &&
+              newAddressForm.get('address_details')?.hasError('required')
+            "
+          >
+            {{ "MESSAGES.Additional_Address" | translate }}</small
+          > -->
+
+          <!-- <h3 style="font-weight: 600; font-size: 14px">
+            {{ "HOME.Personal_Info" | translate }}
+          </h3> -->
+
+          <!-- <div class="d-flex justify-content-start align-items-center">
+            <div class="w-100"> -->
+          <!-- <mat-form-field class="example-full-width pe-1 w-25 position-relative">
+                <mat-label>{{'PLACEHOLDERS.Code' | translate}}</mat-label> -->
+          <!-- <input matInput [placeholder]="'PLACEHOLDERS.Code' | translate" formControlName="phoneCode" readonly /> -->
+          <!-- <p-dropdown
+                [options]="countries"
+                formControlName="phoneCode"
+                optionLabel="name"
+                [showClear]="false"
+                [placeholder]="'Profile.Select_a_Country' | translate"
+                class="my-3 me-2"
+              >
+                <ng-template pTemplate="selectedItem">
+                  <div class="country-item country-item-value">
+                    <div>
+                      {{ newAddressForm.get("phoneCode")?.value.name }}
+                      <img
+                        width="20"
+                        height="20"
+                        class="ms-2"
+                        [src]="newAddressForm.get('phoneCode')?.value.img"
+                      />
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                  <div class="country-item">
+                    <div
+                      class="d-flex align-items-center justify-content-between"
+                    >
+                      {{ country.name }}
+                      <img
+                        width="20"
+                        height="20"
+                        class="mx-3"
+                        [src]="country.img"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+              <small
+                class="text-danger position-absolute bottom-0 top-100 mt-2"
+                style="left: 0"
+                *ngIf="
+                  submitted &&
+                  newAddressForm.get('phoneCode')?.hasError('required')
+                "
+              >
+                {{ "MESSAGES.required" | translate }}</small
+              > -->
+          <!-- </mat-form-field> -->
+          <!-- formControlName -->
+
+          <!-- formControlName -->
+          <!-- <mat-form-field class="example-full-width w-75 position-relative">
+                <mat-label>{{ "LABELS.Phone" | translate }}</mat-label>
+                <input
+                  matInput
+                  [placeholder]="'PLACEHOLDERS.phoneNumber' | translate"
+                  formControlName="phoneNumber"
+                />
+
+                <small
+                  class="text-danger position-absolute bottom-0 top-100 mt-2"
+                  style="left: 0"
+                  *ngIf="
+                    submitted &&
+                    newAddressForm.get('phoneNumber')?.hasError('required')
+                  "
+                >
+                  {{ "MESSAGES.PHONE_NUMBER" | translate }}</small
+                >
+              </mat-form-field>
+            </div>
+          </div> -->
+
+          <div class="d-flex justify-content-between align-items-center my-4">
+            <div class="text-muted d-flex align-items-center">
+              <input
+                id="choose"
+                type="checkbox"
+                class="me-2"
+                formControlName="setAddress"
+              />
+              <label for="choose" class="" style="font-size: 14px">{{
+                "Profile.Set_as_Selected_Address" | translate
+              }}</label>
+            </div>
+            <div class="">
+              <button class="btn cancel-address" (click)="cancelNewAddress()">
+                {{ "BUTTONS.Cancel" | translate }}
+              </button>
+              <button
+                class="btn save-address"
+                type="submit"
+                (click)="setCustomerNewAddress()"
+              >
+                {{ editAddressMode == true ? "Edit Address" : "Save Address" }}
+              </button>
+            </div>
+          </div>
+        </form>
+        <!--  -->
+      </div>
+    </ng-container>
+  </p-dialog>
+</section>
+
+<p-toast></p-toast>
+<p-confirmDialog
+  [style]="{ width: '30vw' }"
+  [breakpoints]="{ '960px': '75vw', '640px': '97vw' }"
+  [baseZIndex]="10000"
+>
+</p-confirmDialog>

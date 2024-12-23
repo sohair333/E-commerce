@@ -1,0 +1,22 @@
+<div class="info px-3">
+  <div *ngIf="viewName === 0">
+    <div class="header my-4">
+      <button (click)="backToMainMenu()" class="btn m-0 p-0">
+        <i
+          [ngClass]="selectedLang !== 'en'?'fa-solid fa-chevron-right fs-5 mx-2' :'fa-solid fa-chevron-left mx-2 fs-5'"></i>
+      </button>
+      <h4 class="fw-bold">{{'menu.Help'|translate}}</h4>
+    </div>
+    <button (click)="changeView(item.view)"
+      class="pages w-100 btn px-3 py-4 my-3 rounded-3 bg-white d-flex align-items-center justify-content-between"
+      *ngFor="let item of info">
+      <p>{{item.name}}</p>
+      <i
+        [ngClass]="selectedLang === 'en'?'fa-solid fa-chevron-right fs-6 mx-2' :'fa-solid fa-chevron-left mx-2 fs-6'"></i>
+    </button>
+  </div>
+  <app-about-us (view)="resetView()"  *ngIf="viewName === 1"></app-about-us>
+  <app-terms-and-conditions (view)="resetView()" *ngIf="viewName === 2"></app-terms-and-conditions>
+  <app-privacy-policy (view)="resetView()" *ngIf="viewName === 3" ></app-privacy-policy>
+  <app-shipping-policy (view)="resetView()" *ngIf="viewName === 4"  ></app-shipping-policy>
+</div>

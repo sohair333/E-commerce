@@ -1,0 +1,315 @@
+<section>
+  <div class="container" style="max-width: 95%; padding-top: 25px">
+    <div class="row">
+      <div class="col-md-3 mb-5">
+        <div class="sidebar d-flex flex-column">
+          <p>{{ "Profile.Hello" | translate }} {{ userName }},</p>
+          <div class="txt-acc">
+            <button
+              (click)="showPage('Profile')"
+              [ngClass]="page === 'Profile' ? 'btn-active' : ''"
+              class="content-acc d-flex align-items-center bg-transparent border-0 w-100"
+            >
+              <svg
+                id="profile"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  id="Vector"
+                  d="M4.6,8.87a1.818,1.818,0,0,0-.33,0,4.445,4.445,0,1,1,.33,0Z"
+                  transform="translate(7.56 2)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-2"
+                  data-name="Vector"
+                  d="M1.815,1.373c-2.42,1.62-2.42,4.26,0,5.87a9.766,9.766,0,0,0,10.01,0c2.42-1.62,2.42-4.26,0-5.87A9.812,9.812,0,0,0,1.815,1.373Z"
+                  transform="translate(5.345 13.188)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-3"
+                  data-name="Vector"
+                  d="M0,0H24V24H0Z"
+                  transform="translate(24 24) rotate(180)"
+                  fill="none"
+                  opacity="0"
+                />
+              </svg>
+
+              <span>{{ "Profile.Profile" | translate }}</span>
+            </button>
+            <div class="line w-75 m-auto"></div>
+            <!--  -->
+            <button
+              (click)="showPage('Addresses')"
+              [ngClass]="page === 'Addresses' ? 'btn-active' : ''"
+              class="content-acc d-flex align-items-center bg-transparent border-0 w-100"
+            >
+              <!-- <i class="fa-solid fa-map-location-dot me-1" style="width: 24px;height: 24px;color: #c3c5ce;"></i> -->
+              <i
+                class="fa-solid fa-location-dot"
+                style="width: 24px; height: 24px; color: #cecfd8"
+              ></i>
+              <span>{{ "Profile.Address" | translate }}</span>
+            </button>
+            <div class="line w-75 m-auto"></div>
+            <!--  -->
+            <button
+              (click)="showPage('Orders')"
+              [ngClass]="page === 'Orders' ? 'btn-active' : ''"
+              class="content-acc d-flex align-items-center bg-transparent border-0 w-100"
+            >
+              <svg
+                id="clipboard-text"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                class=""
+              >
+                <path
+                  id="Vector"
+                  d="M0,0H7"
+                  transform="translate(8 12.2)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-2"
+                  data-name="Vector"
+                  d="M0,0H4.38"
+                  transform="translate(8 16.2)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-3"
+                  data-name="Vector"
+                  d="M2,4H6C8,4,8,3,8,2,8,0,7,0,6,0H2C1,0,0,0,0,2S1,4,2,4Z"
+                  transform="translate(8 2)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-4"
+                  data-name="Vector"
+                  d="M13,0c3.33.18,5,1.41,5,5.98v6c0,4-1,6-6,6H6c-5,0-6-2-6-6v-6C0,1.42,1.67.18,5,0"
+                  transform="translate(3 4.02)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-5"
+                  data-name="Vector"
+                  d="M0,0H24V24H0Z"
+                  fill="none"
+                  opacity="0"
+                />
+              </svg>
+
+              <span>{{ "Profile.Orders" | translate }}</span>
+            </button>
+            <div class="line w-75 m-auto"></div>
+            <!--  -->
+
+            <button
+              (click)="showPage('Etmana Credit')"
+              [ngClass]="page === 'Etmana Credit' ? 'btn-active' : ''"
+              class="content-acc d-flex align-items-center bg-transparent border-0 w-100"
+            >
+              <svg
+                id="card-pos"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  id="Vector"
+                  d="M0,11.95,11.95,0"
+                  transform="translate(3.93 3.929)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-2"
+                  data-name="Vector"
+                  d="M0,1.2,1.2,0"
+                  transform="translate(11.101 17.079)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-3"
+                  data-name="Vector"
+                  d="M0,2.39,2.39,0"
+                  transform="translate(13.793 13.199)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-4"
+                  data-name="Vector"
+                  d="M1.6,8.238,8.241,1.6c2.12-2.12,3.18-2.13,5.28-.03l4.91,4.91c2.1,2.1,2.09,3.16-.03,5.28l-6.64,6.64c-2.12,2.12-3.18,2.13-5.28.03l-4.91-4.91C-.529,11.418-.529,10.368,1.6,8.238Z"
+                  transform="translate(2 2.001)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-5"
+                  data-name="Vector"
+                  d="M0,0H20"
+                  transform="translate(2 21.999)"
+                  fill="none"
+                  stroke="#a0a3b1"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                />
+                <path
+                  id="Vector-6"
+                  data-name="Vector"
+                  d="M0,0H24V24H0Z"
+                  fill="none"
+                  opacity="0"
+                />
+              </svg>
+              <span>{{ "Profile.Etmana_Credit" | translate }}</span>
+            </button>
+            <div class="line w-75 m-auto"></div>
+
+            <div class="px-5 my-3 text-center my-2">
+              <button
+                (click)="dialogLogout = true"
+                class="btn-log-Out bg-transparent px-3"
+              >
+                <svg
+                  id="export"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  class="me-2"
+                >
+                  <path
+                    id="Vector"
+                    d="M7.5,0a7.5,7.5,0,1,0,7.5,7.5"
+                    transform="translate(1.503 1.503)"
+                    fill="none"
+                    stroke="#0f183d"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                  />
+                  <path
+                    id="Vector-2"
+                    data-name="Vector"
+                    d="M0,6.161,6.161,0"
+                    transform="translate(9.736 2.104)"
+                    fill="none"
+                    stroke="#0f183d"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                  />
+                  <path
+                    id="Vector-3"
+                    data-name="Vector"
+                    d="M3.629,3.629V0H0"
+                    transform="translate(12.869 1.503)"
+                    fill="none"
+                    stroke="#0f183d"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                  />
+                  <path
+                    id="Vector-4"
+                    data-name="Vector"
+                    d="M0,0H18V18H0Z"
+                    transform="translate(18 18) rotate(180)"
+                    fill="none"
+                    opacity="0"
+                  />
+                </svg>
+                {{ "Profile.Logout" | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-9">
+        <!-- info -->
+        <app-info *ngIf="page === 'Profile'"></app-info>
+        <!-- info -->
+        <!-- app-addresses -->
+        <app-addresses *ngIf="page === 'Addresses'"></app-addresses>
+        <!-- app-addresses -->
+        <!--app credit-->
+        <app-credit *ngIf="page === 'Etmana Credit'"></app-credit>
+        <!--app credit-->
+
+        <!-- orders -->
+        <app-orders *ngIf="page === 'Orders'"></app-orders>
+        <!-- orders -->
+      </div>
+    </div>
+  </div>
+</section>
+<p-toast></p-toast>
+<p-dialog [style]="{ width: '35vw' }" [(visible)]="dialogLogout" [modal]="true">
+  <div class="px-3">
+    <h1 style="color: #d92059">
+      {{ "Profile.Are_sure" | translate }}
+    </h1>
+    <h1 style="color: #000000">{{ "Profile.logoutMsg" | translate }}</h1>
+    <div class="my-3">
+      <button (click)="logout()" class="btn btn-logout w-100">
+        {{ "Profile.logout" | translate }}
+      </button>
+      <button
+        (click)="cancelledLogout()"
+        class="btn border-0 bg-transparent w-100"
+      >
+        {{ "Profile.Cancel" | translate }}
+      </button>
+    </div>
+  </div>
+</p-dialog>

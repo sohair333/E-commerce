@@ -1,0 +1,33 @@
+:host ::ng-deep {
+  .p-dialog .p-dialog-header .p-dialog-title {
+    font-weight: 700 !important;
+    font-size: 18px !important;
+  }
+  .p-dialog .p-dialog-header {
+    border-bottom: 0 none;
+    background: #ffffff;
+    color: #343a40;
+    padding: 1.5rem;
+    border-top-right-radius: 12px !important;
+    border-top-left-radius: 11px !important;
+  }
+  .p-dialog .p-dialog-content:last-of-type {
+    border-bottom-right-radius: 12px !important;
+    border-bottom-left-radius: 11px !important;
+    padding: 10px !important;
+    display: block !important;
+  }
+  .p-dialog-header {
+    display: flex;
+    align-items: flex-start !important;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+}
+::ng-deep{
+  .p-element dialog .p-dialog-mask{
+    z-index: 999999999900 !important;
+  }
+}
+

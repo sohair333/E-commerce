@@ -1,0 +1,22 @@
+<div class="info ">
+  <div class="header my-4">
+    <button (click)="backToMainView()" class="btn m-0 p-0">
+
+      <i
+        [ngClass]="selectedLang !== 'en'?'fa-solid fa-chevron-right fs-5 mx-2' :'fa-solid fa-chevron-left mx-2 fs-5'"></i>
+    </button>
+    <h4 class="fw-bold">{{name}}</h4>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="img w-100 text-center">
+        <img src="../../../../assets/images/High five-pana.png" alt="">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="Content-title">
+        <div class="my-3 content" [innerHTML]="content"></div>
+      </div>
+    </div>
+  </div>
+</div>

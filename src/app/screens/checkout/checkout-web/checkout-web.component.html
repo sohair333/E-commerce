@@ -1,0 +1,527 @@
+<div *ngIf="loadData == false" class="sec-load vh-100">
+  <div class="loader-data"></div>
+</div>
+<section *ngIf="loadData == true && !msg" class="web pb-5 pt-4">
+  <div class="container" style="max-width: 95%;">
+    <h4 class="txt-header my-3">
+      <button (click)="back()" class="border-0 bg-transparent">
+        <i [ngClass]="checkLang == 'en'?'fa-solid fa-chevron-left':'fa-solid fa-chevron-right'"></i>
+      </button> {{'checkout.CHECKOUT'|translate }}
+    </h4>
+    <div class="row">
+      <div class="col-md-7 all-content">
+        <!-- shipping  show adress selected only-->
+        <div *ngIf="isDefault == true">
+          <div class=" " *ngFor="let address of data; let i = index">
+            <div *ngIf="address.is_default_shipping == true" class="shipping-address mt-4">
+              <div class="d-flex justify-content-between align-items-center">
+                <h4 class="ms-2 mb-3" style="font-size: 16px; font-weight: 500;">
+                  {{'Orders.Shipping_Address'| translate }}
+                </h4>
+                <button (click)="openChangeAddress()" class="btn">
+                  {{'checkout.Change'|translate}}
+                </button>
+              </div>
+
+              <div class="address-content">
+                <h3 class="">
+                  <i class="fa-solid fa-location-dot mx-1 fw-bold" style="color: #00a599;"></i> {{
+                  address?.country?.name }},{{ address?.governorate?.name }},{{ address?.city?.name }}
+                </h3>
+                <h4 class="m-2" style="margin-left: 0 !important;">
+                  <i class="fa-solid fa-user mx-1 fw-bold" style="color: #00a599;"></i> {{ address?.first_name }} {{
+                  address?.last_name }}
+                </h4>
+                <h4 class="m-2" style="margin-left: 0 !important;"> <i class="fa-solid fa-circle-info mx-1 fw-bold"
+                    style="color: #00a599;"></i>{{ address?.address_details }}</h4>
+                <h4 class="m-2" style="margin-left: 0 !important;">
+                  <i class="fa-solid fa-phone mx-1 fw-bold" style="color: #00a599;"></i> {{ address?.phone }}
+                  <i style="color: #00a599" class="fa-solid fa-circle-check mx-2"></i>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- shipping  show adress selected only-->
+        <!-- if no have address show form to save new address and is selected because have one address -->
+        <div *ngIf="data?.length === 0" class="address-info my-3">
+
+          <div class="address-form card">
+            <h5 class="fw-bolder mb-3">
+              {{'checkout.Address_Info'|translate}}
+
+            </h5>
+            <form [formGroup]="addressForm">
+              <div class="row">
+                   <!-- city Control -->
+              <div class="inputs-group col-md-6 mb-4">
+                <label >{{'LABELS.CITY'|translate}}</label>
+                <br>
+                <p-dropdown   placeholder="Select City" [options]="governs"
+                  #country formControlName="governorate_id"  optionLabel="name"></p-dropdown><br>
+                <small class="text-danger" *ngIf="
+                   submitted &&
+                   addressForm.get('governorate_id')?.hasError('required')
+                 ">
+                 {{'checkout.city_req'|translate}}
+                </small>
+              </div>
+           <!-- city Control -->
+               <!-- zone Control -->
+               <div class="inputs-group col-md-6 mb-4">
+                <label >{{'LABELS.zone'|translate}}</label>
+                <br>
+                <p-dropdown  placeholder="Select Zone" [options]="cities"
+                  #country formControlName="city_id"  optionLabel="name"></p-dropdown><br>
+                <small class="text-danger" *ngIf="
+                   submitted &&
+                   addressForm.get('city_id')?.hasError('required')
+                 ">
+                 {{'checkout.zone_req'|translate}}
+
+                </small>
+              </div>
+             <!-- zone Control -->
+               <!-- address Control -->
+               <div class="col-md-12 mb-4">
+                <span class=" w-100">
+                  <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatRight'">{{'LABELS.Address_Details' | translate}}</label><br>
+                  <input id="float-input" [placeholder]="'LABELS.Address_Details' | translate" class="w-100" formControlName="address_details" type="text" pInputText>
+                </span><br>
+                <small class="text-danger" *ngIf="
+                   submitted &&
+                   addressForm.get('address_details')?.hasError('required')
+                 ">
+                 {{'checkout.address_req'|translate}}
+
+                </small>
+              </div>
+               <!-- address Control -->
+              <!-- personal info ------------------------------------ -->
+              <h5 class="mb-3 fw-bolder ">{{'HOME.Personal_Info' | translate}}</h5>
+             <!-- code and phone number -->
+             <label  [ngClass]="checkLang === 'en' ? '':'floatNumber'">{{'LABELS.Phone' | translate}}</label><br>
+             <div class="col-md-12 mb-4 d-flex align-items-center gap-3">
+              <p-dropdown [disabled]="true" [readonly]="true" placeholder="code"  [options]="countries" formControlName="phoneCode" optionLabel="name" [showClear]="false"
+                 class="w-25">
+                <ng-template pTemplate="selectedItem">
+                  <div class="country-item country-item-value">
+                    <div>
+                      {{ addressForm.get("phoneCode")?.value.name }}
+                      <img width="20" height="20" class="ms-2" [src]="addressForm.get('phoneCode')?.value.img">
+                    </div>
+                  </div>
+                </ng-template>
+                <ng-template let-country pTemplate="item">
+                  <div class="country-item">
+                    <div class="d-flex align-items-center justify-content-between">
+                      {{ country.name }}
+                      <img width="20" height="20" class="mx-3" [src]="country.img" alt="" />
+                    </div>
+                  </div>
+                </ng-template>
+              </p-dropdown>
+              <span class=" w-75">
+                <input [disabled]="true" [readonly]="true"  id="float-input" class="w-100" placeholder="Phone Number" formControlName="phoneNumber" type="text" pInputText >
+
+              </span>
+            </div>
+            <!-- code and phone number -->
+            <!-- first Name Control -->
+            <div class="col-md-6 mb-4">
+              <span class=" w-100">
+                <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatRight'">{{'LABELS.First_Name' | translate}}</label>
+                <input id="float-input" [disabled]="true" [readonly]="true" placeholder="Type here" class="w-100" formControlName="first_name" type="text" pInputText>
+              </span>
+            </div>
+             <!-- first Name Control -->
+             <!-- last Name Control -->
+             <div class="col-md-6 mb-4">
+              <span class=" w-100">
+                <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatRight'">{{'LABELS.Last_Name' | translate}}</label>
+                <input id="float-input" [disabled]="true" [readonly]="true" placeholder="Type here" class="w-100" formControlName="last_name" type="text" pInputText>
+              </span>
+            </div>
+             <!-- last Name Control -->
+              </div>
+              <!-- [disabled]="addressForm.invalid" -->
+              <div class="text-end">
+                <button (click)="setCustomerAddress()" class="btn btn-save-address">
+                  {{'BUTTONS.Save_Address' | translate}}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- if no have address show form to save new address and is selected because have one address -->
+        <!-- Credit order -->
+        <div class="credit mt-4" [hidden]="walletBalance == 0">
+          <h5>{{'HOME.CREDIT' | translate}}</h5>
+          <div class="credit-check d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-center align-items-center">
+              <!-- input check Credit -->
+              <input type="checkbox" #check [(ngModel)]="checkCredits"
+                (change)="checkCredit(check); this.getOrderSummary()" />
+              <!-- input check Credit -->
+              <span class="span-check">{{'LABELS.Credit' | translate}}</span>
+            </div>
+            <p>
+              <span class="text-black-50">{{'HOME.Your_Balance' | translate}}</span>
+              <span class="span-cash mx-1">{{'HOME.EGP' | translate}} {{ walletBalance }}</span>
+            </p>
+          </div>
+        </div>
+        <!-- Credit order -->
+        <!-- Payment Methods -->
+        <div class="payment my-3">
+          <h4>{{'HOME.Payment_Method' | translate}}</h4>
+          <div class="" *ngFor="let pay of paymentMethods; let i = index">
+            <div class="payment-check d-flex align-items-center justify-content-md-start">
+              <!-- input radio choose user select any payment -->
+              <input type="radio" name="paymentMethod" [(ngModel)]="selectedValue" [value]="pay.id"
+                (change)="getPaymentId()" />
+              <!-- input radio choose user select any payment -->
+              <span class="span-check">{{ pay.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 fix-rev mt-3">
+        <!-- Review show all products already selected and show in -->
+        <div class="review my-2">
+          <div class="d-flex justify-content-between align-items-center rev-header">
+            <p style="font-size: 16px; font-weight: 700;">{{'checkout.Review_Oreder'|translate}}</p>
+            <p class="text-muted">{{ selectedProducts.length }} {{'CART.ITEMS'|translate}}</p>
+          </div>
+
+          <div class="rev-content" [ngStyle]="
+              selectedProducts.length > 0
+                ? { 'max-height': '50vh', 'overflow-y': 'scroll' }
+                : {}
+            ">
+            <div class="row my-1" *ngFor="let product of selectedProducts; let i = index">
+              <div class="col-md-3">
+                <div class="d-flex justify-content-center align-items-center prod-img ps-2">
+                  <img *ngIf="
+                      product?.sellerVariation?.variation?.images.length !== 0
+                    " [src]="product?.sellerVariation?.variation?.images[0]?.url" class="" alt="Product Image" />
+                  <img *ngIf="
+                      product?.sellerVariation?.variation?.images.length === 0
+                    " [src]="
+                      product?.sellerVariation?.variation?.product?.images[0]
+                        ?.url
+                    " class="" alt="Product Image" />
+                </div>
+              </div>
+              <div class="col-md-9 pe-0 m-0">
+                <div class="d-flex justify-content-between align-items-center my-1">
+                  <div class="fw-bolder name-pro">
+                    {{ product?.sellerVariation?.variation?.product?.title }}
+                  </div>
+                  <div class="">
+                    <span class="text-muted price-pro me-1">{{'HOME.EGP'|translate}}</span>
+                    <span class="fw-bolder" style="font-size: 20px">{{
+                      product?.sellerVariation?.price
+                      }}</span>
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center">
+                  <div class="">
+                    <span class="text-muted" style="font-size: 13px">{{'CART.Product_Details'|translate}}</span>
+                  </div>
+                  <div class="" *ngFor="
+                      let item of product.sellerVariation?.variation
+                        ?.attributeValues
+                    ">
+                    <div class="d-flex justify-content-around align-items-center mt-1">
+                      <div class="text-muted mx-2" style="font-size: 13px" *ngIf="item.value.code !== null">
+                        {{'HOME.Color' | translate}}
+                      </div>
+                      <div *ngIf="item.value?.code !== null" class="color-order"
+                        [style.background-color]="item.value?.code"></div>
+                      <div *ngIf="item.value?.code !== null" class="mx-2 color-assign"
+                        style="font-weight: 500; font-size: 13px">
+                        {{ item.value.value }}
+                      </div>
+
+                      <div class="text-muted mx-2" style="font-size: 13px" *ngIf="item.value.code === null">
+                        {{'HOME.Size' | translate}}
+                      </div>
+                      <div *ngIf="item.value?.code === null" class="mx-2" style="font-weight: 500; font-size: 13px">
+                        {{ item.value?.value }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center my-2">
+                  <div class="">
+                    <span class="text-muted me-2" style="font-size: 13px">{{'HOME.Product_Quantity'|translate}}</span>
+
+                    <span class="fw-bolder mx-1" style="font-size: 12px">{{
+                      product.quantity
+                      }}</span>
+                  </div>
+                  <div class="">
+                    <button (click)="RemoveProduct(i)" class="btn-remove">
+                      {{'BUTTONS.Remove' | translate}}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Review show all products already selected and show in -->
+
+        <!-- Payment Methods -->
+        <div>
+          <div class="order-summary">
+            <h4>{{'HOME.Order_Summary'|translate}}</h4>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" />
+              <div class="input-group-append">
+                <button class="btn input-group-text h-100">{{'CART.Apply'|translate}}</button>
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center my-2 sub-total">
+              <p class="text-muted">
+                {{'CART.SubTotal'|translate}} / <span >{{ selectedProducts.length }} </span>
+                {{'CART.Items'|translate}}
+              </p>
+              <p *ngIf="selectedProducts.length" class="fw-semibold">
+                {{'HOME.EGP'|translate}} {{ sum }}
+              </p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center my-2 shipping-details">
+              <p class="text-muted">{{'CART.Shipping'|translate}} <span *ngIf="checkLang == 'en'"
+                  style="color: #F15F30;">{{'CART.Details'|translate}}</span></p>
+              <p class="text-muted fw-bold"> <span style="color: #F15F30;"> {{ shippingDetails
+                  }}{{'HOME.EGP'|translate}} +{{shipping_fees}} </span></p>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between align-items-center my-3 total">
+              <p>
+                <span style="font-size: 24px; font-weight: 800">{{'CART.Total'|translate}}</span>
+                <span style="font-size: 14px" class="text-muted"> Incl. Tax</span>
+              </p>
+              <p *ngIf="sum" class="" style="font-size: 24px; font-weight: 700">
+                {{'HOME.EGP'|translate}} {{ sum }}
+              </p>
+            </div>
+
+            <button class="btn btn-place-order d-flex justify-content-center align-items-center" (click)="placeOrder()">
+              <div *ngIf="placeOrderLoading == true" class="loader"></div>
+              <!-- {{ placeOrderLoading == false ? 'checkout.PLACE_ORDER' : '' |translate}} -->
+              <p *ngIf="placeOrderLoading == false "> {{'checkout.PLACE_ORDER' | translate}} </p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- dialog show all address selected and not selected -->
+  <p-dialog [(visible)]="changeAddressMode" [modal]="true" [draggable]="false" [header]="
+      newAddrssMode == true
+        ? editAddressMode == true
+          ? 'Edit Address'
+          : 'Add a New Address'
+        : 'Shipping Address'
+    " [style]="{ width: '40vw' }" [breakpoints]="{ '960px': '75vw', '640px': '97vw' }" [baseZIndex]="10000">
+    <!-- [closable]="" -->
+
+    <ng-container *ngIf="newAddrssMode == false">
+      <div class="shipping-address" *ngFor="let coustomerDetail of data; let i = index">
+        <!-- shipping address content-->
+        <div class="my-1" [ngClass]="
+            coustomerDetail.is_default_shipping == true
+              ? 'address-content-select'
+              : 'address-content-notselect'
+          ">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="fw-bold">
+              <i class="fa-solid fa-location-dot mx-1" style="font-size: 20px" [ngStyle]="
+                  coustomerDetail.is_default_shipping == true
+                    ? { color: '#00A599' }
+                    : { color: '#0E1740' }
+                ">
+              </i>
+              <span style="font-size: 14px">{{ coustomerDetail?.country?.name }},{{
+                coustomerDetail?.governorate?.name
+                }},{{ coustomerDetail?.city?.name }}</span>
+              <span *ngIf="coustomerDetail.is_default_shipping == true" class="mx-1 rounded-pill" style="
+                  background-color: #00a599;
+                  color: white;
+                  padding: 7px 15px 7px 11px;
+                  font-size: 14px;
+                ">
+                {{'HOME.default_shipping' | translate}}</span>
+            </div>
+            <div class="">
+              <button class="edit-icon-address mx-2" (click)="handleEditAddressCustomer(coustomerDetail, i)">
+                <i class="fa-solid fa-pen"></i> {{'BUTTONS.EDITE' | translate}}
+              </button>
+              <button class="delete-icon-address" (click)="deleteAddressClient(coustomerDetail)">
+                <i class="fa-solid fa-trash text-danger"></i>
+              </button>
+            </div>
+          </div>
+          <h5 class="m-2">
+            {{ coustomerDetail?.first_name }} {{ coustomerDetail?.last_name }}
+          </h5>
+          <h5 class="m-2">{{ coustomerDetail?.address_details }}</h5>
+          <h5 class="m-2">
+            {{ coustomerDetail?.phone }}
+            <i style="color: #00a599" class="fa-solid fa-circle-check mx-2"></i>
+          </h5>
+        </div>
+      </div>
+      <button class="btn adding" (click)="changeNewAddressMode()">
+        + {{'HOME.New_Address' | translate}}
+      </button>
+    </ng-container>
+    <ng-container *ngIf="newAddrssMode == true" class="new-address">
+
+      <div class="dialog-content">
+        <!-- new address content form-->
+
+        <form [formGroup]="newAddressForm">
+          <div class="row">
+            <!-- city Control -->
+       <div class="inputs-group col-md-6 mb-4">
+         <label >{{'LABELS.CITY'|translate}}</label>
+         <br>
+         <p-dropdown (onChange)="getCities($event)"  placeholder="Select City" [options]="governs"
+           #country formControlName="governorate_id"  optionLabel="name"></p-dropdown><br>
+         <small class="text-danger" *ngIf="
+            submitted &&
+            newAddressForm.get('governorate_id')?.hasError('required')
+          ">
+          City is required</small>
+       </div>
+    <!-- city Control -->
+        <!-- zone Control -->
+        <div class="inputs-group col-md-6 mb-4">
+         <label >{{'LABELS.zone'|translate}}</label>
+         <br>
+         <p-dropdown  placeholder="Select Zone" [options]="cities"
+           #country formControlName="city_id"  optionLabel="name"></p-dropdown><br>
+         <small class="text-danger" *ngIf="
+            submitted &&
+            newAddressForm.get('city_id')?.hasError('required')
+          ">
+          Zone is required</small>
+       </div>
+      <!-- zone Control -->
+        <!-- address Control -->
+        <div class="col-md-12 mb-4">
+         <span class=" w-100">
+           <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatRight'">{{'LABELS.Address_Details' | translate}}</label><br>
+           <input id="float-input" [placeholder]="'LABELS.Address_Details' | translate" class="w-100" formControlName="address_details" type="text" pInputText>
+         </span><br>
+         <small class="text-danger" *ngIf="
+            submitted &&
+            newAddressForm.get('address_details')?.hasError('required')
+          ">
+          Address Details is required</small>
+       </div>
+        <!-- address Control -->
+         <!-- personal info ------------------------------------ -->
+         <h5 class="mb-3 fw-bolder ">{{'HOME.Personal_Info' | translate}}</h5>
+         <!-- code and phone number -->
+         <label  [ngClass]="checkLang === 'en' ? '':'floatNumber'">{{'LABELS.Phone' | translate}}</label><br>
+         <div class="col-md-12 mb-4 d-flex align-items-center gap-3">
+          <p-dropdown [disabled]="true" [readonly]="true" placeholder="code"  [options]="countries" formControlName="phoneCode" optionLabel="name" [showClear]="false"
+             class="w-25">
+            <ng-template pTemplate="selectedItem">
+              <div class="country-item country-item-value">
+                <div>
+                  {{ newAddressForm.get("phoneCode")?.value.name }}
+                  <img width="20" height="20" class="ms-2" [src]="newAddressForm.get('phoneCode')?.value.img">
+                </div>
+              </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+              <div class="country-item">
+                <div class="d-flex align-items-center justify-content-between">
+                  {{ country.name }}
+                  <img width="20" height="20" class="mx-3" [src]="country.img" alt="" />
+                </div>
+              </div>
+            </ng-template>
+          </p-dropdown>
+          <span class=" w-75">
+            <input [disabled]="true" [readonly]="true"  id="float-input" class="w-100" placeholder="Phone Number" formControlName="phoneNumber" type="text" pInputText >
+
+          </span>
+        </div>
+        <!-- code and phone number -->
+        <!-- first Name Control -->
+        <div class="col-md-6 mb-4">
+          <span class=" w-100">
+            <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatRight'">{{'LABELS.First_Name' | translate}}</label>
+            <input id="float-input" [disabled]="true" [readonly]="true" placeholder="Type here" class="w-100" formControlName="first_name" type="text" pInputText>
+          </span>
+        </div>
+         <!-- first Name Control -->
+         <!-- last Name Control -->
+         <div class="col-md-6 mb-4">
+          <span class=" w-100">
+            <label for="float-input" [ngClass]="checkLang === 'en' ? '':'floatRight'">{{'LABELS.Last_Name' | translate}}</label>
+            <input id="float-input" [disabled]="true" [readonly]="true" placeholder="Type here" class="w-100" formControlName="last_name" type="text" pInputText>
+          </span>
+        </div>
+         <!-- last Name Control -->
+
+        </div>
+
+
+
+          <div class="d-flex justify-content-between align-items-center my-4">
+            <div class="text-muted d-flex align-items-center">
+              <input type="checkbox" class="me-2" formControlName="setAddress" />
+              <span class="" style="font-size: 14px">{{'checkout.select_address'|translate}}</span>
+            </div>
+            <div class="">
+              <button class="btn cancel-address" (click)="cancelNewAddress()">
+                {{'BUTTONS.Cancel' | translate}}
+              </button>
+              <button class="btn save-address" type="submit" (click)="setCustomerNewAddress()">
+                {{ editAddressMode == true ? "Edit Address" : "Save Address" }}
+              </button>
+            </div>
+          </div>
+        </form>
+        <!--  -->
+      </div>
+    </ng-container>
+  </p-dialog>
+  <!-- dialog show all address selected and not selected -->
+</section>
+
+<p-toast></p-toast>
+<p-confirmDialog [style]="{ width: '30vw' }" [breakpoints]="{ '960px': '75vw', '640px': '97vw' }" [baseZIndex]="10000">
+</p-confirmDialog>
+
+<div class="row d-flex justify-content-center align-items-center" *ngIf="msg" style="
+    top: 0;
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+  ">
+  <div class="col-md-4">
+    <img src="../../../assets/images/success.gif" width="80%" height="50%" style="color: #5e2d77" alt="" />
+    <h2 class="text-center m-0 p-0">
+      {{'HOME.TEXT_SUCCESS' | translate}}
+    </h2>
+    <div class="my-3 text-center">
+      <button class="btn btn-home" routerLink="/homePage">
+        {{'HOME.GO_TO_HOME' | translate}}
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<div *ngIf="!show" class="home">
+  <div class="row" style="padding: 0 !important; margin: 0; width: 100%">
+    <div class="col-md-12 p-0">
+      <app-banners [banners]="data?.banners"></app-banners>
+    </div>
+    <div class="col-md-12 p-0 m-0">
+      <app-sub-categories
+        [sub_categories]="data?.categories_slider"></app-sub-categories>
+    </div>
+    <div *ngIf="flashOffer" class="col-md-12 p-0 m-0">
+      <app-flash-offer
+        [flashOfferData]="flashOfferData"
+        [flashOffer]="flashOffer"></app-flash-offer>
+    </div>
+    <div class="col-md-12">
+      <app-shop-by-category [categories]="categories"></app-shop-by-category>
+    </div>
+    <div class="col-md-12">
+      <app-new-arrival [newProducts]="newProducts"></app-new-arrival>
+    </div>
+    <div class="col-md-12 p-0">
+      <app-shop-by-brand
+        [id]="id"
+        [brands]="brands"
+        [brandLogo]="brandLogo"
+        [brandsProducts]="brandsProducts"></app-shop-by-brand>
+    </div>
+
+    <div class="col-md-12 py-md-5" style="background-color: white">
+      <div class="row">
+        <div class="col-6 col-md-4 p-3">
+          <img
+            style="mix-blend-mode: multiply"
+            src="https://d2ytpgtfi9ni9b.cloudfront.net/wysiwyg/landing/under500.webp
+            "
+            width="100% "
+            alt=" "
+            srcset=""
+            />
+        </div>
+        <div class="col-6 col-md-4 p-3">
+          <img
+            style="mix-blend-mode: multiply"
+            src="https://d2ytpgtfi9ni9b.cloudfront.net/wysiwyg/landing/under-200.webp
+            "
+            width="100% "
+            alt=" "
+            srcset=""
+            />
+        </div>
+        <div class="d-none d-md-block col-md-4 p-3">
+          <img
+            src="https://d2ytpgtfi9ni9b.cloudfront.net/wysiwyg/landing/under500.webp
+            "
+            width="100% "
+            alt=" "
+            srcset=""
+            />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 m-0 p-0">
+      <img
+        src="https://d2ytpgtfi9ni9b.cloudfront.net/wysiwyg/landing/shein-home.webp
+        "
+        width="100% "
+        class="m-0"
+        alt=" "
+        />
+    </div>
+  </div>
+</div>
+
+<app-skeleton-loader [show]="show"></app-skeleton-loader>x

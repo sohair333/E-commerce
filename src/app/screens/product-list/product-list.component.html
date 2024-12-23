@@ -1,0 +1,488 @@
+<section *ngIf="!show" class="w-100 grid-wrapper web">
+  <div class="row">
+    <div class="col-md-12">
+      <nav class="navbar">
+        <div cla mb-2ss="container-fluid" style="width: 100%">
+          <div class="row d-flex justify-content-between align-items-center">
+            <div class="col-md-6">
+              <div
+                class="row d-flex justify-content-between align-items-center px-3"
+              >
+                <div class="col-md-6">
+                  <svg
+                    id="arrow-down"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 15 15"
+                  >
+                    <g
+                      id="Group_14808"
+                      data-name="Group 14808"
+                      transform="translate(4.5 3)"
+                    >
+                      <path
+                        id="Vector"
+                        d="M6,0,3.53,2.756a.7.7,0,0,1-1.061,0L0,0"
+                        transform="translate(0 0)"
+                        fill="none"
+                        stroke="#0f183d"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                      />
+                      <path
+                        id="Vector-2"
+                        data-name="Vector"
+                        d="M6,3,3.53.244a.7.7,0,0,0-1.061,0L0,3"
+                        transform="translate(0 6)"
+                        fill="none"
+                        stroke="#0f183d"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1"
+                      />
+                    </g>
+                    <path
+                      id="Vector-3"
+                      data-name="Vector"
+                      d="M0,0H15V15H0Z"
+                      transform="translate(15 15) rotate(180)"
+                      fill="none"
+                      opacity="0"
+                    />
+                  </svg>
+
+                  <button
+                    class="mb-0 btn collabs fw-bold"
+                    (click)="toggleFilterExapnd()"
+                  >
+                    <i class="fa-light fa-arrows-to-dotted-line"></i>
+                    <span *ngIf="isCollapsed">
+                      {{ "PRODUCT_LIST.Collapse_All" | translate }}</span
+                    >
+                    <span *ngIf="!isCollapsed">
+                      {{ "PRODUCT_LIST.EXPAND_ALL" | translate }}</span
+                    >
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary p-2 apply"
+                    (click)="applyFilters()"
+                  >
+                    {{ "PRODUCT_LIST.Apply_Filter" | translate }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div
+                class="row d-flex justify-content-between align-items-center"
+              >
+                <div
+                  class="col-md-6 d-flex justify-content-end align-items-center w-100"
+                >
+                  <span class="w-25 text-muted sort fw-bold">{{
+                    "PRODUCT_LIST.Sort_By" | translate
+                  }}</span>
+
+                  <select
+                    class="select"
+                    required
+                    name="dropdown"
+                    (change)="sortByPrice($event)"
+                    class="p-2 form-control w-50"
+                  >
+                    <option value="" selected disabled hidden>
+                      {{ "PRODUCT_LIST.Select" | translate }}
+                    </option>
+                    <option value="A2Z">Heighest To Lowest</option>
+                    <option value="Z2A">Lowest To Heightest</option>
+                  </select>
+                  <i
+                    class="fa fa-chevron-down"
+                    [ngClass]="
+                      selectedLang === 'en' ? 'dropDownIcon' : 'dropright'
+                    "
+                  ></i>
+
+                  <span
+                    class="ms-4 itemsCount w-25"
+                    [ngClass]="selectedLang === 'en' ? '' : 'spaceLeft'"
+                  >
+                    {{ data.length }} {{ "PRODUCT_LIST.Items" | translate }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div class="row products-container p-3">
+        <div class="col-md-2">
+          <!-- sidebar -->
+          <div class="sidebar">
+            <!-- categories -->
+            <div *ngFor="let item of filters; let j = index">
+              <p>
+                <a
+                  (click)="filterOptions(j, item)"
+                  class=""
+                  data-bs-toggle="collapse"
+                  [href]="'#' + 'pos' + j"
+                  role="button"
+                  aria-expanded="true"
+                  [attr.aria-controls]="'pos' + j"
+                >
+                  <h6 class="d-flex justify-content-between align-items-center">
+                    <span>{{ item.name }}</span>
+                    <span *ngIf="!item.isExpanded"
+                      ><i
+                        [ngClass]="
+                          selectedLang === 'en'
+                            ? 'fa-solid fa-chevron-right'
+                            : 'fa-solid fa-chevron-left'
+                        "
+                      ></i
+                    ></span>
+                    <span *ngIf="item.isExpanded"
+                      ><i class="fa-solid fa-chevron-down"></i
+                    ></span>
+                  </h6>
+                </a>
+              </p>
+
+              <div [ngClass]="item.isExpanded ? 'd-block show' : 'd-none hide'">
+                <div class="card card-body">
+                  <div class="container">
+                    <div class="row">
+                      <!-- Category Filters -->
+                      <div
+                        class="col-md-12 m-0 p-0"
+                        *ngIf="item.type === 'CATEGORY'"
+                      >
+                        <div
+                          class="my-2 border-bottom pb-2"
+                          *ngFor="let value of categoriesData; let i = index"
+                        >
+                          <p-checkbox
+                            (onChange)="selectCategory(value, i)"
+                            name="groupname"
+                            value="val1"
+                            [(ngModel)]="value.isSelectedCategory"
+                          ></p-checkbox>
+                          <label
+                            class="form-check-label ms-2"
+                            for="flexCheckDefault"
+                          >
+                            {{ value.title }}
+                          </label>
+                        </div>
+                      </div>
+                      <!-- Category Filters -->
+
+                      <!-- brands Filters -->
+                      <div
+                        class="col-md-12 p-0 m-0"
+                        *ngIf="item.type === 'BRANDS'"
+                      >
+                        <div
+                          class="my-2 pb-2 d-flex align-items-baseline border-bottom justify-content-start"
+                          *ngFor="let value of brandsFilterData; let i = index"
+                        >
+                          <p-checkbox
+                            (onChange)="selectBrand(value, i)"
+                            name="groupname"
+                            value="val1"
+                            [(ngModel)]="value.isSelectedCategory"
+                          ></p-checkbox>
+                          <label
+                            class="form-check-label ms-2"
+                            for="flexCheckDefault"
+                          >
+                            {{ value.title }}
+                          </label>
+                        </div>
+                      </div>
+                      <!-- brands Filters -->
+
+                      <!-- Color Fitlers -->
+                      <div
+                        class="col-md-3"
+                        *ngFor="let color of colors; let i = index"
+                      >
+                        <div class="" *ngIf="item.type === 'COLOR_SWATCH'">
+                          <button
+                            (click)="selectColor(i)"
+                            class="btn p-0 my-2 color"
+                          >
+                            <div
+                              [ngClass]="
+                                color.selectedColor
+                                  ? 'selectedColor shadow'
+                                  : 'rounded box'
+                              "
+                              style="height: 34px; width: 34px"
+                              [style.background]="color.code"
+                            ></div>
+                          </button>
+                        </div>
+                      </div>
+                      <!-- Color Fitlers -->
+
+                      <!-- price range -->
+                      <!-- <div class="col-md-3" *ngIf="type ==='PRICE'">
+                        <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options"></ngx-slider>
+                      </div> -->
+
+                      <!-- pattern Filters -->
+                      <div
+                        class="col-12"
+                        *ngIf="item.type === 'PATTERN_SWATCH'"
+                      >
+                        <div class="row">
+                          <div
+                            class="col-md-3"
+                            *ngFor="let pattern of patternData; let i = index"
+                          >
+                            <button
+                              (click)="selectPattern(i, item)"
+                              class="btn p-0 my-2 color"
+                            >
+                              <img
+                                [src]="pattern?.pattern?.url"
+                                [ngClass]="
+                                  pattern.selectedPattern
+                                    ? 'selectedColor shadow'
+                                    : 'rounded box'
+                                "
+                                style="height: 34px; width: 34px"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- pattern Filters -->
+
+                      <!-- size Filters -->
+                      <div class="col-12" *ngIf="item.type === 'SIZE'">
+                        <div class="row">
+                          <div
+                            class="col-md-4"
+                            *ngFor="let size of sizes; let i = index"
+                          >
+                            <button
+                              [ngClass]="
+                                size.selectedSize
+                                  ? 'selected-btn'
+                                  : 'not-Selected-btn'
+                              "
+                              class="btn m-2 border"
+                              (click)="selectSize(i)"
+                            >
+                              {{ size.value }}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- size Filters -->
+
+                      <!-- attribute Filter -->
+                      <div
+                        *ngIf="
+                          item.type !== 'SIZE' &&
+                          item.type !== 'COLOR_SWATCH' &&
+                          item.type !== 'PRICE' &&
+                          item.type !== 'BRANDS' &&
+                          item.type !== 'CATEGORY'
+                        "
+                      >
+                        <div
+                          class="brand m-0 p-0"
+                          *ngFor="let attr of attributesdata; let i = index"
+                        >
+                          <div
+                            *ngIf="attr.type === item.type"
+                            class="d-flex mb-2 align-items-center gap-2 border rounded p-2"
+                          >
+                            <p-checkbox
+                              name="groupname"
+                              value="val1"
+                              [(ngModel)]="attr.selectedAttr"
+                            ></p-checkbox>
+                            <div class="brand-logo">
+                              <p class="title">{{ attr.value }}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- attribute Filter -->
+
+                      <div class="col-md-12" *ngIf="item.type === 'PRICE'">
+                        <div class="w-100">
+                          <ngx-slider
+                            [(value)]="minValue"
+                            [(highValue)]="maxValue"
+                            [options]="options"
+                          ></ngx-slider>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- sidebar -->
+        </div>
+
+        <!-- card -->
+        <div class="col-md-10" *ngIf="data.length > 0">
+          <div class="row">
+            <div class="col-md-3 p-0" *ngFor="let item of data; let i = index">
+              <app-product-card
+                (wishListed)="addToWishList($event)"
+                [item]="item"
+              ></app-product-card>
+
+              <!-- <div class="m-3 shadow">
+                <div class="newArrival newArrivalItem">
+                  <div class="wishlist-wrapper">
+                    <button
+                      *ngIf="item.flag == true"
+                      class="wishlist-btn"
+                      (click)="clickEvent(item, i)"
+                    >
+                      <i class="fa-solid fa-heart text-danger"></i>
+                    </button>
+                    <button
+                      *ngIf="item.flag == false"
+                      class="wishlist-btn"
+                      (click)="clickEvent(item, i)"
+                    >
+                      <i class="fa-solid fa-heart text-white"></i>
+                    </button>
+                  </div>
+                  <div class="promotion">
+                    <p>
+                      <span class="buy-x">Buy X</span>
+                      <span class="get-y">Get Y</span>
+                    </p>
+                  </div>
+                  <div
+                    class="productImage"
+                    routerLink="/product-details/{{ item.id }}"
+                  >
+                    <img
+                      *ngIf="item?.images.length !== 0"
+                      class="img1"
+                      [src]="item?.images[0]?.url"
+                      [alt]="item?.title"
+                    />
+                    <img
+                      *ngIf="item?.images.length === 0"
+                      style="
+                        width: 150px !important;
+                        height: 180px;
+                        object-fit: contain;
+                      "
+                      src="../../../assets/images/logog.png"
+                      alt=""
+                    />
+                  </div>
+                  <div class="details">
+                    <div
+                      class="row d-flex justify-content-end align-items-center"
+                    >
+                      <div style="width: auto" class="text-center colorCount">
+                        <p *ngIf="item?.color_count >= 2" class="m-0">
+                          {{ item?.color_count }}
+                          {{ "PRODUCT_LIST.Colors" | translate }}
+                        </p>
+                      </div>
+                      <div style="width: 60px" class="text-center m-0 p-0">
+                        <p class="m-0 rate">
+                          {{ item?.rate }} <i class="mx-1 fa-solid fa-star"></i>
+                        </p>
+                      </div>
+                      <div style="width: auto" class="text-muted text-center">
+                        <p class="m-0">
+                          {{ item?.view_count }}
+                          <i class="fa-regular fa-eye"></i>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                      <div class="col-md-12">
+                        <p class="productTitle">{{ item?.title }}</p>
+                      </div>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                      <div class="col-md-8">
+                        <p class="productPrice">
+                          <span>{{ item?.seller_variations[0]?.price }}</span>
+                          {{ "HOME.EGP" | translate }}
+                        </p>
+                        <p class="old-price">
+                          <span
+                            class="currency"
+                            style="
+                              text-decoration: line-through;
+                              margin-right: 5px;
+                            "
+                            >500:00
+                          </span>
+                          <span class="text-success fw-bold">20% OFF</span>
+                        </p>
+                      </div>
+                      <div class="col-md-4 text-center">
+                        <img
+                          class="brandImg"
+                          width="100% "
+                          [src]="item?.brand.logo"
+                          style="mix-blend-mode: multiply"
+                          alt=" "
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div
+          style="height: 100vh"
+          class="col-md-10 d-flex justify-content-start align-items-center flex-column"
+          *ngIf="data.length == 0"
+        >
+          <div>
+            <lottie-player
+              src="https://assets8.lottiefiles.com/packages/lf20_rc6CDU.json"
+              background="transparent "
+              speed="1 "
+              style="width: 450px; height: 450px"
+              loop
+              autoplay
+            ></lottie-player>
+            <h3 class="text-center" style="margin-top: -30px; color: gray">
+              {{ "PRODUCT_LIST.No_results_Found" | translate }}
+            </h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-product-list-mobile
+  [filters]="filters"
+  [paramKey]="paramKey"
+  [id]="id"
+  [show]="show"
+></app-product-list-mobile>
+
+<app-skeleton-loader [productListShow]="show"></app-skeleton-loader>
+

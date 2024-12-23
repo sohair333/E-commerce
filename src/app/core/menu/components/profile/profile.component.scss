@@ -1,0 +1,61 @@
+.all{
+ margin-top: 5rem;
+ background-color: #EEE;
+ height: 94vh;
+}
+.profile{
+  color:#0E1740;
+  font-weight: 700;
+}
+.saveBtn{
+  background-color: #0F183D !important;
+  border-radius: 15px;
+  color: white !important;
+  color: #6c6f7c;
+}
+.saveBtn:hover{
+  color: white !important;
+}
+.profileDiv{
+  border-radius: 10px;
+  height: 45vh;
+}
+.profilepass{
+  border-radius: 10px;
+  height: 20vh;
+}
+.mat-form-field {
+  width: 93px !important;
+  margin-top: -1.5rem;
+
+}
+.phoneCode{
+  margin-top: -1rem;
+  margin-left: .5rem;
+}
+.changebtn{
+  border: 1px solid #0F183D;
+  border-radius: 5px;
+}
+.btnBackground{
+  background-color:#0F183D;
+  color: white;
+}
+.changebtn:hover{
+  background-color:#0F183D;
+  color: white;
+}
+.titlePass{
+  margin-top: -.8rem !important;
+  margin-bottom: 1rem !important;
+}
+input{
+  border-radius:10px
+}
+.back{
+  outline: none;
+  border: none;
+}
+.phoneLabel{
+  font-size: 14px;
+}
